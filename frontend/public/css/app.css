@@ -189,7 +189,6 @@ ul.devided > li:last-child {
 }
 
 .search {
-    width: 600px;
     height: 40px;
     position: relative;
 }
@@ -219,6 +218,8 @@ ul.devided > li:last-child {
     position: absolute;
     top: 0;
     right: 0;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .user-menu > li > a {

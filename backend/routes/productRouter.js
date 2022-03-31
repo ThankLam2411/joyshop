@@ -13,32 +13,12 @@ const {Op}= Sequelize;
 // import ProductController from "../controllers/productController.js";
 
 const productRouter=express.Router();
-productRouter.get('/', expressAsyncHandler(async(req, res)=>{
-  const products = await Product.findAll({
-    where: {
-
-    },
-
-    include: [
-      {
-       model: Brand,
-       required: false,
-       // attribute: ['brand_id']
-      },
-      {
-       model: Category,
-       required: false,
-      },
-   ],
-
-  });
-  res.send(products)
-}))
 productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
-  const products = await Product.findAll({
-    where: {
-      featured:true
-    },
+  const pageSize = 8;
+  const page = Number(req.query.page) ||1;
+
+  const products = await Product.findAndCountAll({
+   
 
     include: [
       {
@@ -50,7 +30,13 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
        model: Category,
        required: false,
       },
+     
    ],
+   where: {
+    featured:true
+  },
+  limit: pageSize,
+  offset: pageSize * (page - 1),
 
   });
   if(products){
@@ -59,6 +45,39 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
     res.send({ message: 'Product Not Found' })
   }
 }))
+productRouter.get('/', expressAsyncHandler(async(req, res)=>{
+  const pageSize = 8;
+  const page = Number(req.query.page) ||1;
+
+  
+  const products = await Product.findAndCountAll({
+    limit: pageSize,
+    offset: pageSize * (page - 1),
+    where: {
+
+    },
+
+    include: [
+      {
+       model: Brand,
+       required: false,
+       // attribute: ['brand_id']
+      },
+      {
+       model: Category,
+       required: false,
+      },
+   ],
+
+
+
+  });
+  res.send({
+    products:products.rows,
+    totalPages:Math.ceil(products.count/pageSize),
+    })
+}))
+
 
 productRouter.get('/find',expressAsyncHandler(async (req, res) => {
             console.log('123',req.query.q)

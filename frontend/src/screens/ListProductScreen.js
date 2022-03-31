@@ -67,7 +67,7 @@ const ListProductScreen =()=>{
       listProducts();
 
       
-    },[categoryId, featured]);
+    },[categoryId, featured, brandId]);
     useEffect(() => {
       async function getCategories(){
         let res = await Axios.get('/api/categories/');

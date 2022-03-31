@@ -14,9 +14,8 @@ const BlogDetailScreen=()=>{
   const [product_id, setProductId] = useState('');
   const [blog, setBlog] = useState([]);
   const [products, setProducts]= useState([]);
-  console.log(blog)
   useEffect(() => {
-    //   if(!blog){
+      // if(!blog){
         async function getBlogDetail(){
             let res = await Axios.get(`/api/blogs/${blogId}`);
             let blog=res.data;
@@ -25,13 +24,17 @@ const BlogDetailScreen=()=>{
           
           }
         getBlogDetail();
-    //   }else{
-          setBlogTitle(blog.blog_title);
-          setBlogContent(blog.blog_content);
-          setProductId(blog.product_id)
-    //   }
+      // }else{
+         
+    // }
   
   },[])
+  // useEffect(() => {
+  //   console.log(blog)
+  //   setBlogTitle(blog.blog_title);
+  //   setBlogContent(blog.blog_content);
+  //   setProductId(blog.product_id)
+  // },[])
 
 const submitHandler = (e) => {
   e.preventDefault();

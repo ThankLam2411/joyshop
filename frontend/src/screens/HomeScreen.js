@@ -8,25 +8,27 @@ import Axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import  {listProducts}  from '../actions/productActions';
 const HomeScreen =()=>{
-  const dispatch = useDispatch()
-  // const productList = useSelector((state) => state.productList);
-  // const {loading, error, products} = productList;
-  const [products, setProducts]=useState([])
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+  const {loading, error, products} = productList;
+  // const [products, setProducts]=useState([])
  
-  useEffect(() =>{
-    async function getProducts() {
-      let res = await Axios.get('/api/products/featured')
-      let products = res.data;
-      setProducts(products);
-    }
-    getProducts();
-  },[]);
-    // useEffect(() => {
-    //   dispatch()
-    // },[dispatch])
-  console.table(products)
+  // useEffect(() =>{
+  //   async function getProducts() {
+  //     let res = await Axios.get('/api/products/')
+  //     let products = res.data;
+  //     setProducts(products);
+  //   }
+  //   getProducts();
+  // },[]);
+  useEffect(() => {
+    dispatch(listProducts({}))
+  },[dispatch])
+
+  console.log(products)
     return(
         <>
         
@@ -46,12 +48,24 @@ const HomeScreen =()=>{
           ( */}
               <div className="row" id="latest-products">
                   {
-                    products.map((product,index) =>
+                    products.products.map((product,index) =>
                      (
                       <ProductItem key={product.id} product={product}></ProductItem>
                    )
                    )}
               </div>
+          {/* )} */}
+              <div className="box">
+                  <ul className="pagination">
+                    <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+                    <li><Link to="#" className="active">1</Link></li>
+                    <li><Link to="#">2</Link></li>
+                    <li><Link to="#">3</Link></li>
+                    <li><Link to="#">4</Link></li>
+                    <li><Link to="#">5</Link></li>
+                    <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+                  </ul>
+                </div>
             {/* )} */}
             <div className="section-footer">
               <Link to="./products.html" className="btn-flat btn-hover">view all</Link>
@@ -79,50 +93,8 @@ const HomeScreen =()=>{
             </div>
           </div>
         </div>
-        {/* end special product */}
-        {/* product list */}
-        {/* <div className="section">
-          <div className="container">
-            <div className="section-header">
-              <h2>Chanel</h2>
-            </div>
-            <div className="row" id="best-products">
-              <div className="col-3 col-md-6 col-sm-12">
-                <div className="product-card">
-                  <div className="product-card-img">
-                    <img src="./images/Chanel_nuochoa_3.png" alt="" />
-                  </div>
-                  <div className="product-card-info">
-                    <div className="product-btn">
-                      <button className="btn-flat btn-hover btn-shop-now">shop now</button>
-                      <button className="btn-flat btn-hover btn-cart-add">
-                        <i className="bx bxs-cart-add" />
-                      </button>
-                      <button className="btn-flat btn-hover btn-cart-add">
-                        <i className="bx bxs-heart" />
-                      </button>
-                    </div>
-                    <div className="product-card-name">
-                      JBL Quantum 400
-                    </div>
-                    <div className="product-card-price">
-                      <span><del>$300</del></span>
-                      <span className="curr-price">$200</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="section-footer">
-              <Link to="./products.html" className="btn-flat btn-hover">view all</Link>
-            </div>
-          </div>
-        </div> */}
-        {/* end product list */}
-        {/* blogs */}
+       
         <Blog />
-        {/* end blogs */}
-        {/* footer */}
         </>
     )
 }
