@@ -3,7 +3,7 @@ const Slider=()=>{
     let slide_index = 0;
     let slide_play = true;
     let slides = document.querySelectorAll('.slide')
-    console.log(slides.length)
+    // console.log(slides.length)
     const hideAllSlide = () => {
     slides.forEach(e => {
         e.classList.remove('active')

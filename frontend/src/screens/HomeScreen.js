@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import Blog from '../components/Blog';
 import ProductItem from '../components/Product-item';
 import Promotion from '../components/Promotion';
@@ -8,25 +8,49 @@ import Axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import  {listFeaturedProducts, listProducts}  from '../actions/productActions';
 const HomeScreen =()=>{
-  const dispatch = useDispatch()
-  // const productList = useSelector((state) => state.productList);
-  // const {loading, error, products} = productList;
-  const [products, setProducts]=useState([])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // const [pageNumber, setPageNumber]= useState(1)
+
+  const productFeaturedList = useSelector((state) => state.productFeaturedList);
+  const {loading, error, products, totalPages, page} = productFeaturedList;
+  console.log(products);
+  const pageNumber = location.search.split('?page=')[1];
+  console.log('currPage',pageNumber);
+  console.log('pagedb', page)
+  // console.log(location)
+  // const {totalPages}= products;
+
+  // const {totalPages}= products;
+  // console.log(totalPages)
+  // const [products, setProducts]=useState([])
  
-  useEffect(() =>{
-    async function getProducts() {
-      let res = await Axios.get('/api/products/featured')
-      let products = res.data;
-      setProducts(products);
-    }
-    getProducts();
-  },[]);
-    // useEffect(() => {
-    //   dispatch()
-    // },[dispatch])
-  console.table(products)
+  // useEffect(() =>{
+  //   async function getProducts() {
+  //     let res = await Axios.get('/api/products/')
+  //     let products = res.data;
+  //     setProducts(products);
+  //   }
+  //   getProducts();
+  // },[]);
+  useEffect(() => {
+    dispatch(listFeaturedProducts(pageNumber));
+    
+
+  },[dispatch, pageNumber])
+
+
+  // console.log([...Array(totalPages).keys()])
+  const pages =[...Array(totalPages).keys()]
+//  console.log(products.page)
+// const handlePage=(e)=>{
+//  e.preventDefault();
+//  navigate(`/?page=${page}`)
+// }
+
     return(
         <>
         
@@ -41,17 +65,54 @@ const HomeScreen =()=>{
             <div className="section-header">
               <h2>Featured Products</h2>
             </div>
-            {/* {loading?<LoadingBox></LoadingBox>:
+            {loading?<LoadingBox></LoadingBox>:
           error?<MessageBox variant="danger">{error}</MessageBox>:
-          ( */}
+          (
               <div className="row" id="latest-products">
                   {
-                    products.map((product,index) =>
+                    products.products.map((product,index) =>
                      (
                       <ProductItem key={product.id} product={product}></ProductItem>
                    )
                    )}
               </div>
+          )}
+          {/* )} */}
+              <div className="box">
+                  <ul className="pagination">
+                  {/* {pages.map((x) => (
+                  <Link
+                    className={x + 1 === products.page ? 'active' : ''}
+                    // key={x + 1}
+                    // to={getFilterUrl({ page: x + 1 })}
+                  >
+                    {x + 1}
+                  </Link>
+               ))}  */}
+                  <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+
+                {
+                  pages.map((x)=>(
+                    
+                      <li ><Link
+                            // to={handlePage({page: x + 1})}
+                            className={x + 1 === page ? 'active' : ''}
+                            key={x + 1}
+                            to={`/?page=${x+1}`}
+                          >
+                            {x+1}
+                        </Link>
+                      </li>
+
+                    
+
+                  ))
+                }
+                  <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+
+                    
+                  </ul>
+                </div>
             {/* )} */}
             <div className="section-footer">
               <Link to="./products.html" className="btn-flat btn-hover">view all</Link>
@@ -79,50 +140,8 @@ const HomeScreen =()=>{
             </div>
           </div>
         </div>
-        {/* end special product */}
-        {/* product list */}
-        {/* <div className="section">
-          <div className="container">
-            <div className="section-header">
-              <h2>Chanel</h2>
-            </div>
-            <div className="row" id="best-products">
-              <div className="col-3 col-md-6 col-sm-12">
-                <div className="product-card">
-                  <div className="product-card-img">
-                    <img src="./images/Chanel_nuochoa_3.png" alt="" />
-                  </div>
-                  <div className="product-card-info">
-                    <div className="product-btn">
-                      <button className="btn-flat btn-hover btn-shop-now">shop now</button>
-                      <button className="btn-flat btn-hover btn-cart-add">
-                        <i className="bx bxs-cart-add" />
-                      </button>
-                      <button className="btn-flat btn-hover btn-cart-add">
-                        <i className="bx bxs-heart" />
-                      </button>
-                    </div>
-                    <div className="product-card-name">
-                      JBL Quantum 400
-                    </div>
-                    <div className="product-card-price">
-                      <span><del>$300</del></span>
-                      <span className="curr-price">$200</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="section-footer">
-              <Link to="./products.html" className="btn-flat btn-hover">view all</Link>
-            </div>
-          </div>
-        </div> */}
-        {/* end product list */}
-        {/* blogs */}
+       
         <Blog />
-        {/* end blogs */}
-        {/* footer */}
         </>
     )
 }

@@ -36,21 +36,21 @@ const ProductScreen =()=>{
     useEffect(()=>{
         dispatch(detailsProduct(productId))
 
-    },[dispatch, productId]);
+    },[dispatch]);
     const addToCartHandler=()=>{
         navigate(`/cart/${productId}?qty=${qty}`)
     }
 
     const createCommentHandler=()=>{
-        // async function postComment(){
-        //     return await Axios.post('/api/comments',{comment_content, user_id:userId, product_id:productId},{
+        async function postComment(){
+            return await Axios.post('/api/comments',{comment_content, user_id:userId, product_id:productId},{
         
-        //         headers: { Authorization: `Bearer ${userInfo.token}` },
-        //        })
+                headers: { Authorization: `Bearer ${userInfo.token}` },
+               })
             
-        // }
-        // postComment()
-        dispatch(postComment(comment_content, productId))
+        }
+        postComment()
+        // dispatch(postComment(comment_content, productId))
 
     }
     console.log(comment_content,  productId)
@@ -175,13 +175,7 @@ const ProductScreen =()=>{
                                 </div>
                                 <div className="user-name">
                                 <span className="name">{comment.user.user_name}</span>
-                                <span className="rating">
-                                    <i className="bx bxs-star" />
-                                    <i className="bx bxs-star" />
-                                    <i className="bx bxs-star" />
-                                    <i className="bx bxs-star" />
-                                    <i className="bx bxs-star" />
-                                </span>
+                                <span className="rating">{comment?.user?.user_email}</span>
                                 </div>
                             </div>
                             <div className="user-rate-content c-6">

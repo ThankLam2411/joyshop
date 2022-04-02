@@ -189,7 +189,6 @@ ul.devided > li:last-child {
 }
 
 .search {
-    width: 600px;
     height: 40px;
     position: relative;
 }
@@ -219,6 +218,8 @@ ul.devided > li:last-child {
     position: absolute;
     top: 0;
     right: 0;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .user-menu > li > a {
@@ -758,7 +759,13 @@ footer ul li {
 .filter-list > li {
     margin-bottom: 20px;
 }
-
+.active_category{
+    background-color: var(--black);
+    color: var(--main-bg-color);
+    padding: 20px;
+    width: 100%;
+    border-radius: 0.5rem;
+}
 .filter-toggle-box {
     display: none;
 }
@@ -847,6 +854,13 @@ footer ul li {
     background-color: var(--black);
     color: var(--main-bg-color);
 }
+/* .active{
+    background-color: var(--black);
+    color: var(--main-bg-color);
+    padding: 20px;
+    width: 100%;
+    border-radius: 0.5rem;
+} */
 
 .pagination > li > a:hover {
     border: 2px solid var(--black);

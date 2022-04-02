@@ -86,7 +86,6 @@ export default function Blog() {
 
   const blogList = useSelector((state) => state.blogList);
   const {loading, error, blogs}= blogList;
-  console.log(blogs);
   useEffect(()=>{
     dispatch(listBlog())
 

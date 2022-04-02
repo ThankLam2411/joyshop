@@ -18,16 +18,25 @@ export const listBrand=()=>async(dispatch)=>{
         })
     }
 }
-export const listProductsByBrand=(brandId)=> async (dispatch)=>{
+export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featured, inStock)=> async (dispatch)=>{
     dispatch({
         type:BRAND_LIST_PRODUCT_REQUEST
     });
     try {
-        const {data}= await Axios.get(`/api/brands/${brandId}`);
+        const {data}= await Axios.get(`/api/brands/${brandId}`,{
+            params:{
+              category:`${categoryId}`,
+              min:`${priceMin}`,
+              max:`${priceMax}`,
+              featured:`${featured}`,
+              inStock: `${inStock}`,
+            }
+          });
         dispatch({
             type: BRAND_LIST_PRODUCT_SUCCESS,
             payload: data
         })
+        console.log(data)
     }catch(error){
         dispatch({
             type: BRAND_LIST_PRODUCT_FAIL,

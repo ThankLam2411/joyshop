@@ -12,12 +12,12 @@ export const brandListReducer=(state={loading: true, brands:[]},action) => {
             return state;
     }
 }
-export const brandListProductReducer =(state={loading: true, products:{}},action) =>{
+export const brandListProductReducer =(state={loading: true, products:[], totalPages:{}, page:''},action) =>{
     switch (action.type) {
         case BRAND_LIST_PRODUCT_REQUEST:
             return {loading: true}
         case BRAND_LIST_PRODUCT_SUCCESS:
-            return {loading: false, products: action.payload}
+            return {loading: false, products: action.payload,  totalPages: action.payload.totalPages, page: action.payload.page}
         case BRAND_LIST_PRODUCT_FAIL:
             return {loading: false, error: action.payload}
         default: 

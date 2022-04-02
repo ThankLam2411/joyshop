@@ -5,10 +5,10 @@ import { cartReducer } from './reducers/cartReducers';
 import { categoryListReducer } from './reducers/categoryReducers';
 import { commentsCreateReducer, commentsListReducer } from './reducers/commentReducers';
 import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderPayReducer, orderSummaryReducer } from './reducers/orderReducers';
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
+import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
-import {blogListReducer} from './reducers/blogReducer';
+import {blogDetailsReducer, blogListReducer} from './reducers/blogReducer';
 const initialState = {
     userSignin:{
         userInfo: localStorage.getItem('userInfo')? JSON.parse(localStorage.getItem('userInfo')) : null,
@@ -41,6 +41,7 @@ const reducer = combineReducers({
     productUpdate: productUpdateReducer,
     productListByQuery: productListByQueryReducer,
     productListByCategory: productListByCategoryIdReducer,
+    productFeaturedList: productFeaturedListReducer,
     cart: cartReducer,
     brandList: brandListReducer,
     brandListProduct: brandListProductReducer,
@@ -62,6 +63,7 @@ const reducer = combineReducers({
     commentsList: commentsListReducer,
     commentsCreate: commentsCreateReducer,
     blogList: blogListReducer,
+    blogDetails: blogDetailsReducer,
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

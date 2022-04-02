@@ -70,7 +70,9 @@ button.cart{
 
 }
 button.primary{
-  background-color: #f0c040
+  background-color: var(--black);
+  color: var(--main-bg-color);
+  font-size: 1.2rem;
 }
 button.block{
   width: 100%;

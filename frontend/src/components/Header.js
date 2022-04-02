@@ -1,5 +1,5 @@
 import  Axios  from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 import { listBrand } from '../actions/brandActions';
@@ -9,7 +9,9 @@ import MessageBox from './MessageBox';
 const Header=()=>{
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const menu = useRef();
   const [keyword, setKeyword]= useState('');
+  const [active, setActive]= useState(false);
   const handleOnChangeInput=(e)=>{
     const {value} = e.target;
     setKeyword(value)
@@ -38,24 +40,24 @@ const Header=()=>{
         {/* mobile menu */}
         <div className="mobile-menu bg-second">
           <Link to="/" className="mb-logo">JOYSHOP</Link>
-          <span className="mb-menu-toggle" id="mb-menu-toggle">
+          <span className="mb-menu-toggle" id="mb-menu-toggle" onClick={()=> {setActive(!active); console.log(123);}}>
             <i className="bx bx-menu" />
           </span>
         </div>
         {/* end mobile menu */}
         {/* main header */}
-          <div className="header-wrapper" id="header-wrapper">
-            <span className="mb-menu-toggle mb-menu-close" id="mb-menu-close">
-              <i className="bx bx-x" />
+          <div className={!active?"header-wrapper":"header-wrapper active"} id="header-wrapper"  >
+            <span  className="mb-menu-toggle mb-menu-close" id="mb-menu-close" onClick={()=> {setActive(!active); console.log(123);}}>
+              <i  className="bx bx-x" />
             </span>
             {/* mid header */}
             <div className="bg-main">
               <div className="mid-header container">
                 <div className="row">
-                  <div className="c-2">
+                  <div className="c-2 l-2">
                     <Link to="/" className="logo">JOYSHOP</Link>
                   </div>
-                  <div className="c-5">
+                  <div className="l-6">
                     <form >
                       <div className="search">
                         <input 
@@ -67,13 +69,13 @@ const Header=()=>{
                       </div>
                     </form>
                   </div>
-                  <div className="c-5">
+                  <div className="l-4">
                       <ul className="user-menu">
                         {/* <div className="row" style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}> */}
 
                             <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
-                            <li className="dropdown-header"><Link to="#"><i className="bx bx-user-circle" />
+                            <li className="dropdown-header" style={{}}><Link to="#"><i className="bx bx-user-circle" />
                             {
                               userInfo ? (
                                 <div className="dropdown-header" >
