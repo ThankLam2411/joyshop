@@ -130,15 +130,15 @@ orderRouter.delete(
     // isAdmin,
     expressAsyncHandler(async (req, res) => {
         try{
-            const orderDetail= await OrderDetail.findAll({
+            const orderDetail= await OrderDetail.findOne({
                 where:{
                     order_id:req.params.id
                 }
             })
-            const result =await orderDetail.destroy();
-      
+            console.log(orderDetail)
+            const result = await orderDetail.destroy();
+            console.log('123',result)
            
-            console.log('123456', result)
             const order = await OrderProduct.findByPk(req.params.id);
     
             const deleteOrder = await order.destroy();

@@ -26,7 +26,7 @@ const ListOrderHistoryScreen=()=>{
           
           }
         getOrders()
-    },[])
+    },[dispatch])
     
 
     const deleteHandler=(order)=>{
