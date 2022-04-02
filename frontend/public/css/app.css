@@ -759,7 +759,13 @@ footer ul li {
 .filter-list > li {
     margin-bottom: 20px;
 }
-
+.active_category{
+    background-color: var(--black);
+    color: var(--main-bg-color);
+    padding: 20px;
+    width: 100%;
+    border-radius: 0.5rem;
+}
 .filter-toggle-box {
     display: none;
 }
@@ -848,6 +854,13 @@ footer ul li {
     background-color: var(--black);
     color: var(--main-bg-color);
 }
+/* .active{
+    background-color: var(--black);
+    color: var(--main-bg-color);
+    padding: 20px;
+    width: 100%;
+    border-radius: 0.5rem;
+} */
 
 .pagination > li > a:hover {
     border: 2px solid var(--black);

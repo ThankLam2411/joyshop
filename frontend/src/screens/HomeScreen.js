@@ -13,7 +13,12 @@ const HomeScreen =()=>{
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const {loading, error, products} = productList;
+  const {loading, error, products, totalPages} = productList;
+  console.log(products)
+  // const {totalPages}= products;
+
+  // const {totalPages}= products;
+  // console.log(totalPages)
   // const [products, setProducts]=useState([])
  
   // useEffect(() =>{
@@ -25,10 +30,15 @@ const HomeScreen =()=>{
   //   getProducts();
   // },[]);
   useEffect(() => {
-    dispatch(listProducts({}))
+    dispatch(listProducts())
+    
+
   },[dispatch])
 
-  console.log(products)
+  // console.log([...Array(totalPages).keys()])
+  const pages =[...Array(totalPages).keys()]
+ console.log(pages)
+
     return(
         <>
         
@@ -43,9 +53,9 @@ const HomeScreen =()=>{
             <div className="section-header">
               <h2>Featured Products</h2>
             </div>
-            {/* {loading?<LoadingBox></LoadingBox>:
+            {loading?<LoadingBox></LoadingBox>:
           error?<MessageBox variant="danger">{error}</MessageBox>:
-          ( */}
+          (
               <div className="row" id="latest-products">
                   {
                     products.products.map((product,index) =>
@@ -54,16 +64,26 @@ const HomeScreen =()=>{
                    )
                    )}
               </div>
+          )}
           {/* )} */}
               <div className="box">
                   <ul className="pagination">
-                    <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+                  {/* {pages.map((x) => (
+                  <Link
+                    // className={x + 1 === page ? 'active' : ''}
+                    // key={x + 1}
+                    // to={getFilterUrl({ page: x + 1 })}
+                  >
+                    {x + 1}
+                  </Link>
+                ))} */}
+                    {/* <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
                     <li><Link to="#" className="active">1</Link></li>
                     <li><Link to="#">2</Link></li>
                     <li><Link to="#">3</Link></li>
                     <li><Link to="#">4</Link></li>
                     <li><Link to="#">5</Link></li>
-                    <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+                    <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li> */}
                   </ul>
                 </div>
             {/* )} */}

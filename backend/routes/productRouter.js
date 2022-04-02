@@ -75,9 +75,30 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
   res.send({
     products:products.rows,
     totalPages:Math.ceil(products.count/pageSize),
+    page
     })
 }))
+// productRouter.get('/', expressAsyncHandler(async(req, res)=>{
+//   const products = await Product.findAll({
+//     where: {
 
+//     },
+
+//     include: [
+//       {
+//        model: Brand,
+//        required: false,
+//        // attribute: ['brand_id']
+//       },
+//       {
+//        model: Category,
+//        required: false,
+//       },
+//    ],
+
+//   });
+//   res.send(products)
+// }))
 
 productRouter.get('/find',expressAsyncHandler(async (req, res) => {
             console.log('123',req.query.q)
@@ -122,41 +143,6 @@ productRouter.get('/find',expressAsyncHandler(async (req, res) => {
               },
             })
             res.send(products)
-
-       
-       
-
-   
-   
-}))
-
-productRouter.get('/find/:id',expressAsyncHandler(async (req, res) => {
-  console.log('123',req.query.min)
-  const products= await Product.findAll({
-   
-      include: [
-         {
-          model: Brand,
-          required: false
-          // attribute: ['brand_id']
-         },
-         {
-          model: Category,
-          required: false,
-         },
-      ],
-      where: {
-        
-        [Op.and]:[
-          {brand_id: req.params.id},
-          {price:{[Op.gte]:req.query.min}},
-          {price:{[Op.lte]:req.query.max}}
-        ]
-      },
-     
-  })
-  res.send(products)
-
 }))
 
 productRouter.get('/seed', expressAsyncHandler(async(req, res)=>{
@@ -262,21 +248,4 @@ productRouter.patch(
       }
     })
   );
-// productRouter.get(
-//   '?q=',
-//   expressAsyncHandler(async (req, res) => {
-//     const searchField = req.query.q;
-//     console.log('1111111',req.query)
-//     const products = await Product.findAndCountAll({
-//       // where: {
-//       //   product_name:{
-//       //     [Op.like]:`%${}%`
-//       //   }
-//       // },
-//       offset: 10,
-//       limit: 2
-//     })
-//     res.send(products)
-//   })
-// )
 export default productRouter;

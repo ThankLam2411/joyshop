@@ -8,7 +8,7 @@ import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListR
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
-import {blogListReducer} from './reducers/blogReducer';
+import {blogDetailsReducer, blogListReducer} from './reducers/blogReducer';
 const initialState = {
     userSignin:{
         userInfo: localStorage.getItem('userInfo')? JSON.parse(localStorage.getItem('userInfo')) : null,
@@ -62,6 +62,7 @@ const reducer = combineReducers({
     commentsList: commentsListReducer,
     commentsCreate: commentsCreateReducer,
     blogList: blogListReducer,
+    blogDetails: blogDetailsReducer,
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
