@@ -16,6 +16,8 @@ const productRouter=express.Router();
 productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
   const pageSize = 8;
   const page = Number(req.query.page) ||1;
+  console.log('page',req.query.page)
+
 
   const products = await Product.findAndCountAll({
    
@@ -40,7 +42,11 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
 
   });
   if(products){
-    res.send(products)
+    res.send({
+      products:products.rows,
+      totalPages:Math.ceil(products.count/pageSize),
+      page
+      })
   }else{
     res.send({ message: 'Product Not Found' })
   }
@@ -48,7 +54,7 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
 productRouter.get('/', expressAsyncHandler(async(req, res)=>{
   const pageSize = 8;
   const page = Number(req.query.page) ||1;
-
+  console.log('page',req.query.page)
   
   const products = await Product.findAndCountAll({
     limit: pageSize,

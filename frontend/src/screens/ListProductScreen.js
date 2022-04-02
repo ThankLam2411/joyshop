@@ -1,7 +1,7 @@
 import  Axios  from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { listProductsByBrand } from "../actions/brandActions";
 import { listProductByCategory } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
@@ -11,35 +11,41 @@ import ProductItem from "../components/Product-item";
 const ListProductScreen =()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate;
+    const location = useLocation();
     const {id: brandId}= useParams();
     const brandListProduct=useSelector(state => state.brandListProduct);
-    const {loading,error, products:productsListBrand}= brandListProduct;
+    const {loading,error, products, totalPages, page}= brandListProduct;
+    const pages =[...Array(totalPages).keys()];
+    const pageNumber = location.search.split('?page=')[1];
+
+
+
     const [priceMin, setPriceMin]= useState(0);
     const [priceMax, setPriceMax]= useState(1000);
-    const [products, setProducts]= useState([])
+    // const [products, setProducts]= useState([])
     const [categories,setCategories]= useState([]);
     const [categoryId, setCategoryId]= useState(0);
     const [featured,setFeatured]= useState(false);
     const [inStock,setInStock]= useState(false);
-    console.log(featured);
+    console.log(products);
 
-    useEffect(()=>{
-      async function listProducts(){
+    // useEffect(()=>{
+    //   async function listProducts(){
         
-        const res= await Axios.get(`/api/brands/${brandId}`,{
-          params:{
-            category:`${categoryId}`,
-            min:`${priceMin}`,
-            max:`${priceMax}`,
-            featured:`${featured}`,
-            inStock: `${inStock}`,
-          }
-        });
-        let products= res.data;
-        setProducts(products)
-      }
-      listProducts()
-    },[brandId, priceMax, priceMin, categoryId, featured, inStock])
+    //     const res= await Axios.get(`/api/brands/${brandId}`,{
+    //       params:{
+    //         category:`${categoryId}`,
+    //         min:`${priceMin}`,
+    //         max:`${priceMax}`,
+    //         featured:`${featured}`,
+    //         inStock: `${inStock}`,
+    //       }
+    //     });
+    //     let products= res.data;
+    //     setProducts(products)
+    //   }
+    //   listProducts()
+    // },[brandId, priceMax, priceMin, categoryId, featured, inStock])
 
     // useEffect(() => {
     //   async function listProducts(){
@@ -77,6 +83,11 @@ const ListProductScreen =()=>{
 
       
     // },[categoryId, featured, brandId]);
+    useEffect(()=>{
+      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock, ])
+
+
     useEffect(() => {
       async function getCategories(){
         let res = await Axios.get('/api/categories/');
@@ -244,33 +255,57 @@ const ListProductScreen =()=>{
         <div className="box filter-toggle-box">
           <button className="btn-flat btn-hover" id="filter-toggle">filter</button>
         </div>
-        {/* {loading?<LoadingBox></LoadingBox>:
-          error?<MessageBox variant="danger">{error}</MessageBox>:( */}
+        {loading?<LoadingBox></LoadingBox>:
+          error?<MessageBox variant="danger">{error}</MessageBox>:(
         <div className="box">
 
           <div className="row" id="products" >
               {/* Products list here */}
             {
-              products.map((product)=>(
+              products.products.map((product)=>(
                 <ProductItem key={product.id} product={product}></ProductItem>
               )
               )}
                  
             </div>        
         </div>
-          {/* )} */}
+          )}
 
-        <div className="box">
-          <ul className="pagination">
-            <li><a href="#"><i className="bx bxs-chevron-left" /></a></li>
-            <li><a href="#" className="active">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#"><i className="bx bxs-chevron-right" /></a></li>
-          </ul>
-        </div>
+<div className="box">
+                  <ul className="pagination">
+                  {/* {pages.map((x) => (
+                  <Link
+                    className={x + 1 === products.page ? 'active' : ''}
+                    // key={x + 1}
+                    // to={getFilterUrl({ page: x + 1 })}
+                  >
+                    {x + 1}
+                  </Link>
+               ))}  */}
+                  <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+
+                {
+                  pages.map((x)=>(
+                    
+                      <li ><Link
+                            // to={handlePage({page: x + 1})}
+                            className={x + 1 === page ? 'active' : ''}
+                            key={x + 1}
+                            to={`/listproduct/${brandId}?page=${x+1}`}
+                          >
+                            {x+1}
+                        </Link>
+                      </li>
+
+                    
+
+                  ))
+                }
+                  <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+
+                    
+                  </ul>
+                </div>
       </div>
     </div>
   </div>

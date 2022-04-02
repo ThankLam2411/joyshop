@@ -5,7 +5,7 @@ import { cartReducer } from './reducers/cartReducers';
 import { categoryListReducer } from './reducers/categoryReducers';
 import { commentsCreateReducer, commentsListReducer } from './reducers/commentReducers';
 import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderPayReducer, orderSummaryReducer } from './reducers/orderReducers';
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
+import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
 import {blogDetailsReducer, blogListReducer} from './reducers/blogReducer';
@@ -41,6 +41,7 @@ const reducer = combineReducers({
     productUpdate: productUpdateReducer,
     productListByQuery: productListByQueryReducer,
     productListByCategory: productListByCategoryIdReducer,
+    productFeaturedList: productFeaturedListReducer,
     cart: cartReducer,
     brandList: brandListReducer,
     brandListProduct: brandListProductReducer,

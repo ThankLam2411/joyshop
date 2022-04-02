@@ -1,12 +1,16 @@
 import Axios from 'axios';
-import {PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_LIST_QUERY_REQUEST, PRODUCT_LIST_QUERY_SUCCESS, PRODUCT_LIST_QUERY_FAIL, PRODUCT_LIST_CATEGORY_FAIL, PRODUCT_LIST_CATEGORY_REQUEST, PRODUCT_LIST_CATEGORY_SUCCESS} from '../constants/productConstants';
+import {PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_LIST_QUERY_REQUEST, PRODUCT_LIST_QUERY_SUCCESS, PRODUCT_LIST_QUERY_FAIL, PRODUCT_LIST_CATEGORY_FAIL, PRODUCT_LIST_CATEGORY_REQUEST, PRODUCT_LIST_CATEGORY_SUCCESS, PRODUCT_LIST_FEATURED_REQUEST, PRODUCT_LIST_FEATURED_FAIL, PRODUCT_LIST_FEATURED_SUCCESS} from '../constants/productConstants';
 
-export const listProducts = ()=> async(dispatch)=>{
+export const listProducts = (page)=> async(dispatch)=>{
     dispatch({
         type: PRODUCT_LIST_REQUEST
     });
     try{
-        const {data}= await Axios.get('/api/products');
+        const {data}= await Axios.get('/api/products',{
+          params: {
+            page: `${page}`
+          }
+        });
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data, 
@@ -20,6 +24,30 @@ export const listProducts = ()=> async(dispatch)=>{
             payload: error.message
         })
     }
+};
+export const listFeaturedProducts = (page)=> async(dispatch)=>{
+  dispatch({
+      type: PRODUCT_LIST_FEATURED_REQUEST
+  });
+  try{
+      const {data}= await Axios.get('/api/products/featured',{
+        params: {
+          page: `${page}`
+        }
+      });
+      dispatch({
+          type: PRODUCT_LIST_FEATURED_SUCCESS,
+          payload: data, 
+      })
+      console.log(data)
+      console.log(data.totalPages)
+
+  }catch(error){
+      dispatch({
+          type: PRODUCT_LIST_FEATURED_FAIL,
+          payload: error.message
+      })
+  }
 };
 export const detailsProduct=(productId)=>async(dispatch)=>{
     dispatch({

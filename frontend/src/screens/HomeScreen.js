@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import Blog from '../components/Blog';
 import ProductItem from '../components/Product-item';
 import Promotion from '../components/Promotion';
@@ -8,13 +8,20 @@ import Axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import  {listProducts}  from '../actions/productActions';
+import  {listFeaturedProducts, listProducts}  from '../actions/productActions';
 const HomeScreen =()=>{
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // const [pageNumber, setPageNumber]= useState(1)
 
-  const productList = useSelector((state) => state.productList);
-  const {loading, error, products, totalPages} = productList;
-  console.log(products)
+  const productFeaturedList = useSelector((state) => state.productFeaturedList);
+  const {loading, error, products, totalPages, page} = productFeaturedList;
+  console.log(products);
+  const pageNumber = location.search.split('?page=')[1];
+  console.log('currPage',pageNumber);
+  console.log('pagedb', page)
+  // console.log(location)
   // const {totalPages}= products;
 
   // const {totalPages}= products;
@@ -30,14 +37,19 @@ const HomeScreen =()=>{
   //   getProducts();
   // },[]);
   useEffect(() => {
-    dispatch(listProducts())
+    dispatch(listFeaturedProducts(pageNumber));
     
 
-  },[dispatch])
+  },[dispatch, pageNumber])
+
 
   // console.log([...Array(totalPages).keys()])
   const pages =[...Array(totalPages).keys()]
- console.log(pages)
+//  console.log(products.page)
+// const handlePage=(e)=>{
+//  e.preventDefault();
+//  navigate(`/?page=${page}`)
+// }
 
     return(
         <>
@@ -70,20 +82,35 @@ const HomeScreen =()=>{
                   <ul className="pagination">
                   {/* {pages.map((x) => (
                   <Link
-                    // className={x + 1 === page ? 'active' : ''}
+                    className={x + 1 === products.page ? 'active' : ''}
                     // key={x + 1}
                     // to={getFilterUrl({ page: x + 1 })}
                   >
                     {x + 1}
                   </Link>
-                ))} */}
-                    {/* <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
-                    <li><Link to="#" className="active">1</Link></li>
-                    <li><Link to="#">2</Link></li>
-                    <li><Link to="#">3</Link></li>
-                    <li><Link to="#">4</Link></li>
-                    <li><Link to="#">5</Link></li>
-                    <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li> */}
+               ))}  */}
+                  <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+
+                {
+                  pages.map((x)=>(
+                    
+                      <li ><Link
+                            // to={handlePage({page: x + 1})}
+                            className={x + 1 === page ? 'active' : ''}
+                            key={x + 1}
+                            to={`/?page=${x+1}`}
+                          >
+                            {x+1}
+                        </Link>
+                      </li>
+
+                    
+
+                  ))
+                }
+                  <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+
+                    
                   </ul>
                 </div>
             {/* )} */}
