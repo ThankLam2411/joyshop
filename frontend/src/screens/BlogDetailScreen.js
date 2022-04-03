@@ -2,7 +2,7 @@ import Axios  from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { detailsBlog } from "../actions/blogAction";
+import { detailsBlog, updateBlog } from "../actions/blogAction";
 import { detailsProduct, listProducts, updateProduct } from "../actions/productActions";
 
 const BlogDetailScreen=()=>{
@@ -63,11 +63,12 @@ const BlogDetailScreen=()=>{
   //   console.log(blog)
   //   setBlogTitle(blog.blog_title);
   //   setBlogContent(blog.blog_content);
-  //   setProductId(blog.product_id)
+  //   setProduct, Id(blog.product_id)
   // },[])
 
 const submitHandler = (e) => {
   e.preventDefault();
+  dispatch(updateBlog(blogId,blog_title, blog_content,product_id));
 }
   return(
     
@@ -99,12 +100,12 @@ const submitHandler = (e) => {
         <label htmlFor="product_id">Products</label>
 
         <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
-              {/* <option value=""></option>
+              <option value=""></option>
                   {
                     products.products.map((item,key) => (
                       <option key={key} value={item.id}>{item.product_name}</option>
                     ))
-                  } */}
+                  }
             </select>
         </div>
             <div>

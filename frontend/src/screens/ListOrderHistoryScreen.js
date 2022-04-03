@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteOrder, listOrderAll } from "../actions/orderActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 import { ORDER_DELETE_RESET } from "../constants/orderConstants";
 
 const ListOrderHistoryScreen=()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [orders,setOrders] =useState([])
+    // const [orders,setOrders] =useState([])
+    const orderList = useSelector((state) => state.orderList)
+    const {loading, error, orders}= orderList;
     const orderDelete = useSelector((state) => state.orderDelete);
     const {
       loading: loadingDelete,
@@ -18,15 +22,16 @@ const ListOrderHistoryScreen=()=>{
     useEffect(()=>{
         dispatch({ type: ORDER_DELETE_RESET });
 
-        async function getOrders(){
-            let res = await Axios.get('/api/orders');
-            let orders=res.data;
-            setOrders(orders);
-            return orders;
+        // async function getOrders(){
+        //     let res = await Axios.get('/api/orders');
+        //     let orders=res.data;
+        //     setOrders(orders);
+        //     return orders;
           
-          }
-        getOrders()
-    },[dispatch])
+        //   }
+        // getOrders()
+      dispatch(listOrderAll())
+    },[dispatch, successDelete])
     
 
     const deleteHandler=(order)=>{
@@ -39,13 +44,13 @@ const ListOrderHistoryScreen=()=>{
     return(
         <>
             <h1>Orders</h1>
-            {/* {loadingDelete && <LoadingBox></LoadingBox>}
+             {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
-      ) : ( */}
+      ) : ( 
             <table className="table">
           <thead>
             <tr>
@@ -93,7 +98,7 @@ const ListOrderHistoryScreen=()=>{
             ))}
           </tbody>
             </table>
-  {/* )} */}
+    )} 
         </>
     )
 }
