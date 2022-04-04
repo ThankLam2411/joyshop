@@ -14,18 +14,14 @@ import categoryRouter from "./routes/categoryRouter.js";
 import uploadRouter from "./routes/uploadRouter.js";
 import {OAuth2Client} from 'google-auth-library';
 import blogRouter from "./routes/blogRouter.js";
+import contactRouter from "./routes/contactRouter.js";
 
 
 dotenv.config();
-const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
+// const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
 
 
 const app = express();
-app.use(cors({
-  origin:true,
-  method:['GET', 'POST'],
-  credentials: true,
-}))
 
 try {
   await db.authenticate();
@@ -48,6 +44,8 @@ app.use('/api/shipping', shipRouter);
 app.use('/api/order-detail', orderDetailRouter);
 app.use('/api/comments', commentRouter);
 app.use('/api/blogs', blogRouter);
+app.use('/api/contacts', contactRouter);
+
 
 
 app.get('/api/config/paypal',(req, res) => {

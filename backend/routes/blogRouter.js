@@ -21,7 +21,7 @@ blogRouter.get('/',expressAsyncHandler(async (req, res) => {
    
 }))
 blogRouter.get('/:id',expressAsyncHandler(async (req, res) => {
-    const blogs= await Blog.findAll({
+    const blogs= await Blog.findOne({
         where: {id: req.params.id},
         include: [
             {

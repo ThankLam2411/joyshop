@@ -15,9 +15,16 @@ import {
 
 export default function ProductListScreen(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
 
   const productList = useSelector((state) => state.productList);
-  const {loading, error, products}= productList;
+  const {loading, error, products, totalPages, page}= productList;
+  const pageNumber = location.search.split('?page=')[1];
+  const pages =[...Array(totalPages).keys()]
+
+
   console.log(products)
   const productCreate = useSelector((state) => state.productCreate);
   const {
@@ -35,16 +42,15 @@ export default function ProductListScreen(props) {
   } = productDelete;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
       dispatch({ type: PRODUCT_CREATE_RESET });
-      navigate(`/product/${createdProduct.id}/edit`);
+      navigate(`/productlist`);
     }
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts())
+    dispatch(listProducts(pageNumber))
   }, [
     createdProduct,
     dispatch,
@@ -52,6 +58,7 @@ export default function ProductListScreen(props) {
     successCreate,
     successDelete,
     userInfo.id,
+    pageNumber
   ]);
 
   const deleteHandler = (product) => {
@@ -87,8 +94,8 @@ export default function ProductListScreen(props) {
               <tr>
                 <th>ID</th>
                 <th>NAME</th>
-                <th>OLD PRICE</th>
                 <th>PRICE</th>
+                <th>FEATURED</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
                 <th>ACTIONS</th>
@@ -99,8 +106,8 @@ export default function ProductListScreen(props) {
                 <tr key={product.id}>
                   <td>{product.id}</td>
                   <td>{product.product_name}</td>
-                  <td>{product.old_price}</td>
                   <td>{product.price}</td>
+                  <td>{String(product.featured)}</td>
                   <td>{product.category.category_name}</td>
                   <td>{product.brand.brand_name}</td>
                   <td>
@@ -123,17 +130,32 @@ export default function ProductListScreen(props) {
               ))}
             </tbody>
           </table>
-          {/* <div className="row center pagination">
-            {[...Array(pages).keys()].map((x) => (
-              <Link
-                className={x + 1 === page ? 'active' : ''}
-                key={x + 1}
-                to={`/productlist/pageNumber/${x + 1}`}
-              >
-                {x + 1}
-              </Link>
-            ))}
-          </div> */}
+          <div className="box">
+                  <ul className="pagination">
+                  <li><Link to={`/productlist?page=${page-1}`}><i className="bx bxs-chevron-left" /></Link></li>
+
+                {
+                  pages.map((x)=>(
+                    
+                      <li ><Link
+                            className={x + 1 === page ? 'active' : ''}
+                            key={x + 1}
+                            to={`/productlist?page=${x+1}`}
+                          >
+                            {x+1}
+                        </Link>
+                      </li>
+
+                    
+
+                  ))
+                }
+                  <li><Link to={`/productlist?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
+
+                    
+                  </ul>
+                </div>
+        
         </>
       )}
     </div>

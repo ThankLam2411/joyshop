@@ -1,5 +1,6 @@
 import {Link, BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import ProductItem from './components/Product-item';
@@ -8,6 +9,7 @@ import Slider from './components/Slider';
 import data from './data';
 import BlogDetailScreen from './screens/BlogDetailScreen';
 import CartScreen from './screens/CartScreen';
+import ContactScreen from './screens/ContactScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import HomeScreen from './screens/HomeScreen';
 import ListBlogScreen from './screens/ListBlogScreen';
@@ -105,6 +107,8 @@ function App() {
                 </PrivateRoute>
               }
             />      
+        <Route path="/contact" element={<ContactScreen />}></Route>  
+
         <Route path="/search" element={<SearchScreen />}></Route>  
         <Route path="/orderhistory" element={<OrderHistoryScreen/>}></Route>
         <Route path="/listproduct/:id" element={<ListProductScreen/>}></Route>
@@ -121,67 +125,7 @@ function App() {
         <Route exact path="/" element={<HomeScreen/>} ></Route>
       </Routes>
     </main>
-    <footer className="bg-second">
-      <div className="container">
-        <div className="row">
-          <div className="col-3 col-md-6">
-            <h3 className="footer-head">Products</h3>
-            <ul className="menu">
-              <li><Link to="#">Help center</Link></li>
-              <li><Link to="#">Contact us</Link></li>
-              <li><Link to="#">product help</Link></li>
-              <li><Link to="#">warranty</Link></li>
-              <li><Link to="#">order status</Link></li>
-            </ul>
-          </div>
-          <div className="col-3 col-md-6">
-            <h3 className="footer-head">services</h3>
-            <ul className="menu">
-              <li><Link to="#">Help center</Link></li>
-              <li><Link to="#">Contact us</Link></li>
-              <li><Link to="#">product help</Link></li>
-              <li><Link to="#">warranty</Link></li>
-              <li><Link to="#">order status</Link></li>
-            </ul>
-          </div>
-          <div className="col-3 col-md-6">
-            <h3 className="footer-head">support</h3>
-            <ul className="menu">
-              <li><Link to="#">Help center</Link></li>
-              <li><Link to="#">Contact us</Link></li>
-              <li><Link to="#">product help</Link></li>
-              <li><Link to="#">warranty</Link></li>
-              <li><Link to="#">order status</Link></li>
-            </ul>
-          </div>
-          <div className="col-3 col-md-6 col-sm-12">
-            <div className="contact">
-              <h3 className="contact-header">
-                JOYSHOP
-              </h3>
-              <ul className="contact-socials">
-                <li><Link to="#">
-                    <i className="bx bxl-facebook-circle" />
-                  </Link></li>
-                <li><Link to="#">
-                    <i className="bx bxl-instagram-alt" />
-                  </Link></li>
-                <li><Link to="#">
-                    <i className="bx bxl-youtube" />
-                  </Link></li>
-                <li><Link to="#">
-                    <i className="bx bxl-twitter" />
-                  </Link></li>
-              </ul>
-            </div>
-            <div className="subscribe">
-              <input type="email" placeholder="ENTER YOUR EMAIL" />
-              <button>subscribe</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+   <Footer />
     {/* end footer */}
   
   </div>

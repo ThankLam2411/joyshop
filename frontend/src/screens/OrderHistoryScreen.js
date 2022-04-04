@@ -15,11 +15,11 @@ const OrderHistoryScreen=()=>{
     const {loading, error, orders}= orderMineList;
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo}= userSignin;
-    console.log(userInfo.id);
+    console.log(userInfo?.id);
     
     useEffect(()=>{
-        dispatch(listOrderMine(userInfo.id))
-    },[dispatch, userInfo.id])
+        dispatch(listOrderMine(userInfo?.id))
+    },[dispatch, userInfo?.id])
     return(
         <>
             <h1> Order History</h1>

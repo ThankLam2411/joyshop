@@ -105,7 +105,7 @@ export default function Blog() {
 
   return (
   <>
-  <div className="section-header">
+  <div id="blog" className="section-header">
       <h2>latest blog</h2>
   </div>
   {loading?<LoadingBox></LoadingBox>:
@@ -128,7 +128,7 @@ export default function Blog() {
           </IconButton>
         }
         title={blog.blog_title}
-        subheader={blog?.createdAt || blog?.updatedAt}
+        subheader={blog?.createdAt?.substring(0, 10) || blog?.updatedAt?.substring(0, 10)}
       />
       <CardMedia
         component="img"

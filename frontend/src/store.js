@@ -8,7 +8,8 @@ import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListR
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
-import {blogDetailsReducer, blogListReducer} from './reducers/blogReducer';
+import {blogDetailsReducer, blogListReducer, blogUpdateReducer} from './reducers/blogReducer';
+import { contactCreateReducer } from './reducers/contactReducers';
 const initialState = {
     userSignin:{
         userInfo: localStorage.getItem('userInfo')? JSON.parse(localStorage.getItem('userInfo')) : null,
@@ -64,6 +65,8 @@ const reducer = combineReducers({
     commentsCreate: commentsCreateReducer,
     blogList: blogListReducer,
     blogDetails: blogDetailsReducer,
+    blogUpdate: blogUpdateReducer,
+    contactCreate: contactCreateReducer,
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

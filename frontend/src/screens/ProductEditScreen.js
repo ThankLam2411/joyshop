@@ -18,7 +18,7 @@ const ProductEditScreen=()=>{
   const [image, setImage] = useState('');
   const [category_id, setCategoryId] = useState('');
   const [countInStock, setCountInStock] = useState('');
-  const [featured, setFeatured]= useState(false);
+  const [featured, setFeatured]= useState('');
   const [brand_id, setBrandId] = useState('');
   const [product_description, setDescription] = useState('');
   const [brands, setBrands] = useState([]);
@@ -72,7 +72,7 @@ const ProductEditScreen=()=>{
       setImage(product.image)
       setCategoryId(product.category_id)
       setCountInStock(product.countInStock)
-      setFeatured(featured)
+      setFeatured(product.featured)
       setBrandId(product.brand_id)
       setDescription(product.product_description)
     }

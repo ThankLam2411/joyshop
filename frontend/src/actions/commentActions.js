@@ -20,7 +20,7 @@ export const commentsByProductId=(productId)=>async (dispatch) => {
         })
     }
 }
-export const postComment=({comment_content,  product_id})=>async(dispatch, getState)=>{
+export const postComment=(comment_content,  product_id)=>async(dispatch, getState)=>{
     dispatch({type: COMMENT_CREATE_REQUEST});
     const {
         userSignin: { userInfo },

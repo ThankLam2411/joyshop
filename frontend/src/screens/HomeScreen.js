@@ -80,16 +80,7 @@ const HomeScreen =()=>{
           {/* )} */}
               <div className="box">
                   <ul className="pagination">
-                  {/* {pages.map((x) => (
-                  <Link
-                    className={x + 1 === products.page ? 'active' : ''}
-                    // key={x + 1}
-                    // to={getFilterUrl({ page: x + 1 })}
-                  >
-                    {x + 1}
-                  </Link>
-               ))}  */}
-                  <li><Link to="#"><i className="bx bxs-chevron-left" /></Link></li>
+                  <li><Link to={`/?page=${page-1}`}><i className="bx bxs-chevron-left" /></Link></li>
 
                 {
                   pages.map((x)=>(
@@ -108,7 +99,7 @@ const HomeScreen =()=>{
 
                   ))
                 }
-                  <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
+                  <li><Link to={`/?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
 
                     
                   </ul>

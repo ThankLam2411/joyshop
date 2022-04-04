@@ -129,7 +129,7 @@ const ProfileScreen=()=>{
                             ></input>
                         </div>
                         <label/>
-                        <button className="cart primary block" type="submit">Update</button>
+                        <button className=" primary block" type="submit">Update</button>
 
                         
                     </>

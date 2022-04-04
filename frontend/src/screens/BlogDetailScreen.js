@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { detailsBlog, updateBlog } from "../actions/blogAction";
 import { detailsProduct, listProducts, updateProduct } from "../actions/productActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { BLOG_UPDATE_RESET } from "../constants/blogConstants";
 
 const BlogDetailScreen=()=>{
   const dispatch = useDispatch();
@@ -15,50 +18,59 @@ const BlogDetailScreen=()=>{
   const [product_id, setProductId] = useState('');
   
   // const [blog, setBlog] = useState([]);
-  const [products, setProducts]= useState([]);
-  const blogDetails = useSelector((state) => state.blogDetails);
-  const {loading, error, blog}= blogDetails;
+  // const [products, setProducts]= useState([]);
+  // const blogDetails = useSelector((state) => state.blogDetails);
+  // const {loading, error, blog}= blogDetails;
   
-  // const productList = useSelector((state) => state.productList);
-  // const {loading:loadingProducts, error:errorProducts, products}= productList;
+  const productList = useSelector((state) => state.productList);
+  const {loading, error, products, totalPages, page}= productList;
+  const blogUpdate = useSelector(state => state.blogUpdate);
+  const {loading: loadingUpdate, error: errorUpdate, success}= blogUpdate;
 
-
-  console.log('blog', blog);
-  // useEffect(() => {
-  //   async function getBlogDetails(){
-  //     let data = await Axios.get(`/api/blogs/${blogId}`);
-  //     let blog = data.data;
-  //     setBlog(blog);
-  //     setBlogTitle(blog.blog_title);
-  //     setBlogContent(blog.blog_content);
-  //     setProductId(blog.product_id)
-
-  //   }
-  //   getBlogDetails()
-  // },[blogId])
-  // useEffect(() => {
-  //   dispatch(listProducts())
-  // },[dispatch])
-
-  useEffect(()=>{
-    async function getProducts(){
-      let result = await Axios.get('/api/products/');
-      let products = result.data;
-      setProducts(products)
-    } 
-    getProducts()
-  },[])
-  console.log(products.products)
+  const [blog, setBlog]= useState({})
   useEffect(() => {
-      if(!blog) {
+    async function getBlogDetails(){
+      let data = await Axios.get(`/api/blogs/${blogId}`);
+      let blog = data.data;
+      setBlog(blog);
+      // setBlogTitle(blog.blog_title);
+      // setBlogContent(blog.blog_content);
+      // setProductId(blog.product_id)
+      return blog;
+
+    }
+    getBlogDetails()
+  },[blogId])
+  console.log('blog', blog);
+  useEffect(() => {
+    dispatch(listProducts(page));
+  },[])
+
+  // useEffect(()=>{
+  //   async function getProducts(){
+  //     let result = await Axios.get('/api/products/');
+  //     let products = result.data;
+  //     setProducts(products)
+  //     return products
+  //   } 
+  //   getProducts()
+  // },[])
+  console.log(typeof blog)
+  useEffect(() => {
+    if(success) {
+      navigate('/blogs')
+    }
+      
+      if(Object.keys(blog).length===0|| 
+        !blog || !!blog) {
         dispatch(detailsBlog(blogId))
       }else{
          setBlogTitle(blog.blog_title);
          setBlogContent(blog.blog_content);
          setProductId(blog.product_id)
     }
-  
-  },[dispatch, blog, blogId])
+    dispatch({type:BLOG_UPDATE_RESET})
+  },[dispatch,blog, blogId, success, navigate])
   // useEffect(() => {
   //   console.log(blog)
   //   setBlogTitle(blog.blog_title);
@@ -70,6 +82,7 @@ const submitHandler = (e) => {
   e.preventDefault();
   dispatch(updateBlog(blogId,blog_title, blog_content,product_id));
 }
+// console.log(products.products)
   return(
     
     <form className="form" onSubmit={submitHandler}>
@@ -98,15 +111,28 @@ const submitHandler = (e) => {
         </div>
         <div>
         <label htmlFor="product_id">Products</label>
-
-        <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
+        {loading?<LoadingBox></LoadingBox>:
+          error?<MessageBox variant="danger">{error}</MessageBox>:
+          (
+            <div>
+              <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
               <option value=""></option>
                   {
-                    products.products.map((item,key) => (
-                      <option key={key} value={item.id}>{item.product_name}</option>
+                    products.products.map((product,index) =>(
+                    <option 
+                        key={index} 
+                        value={product.id}
+                      >{product.product_name}</option>
                     ))
                   }
-            </select>
+              </select>
+            </div>
+          )}
+              
+            
+      
+
+       
         </div>
             <div>
               <label></label>

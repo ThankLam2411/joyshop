@@ -189,8 +189,8 @@ const Header=()=>{
                     )}
                   </li>
                   {/* end mega menu */}
-                  <li><Link to="#">blog</Link></li>
-                  <li><Link to="#">contact</Link></li>
+                  <li><a href="#blog">blog</a></li>
+                  <li><Link to="/contact">contact</Link></li>
                 </ul>
               </div>
             </div>
