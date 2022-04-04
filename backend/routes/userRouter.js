@@ -77,22 +77,25 @@ userRouter.put(
      isAuth,
      expressAsyncHandler(async(req, res)=>{
          const user = await User.findByPk(req.user.id);
-         console.log(req.user.id);
+         console.log(req.body.user_password);
          if(user){
              user.user_name= req.body.user_name || user.user_name;
              user.user_email= req.body.user_email || user.user_email;
              user.user_phone= req.body.user_phone || user.user_phone;
              user.user_address= req.body.user_address || user.user_address;
-             if(req.body.password){
-                 user.password= bcrypt.hashSync(req.body.password,8);
+             user.user_image= req.body.user_image||user.user_image;
+             if(req.body.user_password){
+                 user.user_password= bcrypt.hashSync(req.body.user_password,8);
              }
              const updateUser = await user.save();
              res.send({
                  id: updateUser.id,
                  user_name: updateUser.user_name,
                  user_email: updateUser.user_email,
+                 user_password:updateUser.user_password,
                  user_phone: updateUser.user_phone,
                  user_address: updateUser.user_address,
+                 user_image: updateUser.user_image,
                  isAdmin: updateUser.isAdmin,
                  isUser: updateUser.isUser,
                  token: generateToken(updateUser),

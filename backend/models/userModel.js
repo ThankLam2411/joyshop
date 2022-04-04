@@ -25,6 +25,9 @@ const User = db.define('user',{
     user_address:{
         type: DataTypes.STRING
     },
+    user_image:{
+        type: DataTypes.STRING
+    },
     isAdmin:{
         type: DataTypes.BOOLEAN,
         defaultValue: false,

@@ -1235,3 +1235,9 @@ footer ul li {
         height: unset;
     }
 }
+.user-image{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    
+}

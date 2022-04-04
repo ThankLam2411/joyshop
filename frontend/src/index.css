@@ -366,15 +366,15 @@ img.large{
   height: 100%;
 }
 
-.section-header {
+/* .section-header {
   text-align: center;
   margin: 0 auto;
   padding: 40px 0;
-  font: 300 60px 'Oswald', sans-serif;
+  font: 300 60px ;
   color: #000;
   text-transform: uppercase;
   letter-spacing: 6px;
-}
+} */
 
 .contact-wrapper {
   display: flex;
@@ -611,4 +611,11 @@ hr {
   .send-button {
     width: 99%;
   }
+}
+/* Profile */
+.img-account-profile {
+  height: 10rem;
+}
+.rounded-circle {
+  border-radius: 50% !important;
 }

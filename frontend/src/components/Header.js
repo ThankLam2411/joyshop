@@ -35,6 +35,7 @@ const Header=()=>{
   useEffect(()=>{
     dispatch(listBrand())
   },[dispatch])
+  console.log(userInfo.user_image)
     return(
         <header>
         {/* mobile menu */}
@@ -48,7 +49,8 @@ const Header=()=>{
         {/* main header */}
           <div className={!active?"header-wrapper":"header-wrapper active"} id="header-wrapper"  >
             <span  className="mb-menu-toggle mb-menu-close" id="mb-menu-close" onClick={()=> {setActive(!active); console.log(123);}}>
-              <i  className="bx bx-x" />
+              
+                <i  className="bx bx-x" />
             </span>
             {/* mid header */}
             <div className="bg-main">
@@ -75,7 +77,9 @@ const Header=()=>{
 
                             <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
-                            <li className="dropdown-header" style={{}}><Link to="#"><i className="bx bx-user-circle" />
+                            <li className="dropdown-header" style={{}}><Link to="#">
+                            {userInfo.user_image !== undefined? (<img className="user-image" src={userInfo.user_image}/>):(
+                              <i className="bx bx-user-circle" />)}
                             {
                               userInfo ? (
                                 <div className="dropdown-header" >
