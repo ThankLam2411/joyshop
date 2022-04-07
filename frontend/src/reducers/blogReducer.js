@@ -1,4 +1,4 @@
-import { BLOG_DETAILS_FAIL, BLOG_DETAILS_REQUEST, BLOG_DETAILS_SUCCESS, BLOG_LIST_FAIL, BLOG_LIST_REQUEST, BLOG_LIST_SUCCESS, BLOG_UPDATE_FAIL, BLOG_UPDATE_REQUEST, BLOG_UPDATE_RESET, BLOG_UPDATE_SUCCESS } from "../constants/blogConstants";
+import { BLOG_DELETE_FAIL, BLOG_DELETE_REQUEST, BLOG_DELETE_RESET, BLOG_DELETE_SUCCESS, BLOG_DETAILS_FAIL, BLOG_DETAILS_REQUEST, BLOG_DETAILS_SUCCESS, BLOG_LIST_FAIL, BLOG_LIST_REQUEST, BLOG_LIST_SUCCESS, BLOG_UPDATE_FAIL, BLOG_UPDATE_REQUEST, BLOG_UPDATE_RESET, BLOG_UPDATE_SUCCESS } from "../constants/blogConstants";
 
 export const blogListReducer=(state={loading: true, blogs:[]},action) => {
     switch (action.type) {
@@ -13,7 +13,7 @@ export const blogListReducer=(state={loading: true, blogs:[]},action) => {
     }
 }
 
-export const blogDetailsReducer = (state={blog:[], loading: true}, action) =>{
+export const blogDetailsReducer = (state={ loading: true}, action) =>{
     switch (action.type) {
         case BLOG_DETAILS_REQUEST:
             return {loading: true};
@@ -34,6 +34,21 @@ export const blogUpdateReducer = (state = {}, action) => {
       case BLOG_UPDATE_FAIL:
         return { loading: false, error: action.payload };
       case BLOG_UPDATE_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+
+  export const blogDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+      case BLOG_DELETE_REQUEST:
+        return { loading: true };
+      case BLOG_DELETE_SUCCESS:
+        return { loading: false, success: true };
+      case BLOG_DELETE_FAIL:
+        return { loading: false, error: action.payload };
+      case BLOG_DELETE_RESET:
         return {};
       default:
         return state;

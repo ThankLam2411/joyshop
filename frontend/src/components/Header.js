@@ -35,7 +35,6 @@ const Header=()=>{
   useEffect(()=>{
     dispatch(listBrand())
   },[dispatch])
-  console.log(userInfo.user_image)
     return(
         <header>
         {/* mobile menu */}
@@ -128,7 +127,7 @@ const Header=()=>{
                                 <Link to="/userlist">Users</Link>
                               </li>
                               <li>
-                                <Link to="/blogs">Blogs</Link>
+                                <Link to="/bloglist">Blogs</Link>
                               </li>
                               <li>
                                 <Link to="/support">Support</Link>
@@ -193,7 +192,7 @@ const Header=()=>{
                     )}
                   </li>
                   {/* end mega menu */}
-                  <li><a href="#blog">blog</a></li>
+                  <li><a href="/blog">blog</a></li>
                   <li><Link to="/contact">contact</Link></li>
                 </ul>
               </div>

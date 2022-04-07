@@ -9,6 +9,7 @@ import Axios from "axios";
 
 const ProfileScreen=()=>{
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     // const {id: userId} = useParams();
     const [user_name, setUserName] = useState('');
     const [user_email, setUserEmail] = useState('');
@@ -34,6 +35,9 @@ const ProfileScreen=()=>{
     // const [user_password, setUserPassword] = useState('')
     // const [confirmPassword, setConfirmPassword] = useState('')
     useEffect(()=>{
+        if(successUpdate){
+            navigate('/profile')
+        }
         if(!user){
             dispatch(detailsUser(userInfo.id))
         }else{
@@ -44,7 +48,7 @@ const ProfileScreen=()=>{
             setUserImage(user?.user_image)
             // setUserPassword(user.user_password);
         }
-    },[dispatch, userInfo.id, user])
+    },[dispatch, userInfo.id, user, successUpdate, navigate]);
     const submitHandler = (e) => {
         e.preventDefault();
         if(user_password !== confirmPassword){
@@ -54,7 +58,7 @@ const ProfileScreen=()=>{
             dispatch(updateUserProfile({userId: user.id, user_name, user_email,user_password, user_phone, user_address, user_image}))
         }
     }
-                const [loadingUpload, setLoadingUpload] = useState(false);
+            const [loadingUpload, setLoadingUpload] = useState(false);
             const [errorUpload, setErrorUpload] = useState('');
             const [uploadStatus, setUploadStatus] = useState('')
 
@@ -81,17 +85,21 @@ const ProfileScreen=()=>{
     return (
        
         <>
-                <div className="container-xl px-4 mt-4">
+        <div className="container-xl px-4 mt-4">
             {/* Account page navigation*/}
             <nav className="nav nav-borders">
                 <h1 className="section-header">Profile</h1>
             </nav>
+            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {errorUpdate && (<MessageBox variant="danger">{error}</MessageBox>)} 
+            {successUpdate && (<MessageBox variant="success">Update Profile successfully</MessageBox>)} 
+
             <hr className="mt-0 mb-4" />
             <div className="row">
                 <div className="col-xl-4">
                 {/* Profile picture card*/}
                 <div className="card mb-4 mb-xl-0">
-                    <div className="card-header">Profile Picture</div>
+                    <div className="card-header"><h3>Profile Picture</h3></div>
                     <div className="card-body text-center">
                        
                         {/* Profile picture image*/}
@@ -116,7 +124,7 @@ const ProfileScreen=()=>{
                 <div className="col-xl-8">
                 {/* Account details card*/}
                 <div className="card mb-4">
-                    <div className="card-header">Account Details</div>
+                    <div className="card-header"><h3>Account Details</h3></div>
                     <div className="card-body">
                     <form type="submit" onSubmit={submitHandler}>
                         {/* Form Group (username)*/}
@@ -157,10 +165,10 @@ const ProfileScreen=()=>{
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="address">Address</label>
                                 <input  type="text" 
-                                id="phone" 
-                                placeholder="Enter phone"
-                                value={user_phone}
-                                onChange={(e)=>setUserPhone(e.target.value)} />
+                                id="address" 
+                                placeholder="Enter address"
+                                value={user_address}
+                                onChange={(e)=>setUserAddress(e.target.value)} />
                             </div>
                         </div>
                         <div>

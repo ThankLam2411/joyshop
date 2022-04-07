@@ -2,36 +2,40 @@ import  Axios  from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listBlog } from "../actions/blogAction";
-import { deleteOrder, listOrderAll } from "../actions/orderActions";
-import { listProducts } from "../actions/productActions";
+import { deleteBlog, listBlog } from "../actions/blogAction";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { ORDER_DELETE_RESET } from "../constants/orderConstants";
+import { BLOG_DELETE_RESET } from "../constants/blogConstants";
 
 const ListBlogScreen=()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const blogList = useSelector((state) => state.blogList);
     const {loading, error, blogs}= blogList;
+    const blogDelete = useSelector((state) => state.blogDelete);
+    const {loading: loadingDelete, error: errorDelete, success: successDelete}= blogDelete
     console.log(blogs);
  
     useEffect(()=>{
-        dispatch(listBlog())
-    },[dispatch])
+      if (successDelete) {
+        dispatch({ type: BLOG_DELETE_RESET });
+      }
+      
+      dispatch(listBlog())
+    },[dispatch, successDelete])
 
     const deleteHandler=(blog)=>{
         // e.preventDefault();
-        // if (window.confirm('Are you sure to delete?')) {
-        //     dispatch(deleteOrder(order.id));
-        //   }
+        if (window.confirm('Are you sure to delete?')) {
+            dispatch(deleteBlog(blog.id));
+          }
         };
     
     return(
         <>
             <h1>Blogs</h1>
-             {/* {loadingDelete && <LoadingBox></LoadingBox>}
-      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>} */}
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -68,13 +72,13 @@ const ListBlogScreen=()=>{
                   >
                     Details
                   </button>
-                  {/* <button
+                  <button
                     type="button"
                     className="small"
-                    onClick={() => deleteHandler(order)}
+                    onClick={() => deleteHandler(blog)}
                   >
                     Delete
-                  </button> */}
+                  </button>
                 </td>
               </tr>
             ))}

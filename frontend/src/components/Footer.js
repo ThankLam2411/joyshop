@@ -13,7 +13,6 @@ const Footer=()=>{
     useEffect(()=>{
         dispatch(listBrand())
       },[dispatch])
-      console.log(brands)
     return (
         <>
          <footer className="bg-second">

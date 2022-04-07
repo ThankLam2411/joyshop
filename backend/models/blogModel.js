@@ -10,6 +10,9 @@ const Blog = db.define('blog',{
     blog_content:{
         type: DataTypes.STRING,
     },
+    blog_image:{
+        type: DataTypes.STRING,
+    },
     product_id:{
         type: DataTypes.INTEGER,
         allowNull: false

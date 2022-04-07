@@ -172,6 +172,7 @@ const ProductCreateScreen=()=>{
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
                 ></input>
+                <img src={image} class="medium"/>
             </div>
             <div>
               <label htmlFor="imageFile">Image File</label>

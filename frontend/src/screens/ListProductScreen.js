@@ -112,7 +112,7 @@ const ListProductScreen =()=>{
     <div className="breadcumb">
       <Link to="/">home</Link>
       <span><i className="bx bxs-chevrons-right" /></span>
-      <span onClick={resetCategoryId}>All products</span>
+      <span onClick={resetCategoryId} style={{cursor:'pointer'}}>All products</span>
     </div>
   </div>
   <div className="box">

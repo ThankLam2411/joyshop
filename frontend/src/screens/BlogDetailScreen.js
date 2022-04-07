@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { detailsBlog, updateBlog } from "../actions/blogAction";
-import { detailsProduct, listProducts, updateProduct } from "../actions/productActions";
+import { detailsProduct, listFeaturedProducts, listProducts, updateProduct } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { BLOG_UPDATE_RESET } from "../constants/blogConstants";
@@ -15,19 +15,22 @@ const BlogDetailScreen=()=>{
 
   const [blog_title, setBlogTitle] = useState('');
   const [blog_content, setBlogContent] = useState('');
+  const [blog_image, setBlogImage] = useState('')
   const [product_id, setProductId] = useState('');
   
   // const [blog, setBlog] = useState([]);
-  // const [products, setProducts]= useState([]);
+  // // const [products, setProducts]= useState([]);
   // const blogDetails = useSelector((state) => state.blogDetails);
-  // const {loading, error, blog}= blogDetails;
+  // const {loading: loadingBlog, error: errorBlog, blog}= blogDetails;
   
-  const productList = useSelector((state) => state.productList);
-  const {loading, error, products, totalPages, page}= productList;
+  const productFeaturedList = useSelector((state) => state.productFeaturedList);
+  const {loading, error, products, totalPages, page}= productFeaturedList;
   const blogUpdate = useSelector(state => state.blogUpdate);
   const {loading: loadingUpdate, error: errorUpdate, success}= blogUpdate;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo}= userSignin;
 
-  const [blog, setBlog]= useState({})
+  const [blog, setBlog]= useState([])
   useEffect(() => {
     async function getBlogDetails(){
       let data = await Axios.get(`/api/blogs/${blogId}`);
@@ -43,8 +46,32 @@ const BlogDetailScreen=()=>{
   },[blogId])
   console.log('blog', blog);
   useEffect(() => {
-    dispatch(listProducts(page));
-  },[])
+    dispatch(listFeaturedProducts(page));
+  },[dispatch]);
+  const [loadingUpload, setLoadingUpload] = useState(false);
+const [errorUpload, setErrorUpload] = useState('');
+const [uploadStatus, setUploadStatus] = useState('')
+
+const uploadFileHandler = async (e) => {
+  const file = e.target.files[0];
+  const bodyFormData = new FormData();
+  bodyFormData.append('image', file);
+  setLoadingUpload(true);
+  try {
+    const { data } = await Axios.post('/api/uploads/', bodyFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    console.log(data)
+    setBlogImage(data);
+    setLoadingUpload(false);
+  } catch (error) {
+    setErrorUpload(error.message);
+    setLoadingUpload(false);
+  }
+};
 
   // useEffect(()=>{
   //   async function getProducts(){
@@ -58,19 +85,20 @@ const BlogDetailScreen=()=>{
   console.log(typeof blog)
   useEffect(() => {
     if(success) {
-      navigate('/blogs')
+      navigate('/bloglist')
     }
       
-      if(Object.keys(blog).length===0|| 
-        !blog || !!blog) {
+      if(//Object.keys(blog).length===0||
+       
+        !blog ) {
         dispatch(detailsBlog(blogId))
       }else{
          setBlogTitle(blog.blog_title);
          setBlogContent(blog.blog_content);
          setProductId(blog.product_id)
     }
-    dispatch({type:BLOG_UPDATE_RESET})
-  },[dispatch,blog, blogId, success, navigate])
+    // dispatch({type:BLOG_UPDATE_RESET})
+  },[, dispatch, navigate, success, blog, blogId])
   // useEffect(() => {
   //   console.log(blog)
   //   setBlogTitle(blog.blog_title);
@@ -80,7 +108,7 @@ const BlogDetailScreen=()=>{
 
 const submitHandler = (e) => {
   e.preventDefault();
-  dispatch(updateBlog(blogId,blog_title, blog_content,product_id));
+  dispatch(updateBlog(blogId,blog_title, blog_content,blog_image, product_id));
 }
 // console.log(products.products)
   return(
@@ -89,57 +117,72 @@ const submitHandler = (e) => {
       <div>
         <h1> Edit Blog {blogId}</h1>
       </div>
-      
-      <div>
-        <label htmlFor="blog_title">Blog Title</label>
-          <input
-            id="blog_title"
-            type="text"
-            value={blog_title}
-            onChange={(e) => setBlogTitle(e.target.value)}
-          ></input>
-      </div>
-        <div>
-              <label htmlFor="blog_content">Blog Content</label>
-              <input
-                id="blog_content"
-                type="text"
-                // placeholder="Enter blog_content"
-                value={blog_content}
-                onChange={(e) => setBlogContent(e.target.value)}
-              ></input>
-        </div>
-        <div>
-        <label htmlFor="product_id">Products</label>
-        {loading?<LoadingBox></LoadingBox>:
+      {/* {loading?<LoadingBox></LoadingBox>:
           error?<MessageBox variant="danger">{error}</MessageBox>:
-          (
-            <div>
-              <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
-              <option value=""></option>
-                  {
-                    products.products.map((product,index) =>(
-                    <option 
-                        key={index} 
-                        value={product.id}
-                      >{product.product_name}</option>
-                    ))
-                  }
-              </select>
-            </div>
-          )}
-              
-            
-      
-
-       
+      ( */}
+      <>
+        <div>
+          <label htmlFor="blog_title">Blog Title</label>
+            <input
+              id="blog_title"
+              type="text"
+              value={blog_title}
+              onChange={(e) => setBlogTitle(e.target.value)}
+            ></input>
         </div>
-            <div>
-              <label></label>
-              <button className="primary" type="submit">
-                Update
-              </button>
+          <div>
+                <label htmlFor="blog_content">Blog Content</label>
+                <input
+                  id="blog_content"
+                  type="text"
+                  // placeholder="Enter blog_content"
+                  value={blog_content}
+                  onChange={(e) => setBlogContent(e.target.value)}
+                ></input>
+          </div>
+          <div>
+              <label htmlFor="imageFile">Image File</label>
+              <input
+                type="file"
+                name="image"
+                id="imageFile"
+                label="Choose Image"
+                onChange={uploadFileHandler}
+              ></input>
             </div>
+          <div>
+          <label htmlFor="product_id">Products</label>
+          {loading?<LoadingBox></LoadingBox>:
+            error?<MessageBox variant="danger">{error}</MessageBox>:
+            (
+              <div>
+                <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
+                <option value=""></option>
+                    {
+                      products.products.map((product,index) =>(
+                      <option 
+                          key={index} 
+                          value={product.id}
+                        >{product.product_name}</option>
+                      ))
+                    }
+                </select>
+              </div>
+            )} 
+                
+              
+        
+
+        
+          </div>
+              <div>
+                <label></label>
+                <button className="primary" type="submit">
+                  Update
+                </button>
+              </div>
+              </>
+            {/* )} */}
       </form>
   )
 }

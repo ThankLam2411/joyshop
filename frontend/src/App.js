@@ -8,6 +8,7 @@ import Promotion from './components/Promotion';
 import Slider from './components/Slider';
 import data from './data';
 import BlogDetailScreen from './screens/BlogDetailScreen';
+import BlogScreen from './screens/BlogScreen';
 import CartScreen from './screens/CartScreen';
 import ContactScreen from './screens/ContactScreen';
 import DashboardScreen from './screens/DashboardScreen';
@@ -45,7 +46,7 @@ function App() {
               exact
         ></Route>
       <Route
-              path="/blogs"
+              path="/bloglist"
               element={
                 <AdminRoute>
                   <ListBlogScreen />
@@ -108,6 +109,7 @@ function App() {
               }
             />      
         <Route path="/contact" element={<ContactScreen />}></Route>  
+        <Route path="/blog" element={<BlogScreen />}></Route>  
 
         <Route path="/search" element={<SearchScreen />}></Route>  
         <Route path="/orderhistory" element={<OrderHistoryScreen/>}></Route>
