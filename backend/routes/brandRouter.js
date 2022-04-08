@@ -24,11 +24,12 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
 
     const max =
         req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
-    // const category = req.query.category && (req.query.category) !== undefined  ? Number(req.query.category): '%%' ;
     const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
     console.log('cate', (req.query.category) === undefined)
     const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
-    console.log('Featured',  typeof featured)
+    console.log('Featured',  typeof featured);
+    const order= req.query.order ? req.query.order:'';
+    // const order ='DESC'
     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
     const products = await Product.findAndCountAll({
         limit: pageSize,
@@ -50,13 +51,15 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
             required: false,
            
         }
-        ]
+        ],
+    order:Sequelize.literal(`price ${order} `)
+    
         
       
     })
     res.send({
         products:products.rows,
-        totalPages:Math.ceil(products.count/pageSize),
+        totalPages:Math.floor(products.count/pageSize),
         page
         })
 }))

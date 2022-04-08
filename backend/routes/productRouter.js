@@ -76,7 +76,6 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
    ],
 
 
-
   });
   res.send({
     products:products.rows,

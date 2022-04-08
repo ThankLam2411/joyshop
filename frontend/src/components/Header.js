@@ -77,8 +77,9 @@ const Header=()=>{
                             <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
                             <li className="dropdown-header" style={{}}><Link to="#">
-                            {userInfo.user_image !== undefined? (<img className="user-image" src={userInfo.user_image}/>):(
-                              <i className="bx bx-user-circle" />)}
+                            {(!userInfo?.user_image   )? (<i className="bx bx-user-circle" />):(
+                              <img className="user-image" src={userInfo?.user_image}/>
+                              )}
                             {
                               userInfo ? (
                                 <div className="dropdown-header" >

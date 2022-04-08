@@ -36,7 +36,9 @@ const ProfileScreen=()=>{
     // const [confirmPassword, setConfirmPassword] = useState('')
     useEffect(()=>{
         if(successUpdate){
-            navigate('/profile')
+            // navigate('/profile')
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+
         }
         if(!user){
             dispatch(detailsUser(userInfo.id))
@@ -45,7 +47,7 @@ const ProfileScreen=()=>{
             setUserEmail(user.user_email);
             setUserPhone(user.user_phone);
             setUserAddress(user.user_address);
-            setUserImage(user?.user_image)
+            setUserImage(user?.user_image);
             // setUserPassword(user.user_password);
         }
     },[dispatch, userInfo.id, user, successUpdate, navigate]);

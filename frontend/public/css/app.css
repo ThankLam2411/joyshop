@@ -202,6 +202,9 @@ ul.devided > li:last-child {
     border-radius: 10px;
     border: 0;
     background-color: var(--second-bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .search i {
@@ -1240,4 +1243,10 @@ footer ul li {
     height: 30px;
     border-radius: 50%;
     
+}
+
+.list_product{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

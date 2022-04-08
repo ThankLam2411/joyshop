@@ -15,6 +15,9 @@ import uploadRouter from "./routes/uploadRouter.js";
 import {OAuth2Client} from 'google-auth-library';
 import blogRouter from "./routes/blogRouter.js";
 import contactRouter from "./routes/contactRouter.js";
+import bodyParser from "body-parser";
+import nodemailer from "nodemailer";
+import mg from "mailgun-js"
 
 
 dotenv.config();
@@ -45,6 +48,66 @@ app.use('/api/order-detail', orderDetailRouter);
 app.use('/api/comments', commentRouter);
 app.use('/api/blogs', blogRouter);
 app.use('/api/contacts', contactRouter);
+
+const mailgun = () =>
+  mg({
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMIAN,
+});
+  app.post('/api/email', (req, res) => {
+    const { email, subject, message, name } = req.body;
+    mailgun()
+      .messages()
+      .send(
+        {
+          from: `${email}`,
+          to: `thanhlam241120@gmail.com`,
+          subject: `${subject}`,
+          html: `<p>${message}</p>`,
+        },
+        (error, body) => {
+          if (error) {
+            console.log(error);
+            res.status(500).send({ message: 'Error in sending email' });
+          } else {
+            console.log(body);
+            res.send({ message: 'Email sent successfully' });
+          }
+        }
+      );
+  });
+
+app.post('/send_mail', cors(), async(req, res)=>{
+  const { email, subject, message, name } = req.body;
+
+  const transport = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: process.env.MAIL_PORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS
+    }
+  })
+  await transport.sendMail({
+    from: email,
+    to: process.env.MAIL_FROM,
+    subject: subject,
+    html: `<div className="email" style="
+    border: 1px solid black;
+    padding: 20px;
+    font-family: sans-serif;
+    line-height: 2;
+    font-size: 20px; 
+    ">
+    <h2>Here is your email!</h2>
+    <p>${message}</p>
+
+    <p>All the best, Darwin</p>
+     </div>
+`
+
+  })
+})
 
 
 

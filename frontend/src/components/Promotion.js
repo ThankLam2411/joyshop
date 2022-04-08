@@ -18,7 +18,7 @@ const Promotion =()=>{
                 <h3>CHANEL</h3>
                 <Link to={`/listproduct/2`} className="btn-flat btn-hover"><span>shop collection</span></Link>
               </div>
-              <img src="./images/YSL_son_1.jpg" alt="" />
+              <img src="./images/Chanel_nuochoa_1.png" alt="" />
             </div>
           </div>
           <div className="col-4 col-md-12 col-sm-12">
@@ -27,7 +27,7 @@ const Promotion =()=>{
                 <h3>DIOR</h3>
                 <Link to={`/listproduct/3`} className="btn-flat btn-hover"><span>shop collection</span></Link>
               </div>
-              <img src="./images/Chanel_nuochoa_1.png" alt="" />
+              <img src="./images/Dior_nuochoa_1.jpg" alt="" />
             </div>
           </div>
         </div>

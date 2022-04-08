@@ -156,6 +156,7 @@ const submitHandler = (e) => {
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
                 ></input>
+                <img src={image} alt className="medium"/>
             </div>
             <div>
               <label htmlFor="imageFile">Image File</label>

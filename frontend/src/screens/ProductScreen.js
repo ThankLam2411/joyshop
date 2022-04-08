@@ -149,7 +149,8 @@ const ProductScreen =()=>{
                         <div className="user-rate">
                             <div className="user-info">
                                 <div className="user-avt">
-                                    <i className="bx bx-user-circle" />
+                                    {userInfo? (<img src={userInfo?.user_image} style={{borderRadius:'50%', width:'60px', height:'60px'}}/>):(<i className="bx bx-user-circle" />)}
+                                    
                                 </div>
                                 <div className="user-name">
                                     <span className="name">{userInfo?.user_name}</span>
@@ -171,7 +172,8 @@ const ProductScreen =()=>{
                         <div className="user-rate c-6">
                             <div className="user-info">
                                 <div className="user-avt">
-                                    <i className="bx bx-user-circle" />
+                                {userInfo? (<img src={comment?.user?.user_image} style={{borderRadius:'50%', width:'60px', height:'60px'}}/>):(<i className="bx bx-user-circle" />)}
+
                                 </div>
                                 <div className="user-name">
                                 <span className="name">{comment.user.user_name}</span>

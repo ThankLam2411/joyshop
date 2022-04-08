@@ -27,6 +27,7 @@ const ListProductScreen =()=>{
     const [categoryId, setCategoryId]= useState(0);
     const [featured,setFeatured]= useState(false);
     const [inStock,setInStock]= useState(false);
+    const [order, setOrder]= useState('')
     console.log(products);
 
     // useEffect(()=>{
@@ -84,8 +85,8 @@ const ListProductScreen =()=>{
       
     // },[categoryId, featured, brandId]);
     useEffect(()=>{
-      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock))
-    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock, ])
+      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order ])
 
 
     useEffect(() => {
@@ -107,12 +108,20 @@ const ListProductScreen =()=>{
         <>
 <div className="bg-main">
 </div>
-      <div className="container">
-  <div className="box">
+  <div className="container">
+    <div className="box list_product">
     <div className="breadcumb">
       <Link to="/">home</Link>
       <span><i className="bx bxs-chevrons-right" /></span>
       <span onClick={resetCategoryId} style={{cursor:'pointer'}}>All products</span>
+    </div>
+    <div style={{width:'30%'}}>
+      <select id="order" type="text" onChange={(e) => setOrder(e.target.value)}>
+        <option value="">Mặc định</option>
+        <option value="ASC">Giá từ thấp đến cao</option>
+        <option value="DESC">Giá từ cao đến thấp</option>
+
+      </select>
     </div>
   </div>
   <div className="box">

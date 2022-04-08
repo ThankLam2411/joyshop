@@ -36,7 +36,7 @@ export default function PlaceOrderScreen(props) {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order.id}`);
-      // dispatch({ type: ORDER_CREATE_RESET });
+      dispatch({ type: ORDER_CREATE_RESET });
     }
   }, [dispatch, order, navigate, success]);
   return (

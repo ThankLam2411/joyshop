@@ -8,7 +8,7 @@ import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListR
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
-import {blogDeleteReducer, blogDetailsReducer, blogListReducer, blogUpdateReducer} from './reducers/blogReducer';
+import {blogCreateReducer, blogDeleteReducer, blogDetailsReducer, blogListReducer, blogUpdateReducer} from './reducers/blogReducer';
 import { contactCreateReducer } from './reducers/contactReducers';
 const initialState = {
     userSignin:{
@@ -67,6 +67,7 @@ const reducer = combineReducers({
     blogDetails: blogDetailsReducer,
     blogUpdate: blogUpdateReducer,
     blogDelete: blogDeleteReducer,
+    blogCreate: blogCreateReducer,
     contactCreate: contactCreateReducer,
 
 })

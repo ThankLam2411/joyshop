@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteBlog, listBlog } from "../actions/blogAction";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { BLOG_DELETE_RESET } from "../constants/blogConstants";
+import { BLOG_CREATE_RESET, BLOG_DELETE_RESET } from "../constants/blogConstants";
 
 const ListBlogScreen=()=>{
     const navigate = useNavigate();
@@ -15,32 +15,47 @@ const ListBlogScreen=()=>{
     const blogDelete = useSelector((state) => state.blogDelete);
     const {loading: loadingDelete, error: errorDelete, success: successDelete}= blogDelete
     console.log(blogs);
+    const blogCreate = useSelector((state) => state.blogCreate);
+    const {
+      loading: loadingCreate,
+      error: errorCreate,
+      success: successCreate,
+    } = blogCreate;
  
     useEffect(()=>{
       if (successDelete) {
         dispatch({ type: BLOG_DELETE_RESET });
       }
+      if(successCreate){
+        dispatch({ type: BLOG_CREATE_RESET})
+      }
       
       dispatch(listBlog())
-    },[dispatch, successDelete])
+    },[dispatch, successDelete, successCreate])
 
     const deleteHandler=(blog)=>{
         // e.preventDefault();
         if (window.confirm('Are you sure to delete?')) {
             dispatch(deleteBlog(blog.id));
           }
-        };
+    };
+    const createHandler=()=>{
+      navigate(`/blog/create`)
+    }
     
     return(
         <>
-            <h1>Blogs</h1>
-      {loadingDelete && <LoadingBox></LoadingBox>}
-      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
-      {loading ? (
-        <LoadingBox></LoadingBox>
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+        <h1>Blogs</h1>
+        <button type="button" className=" primary" style={{padding: '15px', borderRadius:'.5rem', margin:'15px', position:'absolute', right:'0px', top:'100px'}} onClick={createHandler}>
+          Create Blog
+        </button>
+        {loadingDelete && <LoadingBox></LoadingBox>}
+        {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+        {loading ? (
+          <LoadingBox></LoadingBox>
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
             <table className="table">
           <thead>
             <tr>

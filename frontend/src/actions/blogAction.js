@@ -1,5 +1,5 @@
 import  Axios  from "axios";
-import { BLOG_DELETE_FAIL, BLOG_DELETE_REQUEST, BLOG_DELETE_SUCCESS, BLOG_DETAILS_FAIL, BLOG_DETAILS_REQUEST, BLOG_DETAILS_SUCCESS, BLOG_LIST_FAIL, BLOG_LIST_REQUEST, BLOG_LIST_SUCCESS, BLOG_UPDATE_FAIL, BLOG_UPDATE_REQUEST, BLOG_UPDATE_SUCCESS } from "../constants/blogConstants";
+import { BLOG_CREATE_FAIL, BLOG_CREATE_REQUEST, BLOG_CREATE_SUCCESS, BLOG_DELETE_FAIL, BLOG_DELETE_REQUEST, BLOG_DELETE_SUCCESS, BLOG_DETAILS_FAIL, BLOG_DETAILS_REQUEST, BLOG_DETAILS_SUCCESS, BLOG_LIST_FAIL, BLOG_LIST_REQUEST, BLOG_LIST_SUCCESS, BLOG_UPDATE_FAIL, BLOG_UPDATE_REQUEST, BLOG_UPDATE_SUCCESS } from "../constants/blogConstants";
 
 export const listBlog=()=>async(dispatch)=>{
     dispatch({
@@ -75,5 +75,29 @@ export const deleteBlog = (blogId) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message;
       dispatch({ type: BLOG_DELETE_FAIL, payload: message });
+    }
+  };
+  export const createdBlog = (blog_title, blog_content,blog_image, product_id) => async (dispatch, getState) => {
+    dispatch({ type: BLOG_CREATE_REQUEST });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    try {
+      const { data } = await Axios.post(
+        '/api/blogs', {blog_title, blog_content,blog_image, product_id},
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({
+        type: BLOG_CREATE_SUCCESS,
+        payload: data.product,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({ type: BLOG_CREATE_FAIL, payload: message });
     }
   };

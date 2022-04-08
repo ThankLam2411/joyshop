@@ -14,6 +14,7 @@ const ProductCreateScreen=()=>{
     const {loading, error, success, product}= productCreate;
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo}= userSignin;
+
     // const brandList = useSelector((state) => state.brandList);
     // const {brands}= brandList;
     // console.log(brands)
@@ -96,29 +97,6 @@ const ProductCreateScreen=()=>{
         setLoadingUpload(false);
       }
     };
-    // const uploadFileHandler =(e)=>{
-    //   const file = e.target.files[0];
-    //   const formData = new FormData();
-    //   formData.append('image', file.name);
-    //   fetch(`/api/uploads/`,{
-    //     method: 'POST',
-    //     body: formData,
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Authorization: `Bearer ${userInfo.token}`,
-    //     },
-    //     credentials:'include',
-               
-    //   })
-    //   .then(res => res.json())
-    //   .then(res =>{
-    //     setLoadingUpload(res.msg);
-    //   })
-    //   .catch(error =>{
-    //     console.log(error);
-    //   })
-
-    // }
     
     return(
         <form class="form" onSubmit={submitHandler}>

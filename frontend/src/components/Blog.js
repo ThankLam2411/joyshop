@@ -37,6 +37,9 @@ const Blog =()=>{
     getBlogDetails2()
   },[])
   console.log(blog2)
+  const handleOnClick=() => {
+    navigate('/blog')
+  }
 
     return(
       <div className="section">
@@ -50,12 +53,12 @@ const Blog =()=>{
             </div>
             <div className="blog-info">
               <div className="blog-title">
-                {blog1.blog_title}
+                <h5>{blog1.blog_title}</h5>
               </div>
               <div className="blog-preview">
                 {blog1.blog_content}
               </div>
-              <button className="btn-flat btn-hover">read more</button>
+              <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
             </div>
           </div>
           <div className="blog row-revere">
@@ -64,12 +67,12 @@ const Blog =()=>{
             </div>
             <div className="blog-info">
               <div className="blog-title">
-                {blog2.blog_title}
+                <h5>{blog2.blog_title}</h5>
               </div>
               <div className="blog-preview">
                 {blog2.blog_content}
               </div>
-              <button className="btn-flat btn-hover">read more</button>
+              <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
             </div>
           </div>
           <div className="section-footer">

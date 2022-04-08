@@ -20,7 +20,24 @@ blogRouter.get('/',expressAsyncHandler(async (req, res) => {
             })
             res.send(blogs)
    
-}))
+}));
+blogRouter.post(
+  '/',
+  // isAdmin,
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+
+    const blog = new Blog({
+      blog_title: req.body.blog_title||blog.blog_title,
+      blog_content: req.body.blog_content||blog.blog_content,
+      blog_image: req.body.blog_image||blog.blog_image,
+      product_id: req.body.product_id||blog.product_id,
+  
+    });
+    const createdBlog = await blog.save();
+    res.send({ message: 'Product Created', blog: createdBlog });
+  })
+);
 blogRouter.get('/:id',expressAsyncHandler(async (req, res) => {
     const blogs= await Blog.findOne({
         where: {id: req.params.id},
@@ -77,4 +94,5 @@ blogRouter.delete(
       }
     })
   );
+
 export default blogRouter;

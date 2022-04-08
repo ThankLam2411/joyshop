@@ -7,6 +7,7 @@ import ProductItem from './components/Product-item';
 import Promotion from './components/Promotion';
 import Slider from './components/Slider';
 import data from './data';
+import BlogCreateScreen from './screens/BlogCreateScreen';
 import BlogDetailScreen from './screens/BlogDetailScreen';
 import BlogScreen from './screens/BlogScreen';
 import CartScreen from './screens/CartScreen';
@@ -40,6 +41,11 @@ function App() {
     {/* hero section */}
     <main>
       <Routes>
+      <Route
+              path="/blog/create"
+              element={<BlogCreateScreen/>}
+              exact
+        ></Route>
       <Route
               path="/blog/:id"
               element={<BlogDetailScreen/>}
