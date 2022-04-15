@@ -81,8 +81,9 @@ app.post('/send_mail', cors(), async(req, res)=>{
   const { email, subject, message, name } = req.body;
 
   const transport = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    // host: process.env.MAIL_HOST,
+    // port: process.env.MAIL_PORT,
+    service:'gmail',
     auth: {
       user: process.env.MAIL_USER,
       pass: process.env.MAIL_PASS

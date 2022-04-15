@@ -76,7 +76,7 @@ const Blog =()=>{
             </div>
           </div>
           <div className="section-footer">
-            <Link to="#" className="btn-flat btn-hover">view all</Link>
+            <Link to="/blog" className="btn-flat btn-hover">view all</Link>
           </div>
         </div>
   </div>

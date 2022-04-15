@@ -95,6 +95,7 @@ const uploadFileHandler = async (e) => {
       }else{
          setBlogTitle(blog.blog_title);
          setBlogContent(blog.blog_content);
+         setBlogImage(blog.blog_image);
          setProductId(blog.product_id)
     }
     // dispatch({type:BLOG_UPDATE_RESET})
@@ -141,6 +142,17 @@ const submitHandler = (e) => {
                 ></input>
           </div>
           <div>
+              <label htmlFor="image">Image</label>
+                <input
+                  id="image"
+                  type="text"
+                  placeholder="Enter image"
+                  value={blog_image}
+                  onChange={(e) => setBlogImage(e.target.value)}
+                ></input>
+                <img src={blog_image} class="medium"/>
+            </div>
+          <div>
               <label htmlFor="imageFile">Image File</label>
               <input
                 type="file"
@@ -157,7 +169,7 @@ const submitHandler = (e) => {
             (
               <div>
                 <select id="product_id" type="text" onChange={(e) => setProductId(e.target.value)}>
-                <option value=""></option>
+                <option value={product_id}></option>
                     {
                       products.products.map((product,index) =>(
                       <option 

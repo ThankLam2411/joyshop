@@ -21,7 +21,8 @@ const BlogCreateScreen =()=>{
 
     const [blog_title, setBlogTitle] = useState('');
     const [blog_content, setBlogContent] = useState('');
-    const [blog_image, setBlogImage] = useState('')
+    const [blog_image, setBlogImage] = useState('');
+
     const [product_id, setProductId] = useState('');
 
     const [loadingUpload, setLoadingUpload] = useState(false);
@@ -88,6 +89,17 @@ const BlogCreateScreen =()=>{
                   onChange={(e) => setBlogContent(e.target.value)}
                 ></input>
           </div>
+          <div>
+              <label htmlFor="image">Image</label>
+                <input
+                  id="image"
+                  type="text"
+                  placeholder="Enter image"
+                  value={blog_image}
+                  onChange={(e) => setBlogImage(e.target.value)}
+                ></input>
+                <img src={blog_image} class="medium"/>
+            </div>
           <div>
               <label htmlFor="imageFile">Image File</label>
               <input

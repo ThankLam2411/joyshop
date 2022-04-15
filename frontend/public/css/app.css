@@ -230,6 +230,23 @@ ul.devided > li:last-child {
     margin-left: 15px;
 }
 
+.user-menu-mobile {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 60px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.user-menu-mobile > li > a {
+    font-size: 25px;
+}
+.user-menu-mobile li{
+    margin-left: 15px;
+}
+
 .bottom-header {
     display: flex;
     align-items: center;
@@ -1021,8 +1038,13 @@ footer ul li {
 /* responsive */
 
 @media (max-width:1023px){
+    .user-menu-mobile{
+        display: none;
+    }
     .mobile-menu {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .header-wrapper {
@@ -1214,6 +1236,12 @@ footer ul li {
 }
 
 @media (max-width:739px){
+    .user-menu-mobile{
+        display: flex;
+    }
+    .user-menu{
+        display: none;
+    }
     .hero {
         height: calc(
             70vh -

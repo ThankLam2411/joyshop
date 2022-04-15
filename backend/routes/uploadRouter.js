@@ -30,7 +30,7 @@ const upload = multer({
     if(mimetype && extname){
         return cb(null,true)
     }
-    cb('Give propẻ file format to upload')
+    cb('Give prop file format to upload')
   }
  
     

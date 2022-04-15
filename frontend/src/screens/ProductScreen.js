@@ -176,7 +176,7 @@ const ProductScreen =()=>{
 
                                 </div>
                                 <div className="user-name">
-                                <span className="name">{comment.user.user_name}</span>
+                                <span className="name">{comment?.user?.user_name}</span>
                                 <span className="rating">{comment?.user?.user_email}</span>
                                 </div>
                             </div>

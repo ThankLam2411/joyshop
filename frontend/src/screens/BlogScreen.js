@@ -26,7 +26,7 @@ const BlogScreen = ()=>{
           <div className="row">
 
               {blogs.map((blog) =>(
-                <div className="c-6">
+                <div className="l-6 m-12">
                     <div className="blog-post">
                         <div className="blog-thumb">
                             <img className="medium" src={blog.product.image}/>
@@ -40,17 +40,7 @@ const BlogScreen = ()=>{
                               <li><a href="#">{blog?.createdAt?.substring(0, 10) || blog?.updatedAt?.substring(0, 10)}</a></li>
                             </ul>
                             <p>{blog.blog_content}</p>
-                            {/* <div className="post-options">
-                              <div className="row">
-                                <div className="col-lg-12">
-                                  <ul className="post-tags">
-                                    <li><i className="fa fa-tags" /></li>
-                                    <li><a href="#">Best Templates</a>,</li>
-                                    <li><a href="#">TemplateMo</a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div> */}
+                           
                           </div>
                         </div>
                 </div>

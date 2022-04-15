@@ -17,7 +17,6 @@ const SigninScreen=()=>{
         ?JSON.parse(localStorage.getItem('loginData'))
         :null
     );
-    console.log(loginData);
   
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
