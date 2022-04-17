@@ -46,12 +46,12 @@ const Header=()=>{
 
                             <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
-                            <li className="dropdown-header" style={{}}><Link to="#">
-                            {/* {(!userInfo?.user_image  )? 
+                            {/* <li className="dropdown-header" style={{}}><Link to="#">
+                            {(!userInfo  )? 
                               (<i className="bx bx-user-circle" /> ):(
                                 //  <img className="user-image" src={userInfo?.user_image}/>
                                 <></>
-                                )} */}
+                                )}
                             {
                               userInfo ? (
                                 <div className="dropdown-header" >
@@ -111,7 +111,7 @@ const Header=()=>{
                                 
                               
                             </Link></li>
-                            
+                             */}
                             <li><Link to="/cart"><i className="bx bx-cart" />
                             {cartItems.length>0&&(
                               <span className="badge">{cartItems.length}</span>
