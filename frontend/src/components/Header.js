@@ -35,7 +35,7 @@ const Header=()=>{
   useEffect(()=>{
     dispatch(listBrand())
   },[dispatch]);
-  console.log(!userInfo?.user_image)
+  console.log(userInfo)
     return(
         <header>
         {/* mobile menu */}
@@ -46,12 +46,9 @@ const Header=()=>{
 
                             <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
-                            {/* <li className="dropdown-header" style={{}}><Link to="#">
-                            {(!userInfo  )? 
-                              (<i className="bx bx-user-circle" /> ):(
-                                //  <img className="user-image" src={userInfo?.user_image}/>
-                                <></>
-                                )}
+                            
+                            <li className="dropdown-header" style={{}}>
+                        
                             {
                               userInfo ? (
                                 <div className="dropdown-header" >
@@ -110,8 +107,8 @@ const Header=()=>{
                         )}
                                 
                               
-                            </Link></li>
-                             */}
+                            </li>
+                            
                             <li><Link to="/cart"><i className="bx bx-cart" />
                             {cartItems.length>0&&(
                               <span className="badge">{cartItems.length}</span>
@@ -160,33 +157,45 @@ const Header=()=>{
                         <li ><Link to="#"><i className="bx bx-bell" /></Link></li>
                             
                         <li className="dropdown-header" style={{}}><Link to="#">
-                          {(!userInfo.user_image || !!userInfo.user_image)? (<i className="bx bx-user-circle" />):(
-                            <img className="user-image" src={userInfo?.user_image}/>
-                          )}
+                                
+                          {/* {userInfo  ? (<img className="user-image" src={userInfo?.user_image}/>):(
+                            <i className="bx bx-user-circle" />
+                          )} */}
+                          
                           {
                             userInfo ? (
-                              <div className="dropdown-header" >
-                                <Link className="user_info" to="#">
-                                  {userInfo.user_name} <i className="fa fa-caret-down"></i>{' '}
-                                </Link>
+                              <>
+                            <img className="user-image" src={userInfo.user_image}/>
+                                <div className="dropdown-header" >
+                                  <Link className="user_info" to="#">
+                                    {userInfo.user_name} <i className="fa fa-caret-down"></i>{' '}
+                                  </Link>
+                                  <ul className="dropdown-header-content">
+                                    <li >
+                                      <Link to="/profile" >User Profile</Link>
+                                    </li>
+                                    <li >
+                                      <Link to="/orderhistory">Order History</Link>
+                                    </li>
+                                    <li >
+                                      <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </>
+                          
+                              ):(
+                                <>
+                                <i className="bx bx-user-circle" />
+
                                 <ul className="dropdown-header-content">
-                                  <li >
-                                    <Link to="/profile" >User Profile</Link>
-                                  </li>
-                                  <li >
-                                    <Link to="/orderhistory">Order History</Link>
-                                  </li>
-                                  <li >
-                                    <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                                  <li className="dropdown-header-item">
+                                    <Link to="/signin">Sign In</Link>
                                   </li>
                                 </ul>
-                              </div>
-                              ):(
-                              <ul className="dropdown-header-content">
-                                <li className="dropdown-header-item">
-                                  <Link to="/signin">Sign In</Link>
-                                </li>
-                              </ul>
+
+                                </>
+                             
                               )}
                           {userInfo && userInfo.isAdmin && (
                           <div className="dropdown-header">

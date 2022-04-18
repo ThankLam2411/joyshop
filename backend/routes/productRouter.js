@@ -83,27 +83,7 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
     page
     })
 }))
-// productRouter.get('/', expressAsyncHandler(async(req, res)=>{
-//   const products = await Product.findAll({
-//     where: {
 
-//     },
-
-//     include: [
-//       {
-//        model: Brand,
-//        required: false,
-//        // attribute: ['brand_id']
-//       },
-//       {
-//        model: Category,
-//        required: false,
-//       },
-//    ],
-
-//   });
-//   res.send(products)
-// }))
 
 productRouter.get('/find',expressAsyncHandler(async (req, res) => {
             console.log('123',req.query.q)
@@ -134,13 +114,7 @@ productRouter.get('/find',expressAsyncHandler(async (req, res) => {
                     },
                     {
                       
-                       '$brand.brand_name$': { [Op.like]: `%${req.query.q}%` } 
-
-                      
-                         
-                         // attribute: ['brand_id']
-                        
-                      
+                       '$brand.brand_name$': { [Op.like]: `%${req.query.q}%` }                       
                     }
                    
                   ]

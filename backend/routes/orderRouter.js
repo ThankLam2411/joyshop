@@ -117,9 +117,25 @@ orderRouter.post(
                     product_id: val.product,
                     order_id: order.id 
                 });
+                const product = new Product({
+                    countInStock: Number(val.countInStock - val.qty)
+                }); 
+                const result2 = product.save();
+                console.log('aaaaaa', result2)
                 return orderItems.save();
-            }))
+            })
+            )
             console.log('bbbbbb',result);
+
+            // const result2 =  await Promise.all(req.body.cartItems.map(async (val) => {
+            //     const product = new Product({
+            //         countInStock: Number(countInStock - qty)
+            //     });
+            //     return product.save();
+            // })
+            // )
+            // console.log('cccc',result2);
+
             res.status(201).send({ message: 'New order created', order: createdOrder });
         }
     })
