@@ -1,3 +1,4 @@
+import { Editor } from "@tinymce/tinymce-react";
 import Axios  from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -111,6 +112,9 @@ const submitHandler = (e) => {
   e.preventDefault();
   dispatch(updateBlog(blogId,blog_title, blog_content,blog_image, product_id));
 }
+const handleEditorChange=(e)=>{
+  setBlogContent(e)
+}
 // console.log(products.products)
   return(
     
@@ -133,13 +137,22 @@ const submitHandler = (e) => {
         </div>
           <div>
                 <label htmlFor="blog_content">Blog Content</label>
-                <input
+                <Editor
+                  value={blog_content}
+                  init={{
+                    height: 500,
+                    menubar: false
+                  }}
+                  onEditorChange={handleEditorChange}
+
+                />
+                {/* <input
                   id="blog_content"
                   type="text"
                   // placeholder="Enter blog_content"
                   value={blog_content}
                   onChange={(e) => setBlogContent(e.target.value)}
-                ></input>
+                ></input> */}
           </div>
           <div>
               <label htmlFor="image">Image</label>

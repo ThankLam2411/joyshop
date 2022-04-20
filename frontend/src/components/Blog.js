@@ -22,7 +22,8 @@ const Blog =()=>{
     getBlogDetails1()
 
     
-  },[])
+  },[]);
+  const parse = require('html-react-parser');
   useEffect(() => {
     async function getBlogDetails2(){
       let data = await Axios.get(`/api/blogs/2`);
@@ -56,7 +57,7 @@ const Blog =()=>{
                 <h5>{blog1.blog_title}</h5>
               </div>
               <div className="blog-preview">
-                {blog1.blog_content}
+                {parse(blog1.blog_content)}
               </div>
               <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
             </div>
@@ -70,7 +71,7 @@ const Blog =()=>{
                 <h5>{blog2.blog_title}</h5>
               </div>
               <div className="blog-preview">
-                {blog2.blog_content}
+                {parse(blog2.blog_content)}
               </div>
               <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
             </div>

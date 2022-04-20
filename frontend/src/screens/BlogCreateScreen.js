@@ -6,6 +6,7 @@ import { createdBlog } from "../actions/blogAction";
 import { listFeaturedProducts } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { Editor } from "@tinymce/tinymce-react";
 
 const BlogCreateScreen =()=>{
     const dispatch = useDispatch();
@@ -59,7 +60,11 @@ const BlogCreateScreen =()=>{
     const submitHandler=(e)=>{
         e.preventDefault();
         dispatch(createdBlog(blog_title, blog_content,blog_image, product_id))
+    };
+    const handleEditorChange=(e)=>{
+      setBlogContent(e)
     }
+    console.log(blog_content)
     return (
         <>
     <form className="form" onSubmit={submitHandler}>
@@ -81,13 +86,22 @@ const BlogCreateScreen =()=>{
         </div>
           <div>
                 <label htmlFor="blog_content">Blog Content</label>
-                <input
+                <Editor
+                  value={blog_content}
+                  init={{
+                    height: 500,
+                    menubar: false
+                  }}
+                  onEditorChange={handleEditorChange}
+
+                />
+                {/* <input
                   id="blog_content"
                   type="text"
                   // placeholder="Enter blog_content"
                   value={blog_content}
                   onChange={(e) => setBlogContent(e.target.value)}
-                ></input>
+                ></input> */}
           </div>
           <div>
               <label htmlFor="image">Image</label>

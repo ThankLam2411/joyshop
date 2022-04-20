@@ -42,15 +42,15 @@ const ProductScreen =()=>{
     }
 
     const createCommentHandler=()=>{
-        async function postComment(){
-            return await Axios.post('/api/comments',{comment_content, user_id:userId, product_id:productId},{
+        // async function postComment(){
+        //     return await Axios.post('/api/comments',{comment_content, user_id:userId, product_id:productId},{
         
-                headers: { Authorization: `Bearer ${userInfo.token}` },
-               })
+        //         headers: { Authorization: `Bearer ${userInfo.token}` },
+        //        })
             
-        }
-        postComment()
-        // dispatch(postComment(comment_content, productId))
+        // }
+        // postComment()
+        dispatch(postComment(comment_content, productId))
 
     }
     console.log(comment_content,  productId)
@@ -144,7 +144,7 @@ const ProductScreen =()=>{
                     review
                 </div>
                 {/* <Comment key={productId} productId={productId} /> */}
-
+            <form className='' onSubmit={createCommentHandler}>
                     <div className="row">       
                         <div className="user-rate">
                             <div className="user-info">
@@ -165,9 +165,10 @@ const ProductScreen =()=>{
                         </div>
                     </div>
                 <div>
-                    <button type="submit" onClick={createCommentHandler} className="btn-flat btn-hover">Post</button>
+                    <button type="submit"  className="btn-flat btn-hover">Post</button>
                 </div>
-             {comments.map((comment) =>(
+            </form>
+             {comments?.map((comment) =>(
                  <div className="row">
                         <div className="user-rate c-6">
                             <div className="user-info">
@@ -181,7 +182,7 @@ const ProductScreen =()=>{
                                 </div>
                             </div>
                             <div className="user-rate-content c-6">
-                                {comment.comment_content}
+                                {comment?.comment_content}
                             </div>
                       </div>
                     </div>

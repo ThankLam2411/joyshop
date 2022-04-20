@@ -17,7 +17,7 @@ export const commentsCreateReducer = (state={}, action)=>{
         case COMMENT_CREATE_REQUEST:
             return {loading: true}
         case COMMENT_CREATE_SUCCESS:
-            return {loading: false, comment: action.payload}
+            return {loading: false, comment: action.payload, success:true}
         case COMMENT_CREATE_FAIL:
             return {loading: false, error: action.payload}
         default:

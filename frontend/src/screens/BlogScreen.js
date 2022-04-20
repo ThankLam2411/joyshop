@@ -1,19 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { listBlog } from "../actions/blogAction";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-
+import parse from 'html-react-parser';
 const BlogScreen = ()=>{
     const dispatch = useDispatch();
     const blogList = useSelector((state) => state.blogList);
     const {loading, error, blogs}= blogList;
-    console.log(blogs);
+    const parse = require('html-react-parser');
+  const [ele,setEle] = useState();
  
     useEffect(()=>{
         dispatch(listBlog())
     },[dispatch])
+
+    useEffect(()=>{
+     if(blogs !== undefined){
+
+       console.log(blogs.length!==0 ? blogs[3].blog_content : '');
+      
+     }
+  },[blogs])
     return(
 <section className="blog-posts grid-system">
   <div className="container">
@@ -39,7 +48,7 @@ const BlogScreen = ()=>{
                               <li><a href="#">Admin</a></li>
                               <li><a href="#">{blog?.createdAt?.substring(0, 10) || blog?.updatedAt?.substring(0, 10)}</a></li>
                             </ul>
-                            <p>{blog.blog_content}</p>
+                            <p>{parse(blog.blog_content)}</p>
                            
                           </div>
                         </div>

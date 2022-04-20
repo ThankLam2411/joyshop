@@ -117,12 +117,15 @@ orderRouter.post(
                     product_id: val.product,
                     order_id: order.id 
                 });
-                const product = new Product({
-                    countInStock: Number(val.countInStock - val.qty)
-                }); 
-                const result2 = product.save();
+                const product = await Product.findByPk(val.product)
+                product.countInStock= Number(product.countInStock - val.qty)
+                // const product = new Product({
+                //     product_id: val.product,
+                //     countInStock: Number(val.countInStock - val.qty)
+                // }); 
+                const result2 = await product.save();
                 console.log('aaaaaa', result2)
-                return orderItems.save();
+                return await orderItems.save();
             })
             )
             console.log('bbbbbb',result);

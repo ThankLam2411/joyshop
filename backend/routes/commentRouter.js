@@ -3,7 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
 import {Product, Brand, User,Comment} from '../models/index.js';
 import {Sequelize} from "sequelize";
-import { isAuth } from "../utils.js";
+import { isAdmin, isAuth } from "../utils.js";
 
 const commentRouter = express.Router();
 commentRouter.get('/:id', expressAsyncHandler(async(req,res)=>{
@@ -40,4 +40,23 @@ commentRouter.post(
     const createdComment = await comment.save();
     res.send({ message: 'Comment created', comment: createdComment });
 }))
+commentRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async(req,res)=>{
+        const comments = await Comment.findAll({
+            include:[
+               {
+                model: Product
+
+               },
+
+            ],
+            order:['product_id']
+
+        })
+        res.send(comments)
+    })
+)
 export default commentRouter;
