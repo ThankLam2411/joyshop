@@ -23,7 +23,10 @@ const CartScreen =()=>{
         dispatch(removeFromCart(id))
     };
     const checkoutHandler=()=>{
-        navigate(`/signin?redirect=shipping`);
+        if (window.confirm('Are you sure to order?')) {
+         navigate(`/signin?redirect=shipping`);
+        }
+
         
     }
  return(

@@ -28,7 +28,6 @@ const ListProductScreen =()=>{
     const [featured,setFeatured]= useState(false);
     const [inStock,setInStock]= useState(false);
     const [order, setOrder]= useState('')
-    console.log(products);
 
     // useEffect(()=>{
     //   async function listProducts(){
@@ -103,80 +102,79 @@ const ListProductScreen =()=>{
     const resetCategoryId=()=>{
       setCategoryId([])
     }
-    console.log(featured)
     return(
         <>
-<div className="bg-main">
-</div>
-  <div className="container">
-    <div className="box list_product">
-    <div className="breadcumb">
-      <Link to="/">home</Link>
-      <span><i className="bx bxs-chevrons-right" /></span>
-      <span onClick={resetCategoryId} style={{cursor:'pointer'}}>All products</span>
-    </div>
-    <div style={{width:'30%'}}>
-      <select id="order" type="text" onChange={(e) => setOrder(e.target.value)}>
-        <option value="">Mặc định</option>
-        <option value="ASC">Giá từ thấp đến cao</option>
-        <option value="DESC">Giá từ cao đến thấp</option>
-
-      </select>
-    </div>
-  </div>
-  <div className="box">
-    <div className="row">
-      <div className="col-3 filter-col" id="filter-col">
-        <div className="box filter-toggle-box">
-          <button className="btn-flat btn-hover" id="filter-close">close</button>
-        </div>
-        <div className="box">
-          <span className="filter-header">
-            Categories
-          </span>
-          <ul className="filter-list">
-            {
-              categories.map((item, index)=>(
-                <li key={index} value={item.id} onClick={(e)=>setCategoryId(e.target.value)}  style={{cursor:'pointer'}} className={categoryId === item.id ? 'active_category':' '}>{item.category_name}</li>
-              ))
-            }
-          
-          </ul>
-        </div>
-        <div className="box">
-          <span className="filter-header">
-            Price
-          </span>
-          <div className="price-range">
-            <input type="text" value ={priceMin} onChange={(e) => setPriceMin(e.target.value)} />
-            <span>-</span>
-            <input type="text" value ={priceMax} onChange={(e) => setPriceMax(e.target.value)} />
+          <div className="bg-main">
           </div>
-        </div>
-        <div className="box">
-          <ul className="filter-list">
-           
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="status1" value={inStock} onChange={(e) =>setInStock(e.target.checked)}/>
-                <label htmlFor="status1">
-                  In stock
-                  <i className="bx bx-check" />
-                </label>
+            <div className="container">
+              <div className="box list_product">
+              <div className="breadcumb">
+                <Link to="/">home</Link>
+                <span><i className="bx bxs-chevrons-right" /></span>
+                <span onClick={resetCategoryId} style={{cursor:'pointer'}}>All products</span>
               </div>
-            </li>
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="status2" value={featured} onChange={(e) =>setFeatured(e.target.checked)} />
-                <label htmlFor="status2">
-                  Featured
-                  <i className="bx bx-check" />
-                </label>
+              <div style={{width:'30%'}}>
+                <select id="order" type="text" onChange={(e) => setOrder(e.target.value)}>
+                  <option value="">Mặc định</option>
+                  <option value="ASC">Giá từ thấp đến cao</option>
+                  <option value="DESC">Giá từ cao đến thấp</option>
+
+                </select>
               </div>
-            </li>
-          </ul>
-        </div>
-      
+            </div>
+            <div className="box">
+              <div className="row">
+                <div className="col-3 filter-col" id="filter-col">
+                  <div className="box filter-toggle-box">
+                    <button className="btn-flat btn-hover" id="filter-close">close</button>
+                  </div>
+                  <div className="box">
+                    <span className="filter-header">
+                      Categories
+                    </span>
+                    <ul className="filter-list">
+                      {
+                        categories.map((item, index)=>(
+                          <li key={index} value={item.id} onClick={(e)=>setCategoryId(e.target.value)}  style={{cursor:'pointer'}} className={categoryId === item.id ? 'active_category':' '}>{item.category_name}</li>
+                        ))
+                      }
+                    
+                    </ul>
+                  </div>
+                  <div className="box">
+                    <span className="filter-header">
+                      Price
+                    </span>
+                    <div className="price-range">
+                      <input type="text" value ={priceMin} onChange={(e) => setPriceMin(e.target.value)} />
+                      <span>-</span>
+                      <input type="text" value ={priceMax} onChange={(e) => setPriceMax(e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="box">
+                    <ul className="filter-list">
+                    
+                      <li>
+                        <div className="group-checkbox">
+                          <input type="checkbox" id="status1" value={inStock} onChange={(e) =>setInStock(e.target.checked)}/>
+                          <label htmlFor="status1">
+                            In stock
+                            <i className="bx bx-check" />
+                          </label>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="group-checkbox">
+                          <input type="checkbox" id="status2" value={featured} onChange={(e) =>setFeatured(e.target.checked)} />
+                          <label htmlFor="status2">
+                            Featured
+                            <i className="bx bx-check" />
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                
         {/* <div className="box">
           <span className="filter-header">
             rating
@@ -280,8 +278,8 @@ const ListProductScreen =()=>{
         </div>
           )}
 
-<div className="box">
-                  <ul className="pagination">
+        <div className="box">
+              <ul className="pagination">
                   {/* {pages.map((x) => (
                   <Link
                     className={x + 1 === products.page ? 'active' : ''}
@@ -313,8 +311,8 @@ const ListProductScreen =()=>{
                   <li><Link to="#"><i className="bx bxs-chevron-right" /></Link></li>
 
                     
-                  </ul>
-                </div>
+              </ul>
+          </div>
       </div>
     </div>
   </div>

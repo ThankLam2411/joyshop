@@ -35,7 +35,6 @@ const Header=()=>{
   useEffect(()=>{
     dispatch(listBrand())
   },[dispatch]);
-  console.log(userInfo)
     return(
         <header>
         {/* mobile menu */}
@@ -98,6 +97,9 @@ const Header=()=>{
                               </li>
                               <li>
                                 <Link to="/bloglist">Blogs</Link>
+                              </li>
+                              <li>
+                                <Link to="/contactlist">Contacts</Link>
                               </li>
                               <li>
                                 <Link to="/support">Support</Link>

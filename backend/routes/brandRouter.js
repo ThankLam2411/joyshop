@@ -31,6 +31,7 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
     const order= req.query.order ? req.query.order:'';
     // const order ='DESC'
     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
+
     const products = await Product.findAndCountAll({
         limit: pageSize,
         offset: pageSize * (page - 1),

@@ -1,7 +1,7 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
-import {Product, Brand, Category} from '../models/index.js'
+import {Product, Brand, Category, OrderDetail} from '../models/index.js'
 // import Category from '../models/categoryModel.js';
 import { isAuth, isAdmin } from "../utils.js";
 import {Sequelize} from "sequelize";
@@ -201,7 +201,7 @@ productRouter.patch(
     })
   );
   
-  productRouter.delete(
+productRouter.delete(
     '/:id',
     isAuth,
     isAdmin,
@@ -212,19 +212,21 @@ productRouter.patch(
             {
              model: Brand,
              required: false,
-             where: {
-                 // is_valid:1,
-                 // is_vertify:1
-             }
              // attribute: ['brand_id']
             },
+            
+            {
+              model: OrderDetail,
+             required: false,
+            }
         ]
       });
-      if (product) {
+      console.log(product);
+      if (product && product.orderDetail === null) {
         const deleteProduct = await product.destroy();
         res.send({ message: 'Product Deleted', product: deleteProduct });
       } else {
-        res.status(404).send({ message: 'Product Not Found' });
+        res.status(404).send({ message: 'Product Not Found or Product is ordered' });
       }
     })
   );

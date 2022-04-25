@@ -37,7 +37,6 @@ export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featu
             type: BRAND_LIST_PRODUCT_SUCCESS,
             payload: data
         })
-        console.log(data)
     }catch(error){
         dispatch({
             type: BRAND_LIST_PRODUCT_FAIL,

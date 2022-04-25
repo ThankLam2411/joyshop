@@ -40,7 +40,8 @@ const ListOrderHistoryScreen=()=>{
             dispatch(deleteOrder(order.id));
           }
         };
-    
+    console.log(orders===[]);
+    // if(orders) return null 
     return(
         <>
             <h1>Orders</h1>
@@ -67,7 +68,7 @@ const ListOrderHistoryScreen=()=>{
             {orders.map((order) => (
               <tr key={order.id}>
                 <td>{order.id}</td>
-                <td>{order.user.user_name}</td>
+                <td>{order?.user?.user_name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>

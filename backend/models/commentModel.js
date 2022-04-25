@@ -20,7 +20,7 @@ const Comment = db.define('comment',{
 
 
 },{
-    timestamps:false,
+    timestamps:true,
     freezeTableName: true
 });
 

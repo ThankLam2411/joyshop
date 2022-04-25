@@ -1,5 +1,5 @@
 import  Axios  from "axios"
-import { COMMENT_CREATE_FAIL, COMMENT_CREATE_REQUEST, COMMENT_CREATE_SUCCESS, COMMENT_LIST_FAIL, COMMENT_LIST_REQUEST, COMMENT_LIST_SUCCESS } from "../constants/commentConstants"
+import { COMMENT_CREATE_FAIL, COMMENT_CREATE_REQUEST, COMMENT_CREATE_SUCCESS, COMMENT_LIST_ALL_FAIL, COMMENT_LIST_ALL_REQUEST, COMMENT_LIST_ALL_SUCCESS, COMMENT_LIST_FAIL, COMMENT_LIST_REQUEST, COMMENT_LIST_SUCCESS } from "../constants/commentConstants"
 
 export const commentsByProductId=(productId)=>async (dispatch) => {
     dispatch({
@@ -42,4 +42,29 @@ export const postComment=(comment_content,  product_id)=>async(dispatch, getStat
         })
     }
     
+}
+
+export const getComments=()=>async(dispatch,getState)=>{
+    dispatch({type: COMMENT_LIST_ALL_REQUEST})
+    const {
+        userSignin: { userInfo },
+      } = getState();
+      try{
+          const {data}= await Axios.get('/api/comments/',{
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+            })
+            dispatch({
+                type: COMMENT_LIST_ALL_SUCCESS,
+                payload: data
+            })
+
+      }catch(error){
+        dispatch({
+            type: COMMENT_LIST_ALL_FAIL,
+            payload:
+              error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message,
+        })
+      }
 }

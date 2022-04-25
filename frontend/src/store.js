@@ -3,13 +3,13 @@ import thunk from 'redux-thunk';
 import { brandListProductReducer, brandListReducer } from './reducers/brandReducer';
 import { cartReducer } from './reducers/cartReducers';
 import { categoryListReducer } from './reducers/categoryReducers';
-import { commentsCreateReducer, commentsListReducer } from './reducers/commentReducers';
+import { commentsCreateReducer, commentsListAllReducer, commentsListReducer } from './reducers/commentReducers';
 import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderPayReducer, orderSummaryReducer } from './reducers/orderReducers';
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
 import { userDeleteReducer, userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer, userUpdateReducer } from './reducers/userReducers';
 import {blogCreateReducer, blogDeleteReducer, blogDetailsReducer, blogListReducer, blogUpdateReducer} from './reducers/blogReducer';
-import { contactCreateReducer } from './reducers/contactReducers';
+import { contactCreateReducer, contactDeleteReducer, contactListReducer } from './reducers/contactReducers';
 const initialState = {
     userSignin:{
         userInfo: localStorage.getItem('userInfo')? JSON.parse(localStorage.getItem('userInfo')) : null,
@@ -63,12 +63,15 @@ const reducer = combineReducers({
     orderPay: orderPayReducer,
     commentsList: commentsListReducer,
     commentsCreate: commentsCreateReducer,
+    commentsListAll: commentsListAllReducer,
     blogList: blogListReducer,
     blogDetails: blogDetailsReducer,
     blogUpdate: blogUpdateReducer,
     blogDelete: blogDeleteReducer,
     blogCreate: blogCreateReducer,
     contactCreate: contactCreateReducer,
+    contactList: contactListReducer,
+    contactDelete: contactDeleteReducer
 
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

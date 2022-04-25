@@ -1,10 +1,13 @@
 import  Axios  from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom';
+import parse from 'html-react-parser';
+
 const Blog =()=>{
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const parse = require('html-react-parser');
   const [blog1, setBlog1]= useState({});
   const [blog2, setBlog2]= useState({});
 
@@ -23,7 +26,6 @@ const Blog =()=>{
 
     
   },[]);
-  const parse = require('html-react-parser');
   useEffect(() => {
     async function getBlogDetails2(){
       let data = await Axios.get(`/api/blogs/2`);
@@ -37,11 +39,10 @@ const Blog =()=>{
     }
     getBlogDetails2()
   },[])
-  console.log(blog2)
   const handleOnClick=() => {
     navigate('/blog')
   }
-
+ if(blog1.blog_content === undefined || blog2.blog_content === undefined) return null
     return(
       <div className="section">
         <div className="container">

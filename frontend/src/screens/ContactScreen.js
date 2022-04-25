@@ -19,6 +19,7 @@ const ContactScreen=()=>{
   const {loading:loadingCreate, error, success, contact}= contactCreate;
   useEffect(() => {
     if(success){
+       toast.success('Send message successfully')
       dispatch({type: CONTACT_CREATE_RESET})
       setName('');
       setEmail('');;
@@ -28,28 +29,30 @@ const ContactScreen=()=>{
   },[dispatch,success])
   const submitHandler = async(e) => {
     e.preventDefault();
-    if (!email || !subject || !message){
-      return toast.error('Please fill name, email, subject, and message')
-    }
-    try {
-      setLoading(true);
+    // if (!email || !subject || !message){
+    //   return toast.error('Please fill name, email, subject, and message')
+    // }
+    // try {
+    //   setLoading(true);
 
-      const {data} = await Axios.post('/send_mail',{
-        message, email, name, subject
-      });
-      setLoading(false);
-      toast.success(data.message)
-    }catch(err){
-      setLoading(false);
-      toast.error(
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
-      );
-    }
-   dispatch(createContact(name, email, message))
+    //   const {data} = await Axios.post('/send_mail',{
+    //     message, email, name, subject
+    //   });
+    //   setLoading(false);
+    //   toast.success(data.message)
+    // }catch(err){
+    //   setLoading(false);
+    //   toast.error(
+    //     err.response && err.response.data.message
+    //       ? err.response.data.message
+    //       : err.message
+    //   );
+    // }
+  
+   dispatch(createContact({name, email,subject, message}))
+
 }
-  console.log(name, email, message)
+  console.log(name, email,subject, message)
 
   
     return(
@@ -123,7 +126,7 @@ const ContactScreen=()=>{
       <ul className="contact-list">
         <li className="list-item"><i className="fa fa-map-marker fa-2x"><span className="contact-text place">Ha Noi, VietNam</span></i></li>
         <li className="list-item"><i className="fa fa-phone fa-2x"><span className="contact-text phone"><a href="tel:1-212-555-5555" title="Give me a call">(+84)866 843 733</a></span></i></li>
-        <li className="list-item"><i className="fa fa-envelope fa-2x"><span className="contact-text gmail"><a href="mailto:#" title="Send me an email">lam@gmail.com</a></span></i></li>
+        <li className="list-item"><i className="fa fa-envelope fa-2x"><span className="contact-text gmail"><a href="mailto:thanhlam241120@gmail.com" title="Send me an email">lam@gmail.com</a></span></i></li>
       </ul>
       <hr />
     </div>

@@ -105,9 +105,9 @@ orderRouter.post(
                 user_id: req.user.id,
 
             });
-            console.log('order', order);
+            console.log('order', req.body);
             const createdOrder = await order.save();
-          
+            
             const result =  await Promise.all(req.body.cartItems.map(async (val) => {
                 const orderItems = new OrderDetail({
                     name: val.product_name,

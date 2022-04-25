@@ -15,7 +15,9 @@ const Contact = db.define('contact',{
     message:{
         type: DataTypes.STRING,
     },
- 
+    subject:{
+        type: DataTypes.STRING,
+    }
 
 
 },{

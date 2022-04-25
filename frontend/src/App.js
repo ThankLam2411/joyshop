@@ -15,6 +15,7 @@ import ContactScreen from './screens/ContactScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import HomeScreen from './screens/HomeScreen';
 import ListBlogScreen from './screens/ListBlogScreen';
+import ListContactScreen from './screens/ListContactScreen';
 import ListOrderHistoryScreen from './screens/ListOrderHistoryScreen';
 import ListProductScreen from './screens/ListProductScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
@@ -51,6 +52,14 @@ function App() {
               element={<BlogDetailScreen/>}
               exact
         ></Route>
+           <Route
+              path="/contactlist"
+              element={
+                <AdminRoute>
+                  <ListContactScreen />
+                </AdminRoute>
+              }
+            />
       <Route
               path="/bloglist"
               element={

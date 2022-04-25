@@ -61,33 +61,6 @@ export default function OrderScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   console.log(order);
-  // useEffect(() => {
-  //   const addPayPalScript = async () => {
-  //     const { data } = await Axios.get('/api/config/paypal');
-  //     const script = document.createElement('script');
-  //     script.type = 'text/javascript';
-  //     script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-  //     script.async = true;
-  //     script.onload = () => {
-  //       setSdkReady(true);
-  //     };
-  //     document.body.appendChild(script);
-  //   };
-  //   if (
-  //     !order ||
-  //     (order && order.id !== orderId)
-  //   ) {
-  //     dispatch(detailsOrder(orderId));}
-  //   else{
-  //     if(!order.isPaid){
-  //       if (!window.paypal) {
-  //         addPayPalScript();
-  //       } else {
-  //         setSdkReady(true);
-  //       }
-  //     }
-  //   }
-  // },[dispatch,orderId, sdkReady,order]);
   const successPaymentHandler=(paymentResult)=>{
     dispatch(PayOrder(order,paymentResult))
 
