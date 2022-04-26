@@ -43,7 +43,7 @@ export default function PlaceOrderScreen(props) {
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <div className="row top">
-        <div className="cart-col-2">
+        <div className="cart-col-2 l-8">
           <ul>
             <li>
               <div className="card card-body">
@@ -80,7 +80,7 @@ export default function PlaceOrderScreen(props) {
                         </div>
                         <div className="min-30">
                           <Link to={`/product/${item.product}`}>
-                            {item.name}
+                            {item.product_name}
                           </Link>
                         </div>
 
@@ -95,7 +95,7 @@ export default function PlaceOrderScreen(props) {
             </li>
           </ul>
         </div>
-        <div className="cart-col-1">
+        <div className="cart-col-1 l-4">
           <div className="card card-body">
             <ul>
               <li>

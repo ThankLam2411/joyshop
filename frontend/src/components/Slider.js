@@ -100,6 +100,7 @@ const showSlide = () => {
               </div>
             </div>
             {/* end slide item */}
+     
           </div>
           {/* slider controller */}
           <button className="slide-controll slide-next" onClick={nextBtn}>

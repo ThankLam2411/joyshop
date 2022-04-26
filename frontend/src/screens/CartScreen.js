@@ -32,7 +32,7 @@ const CartScreen =()=>{
  return(
      <>
         <div className="row top">
-                <div className="cart-col-2">
+                <div className="cart-col-2 ">
                     <h2>Shopping Cart</h2>
                     {cartItems.length === 0 ? <MessageBox>
                         Cart is empty. <Link to="/">Go Shopping</Link>
@@ -46,7 +46,7 @@ const CartScreen =()=>{
                                             <img src={item.image} alt={item.product_name} className="small"></img>
                                         </div>
                                         <div className="min-30">
-                                          <Link to={`/product/${item.product}`}>{item.product_name}</Link>
+                                          <Link to={`/product/${item.product}`} ><span className="hidden_text">{item.product_name}</span></Link>
                                         </div>
                                         <div className="">
                                           
@@ -82,7 +82,7 @@ const CartScreen =()=>{
     
                 </div>
 
-                <div className="cart-col-1">
+                <div className="cart-col-1 ">
                     <div className="card card-body">
                         <ul>
                             <li>

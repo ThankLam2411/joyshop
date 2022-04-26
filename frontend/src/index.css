@@ -31,7 +31,7 @@ code {
   justify-content: flex-start;
 }
 .min-30{
-  min-width: 30rem;
+  min-width: 25rem;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -152,10 +152,10 @@ img.large{
   align-items: center;
 }
 .cart-col-1{
-  flex: 1 1 25rem;
+  flex: 1 1 20rem;
 }
 .cart-col-2{
-  flex: 2 1 50rem;
+  flex: 2 1 40rem;
 }
 .delete-btn{
     height: 50px;
@@ -901,4 +901,10 @@ ul.page-numbers li a:hover {
 .blog-posts .submit-comment button:hover {
 	background-color: #fb9857;
 }
-
+.hidden_text{
+  width: 25rem;
+  overflow: hidden; 
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

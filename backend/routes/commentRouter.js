@@ -42,21 +42,17 @@ commentRouter.post(
 }))
 commentRouter.get(
     '/',
-    isAuth,
-    isAdmin,
+    // isAuth,
+    // isAdmin,
     expressAsyncHandler(async(req,res)=>{
         const comments = await Comment.findAll({
-            include:[
-               {
-                model: Product
-
-               },
-
-            ],
-            order:['product_id']
+            // order: [
+            //     ["product_id", "ASC"],
+            // ],
+            order:Sequelize.literal("product_id","ASC")
 
         })
-        res.send(comments)
+        res.send({comments})
     })
 )
 export default commentRouter;

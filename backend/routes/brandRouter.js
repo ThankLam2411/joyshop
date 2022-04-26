@@ -52,9 +52,7 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
             required: false,
            
         }
-        ],
-    order:Sequelize.literal(`price ${order} `)
-    
+        ],    
         
       
     })

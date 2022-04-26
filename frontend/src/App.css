@@ -482,7 +482,7 @@ ul.devided > li:last-child {
   padding: 60px 0;
 }
 
-.section-header,
+/* .section-header,
 .section-footer {
   text-align: center;
   margin: 80px 0 70px;
@@ -491,7 +491,7 @@ ul.devided > li:last-child {
 
 .section-header h2 {
   font-size: 40px;
-}
+} */
 
 .product-card {
   background-color: var(--main-bg-color);

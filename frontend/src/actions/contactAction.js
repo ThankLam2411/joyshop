@@ -28,10 +28,9 @@ export const listContact = (page)=> async(dispatch)=>{
     try{
         const {data}= await Axios.get('/api/contacts',
         {
-          params: {
-            page: `${page}`
-          }
-        });
+          params: {page: `${page}`}
+        }
+        );
         dispatch({
             type: CONTACT_LIST_SUCCESS,
             payload: data, 

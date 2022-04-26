@@ -16,26 +16,24 @@ contactRouter.post('/', expressAsyncHandler(async (req, res)=>{
     res.send({ message: 'Comment created', contact: createdContact });
 }));
 contactRouter.get(
-        '/', 
-        isAuth,
-        isAdmin,
-        expressAsyncHandler(async (req, res)=>{
-    const pageSize = 8;
-    const page = Number(req.query.page) ||1;
-    const contacts = await Contact.findAndCountAll({
-        limit: pageSize,
-        offset: pageSize * (page - 1),
+    '/', 
+    expressAsyncHandler(async (req, res)=>{
+      const pageSize = 8;
+      const page = Number(req.query.page) ||1;
+      const contacts = await Contact.findAndCountAll({
+          limit: pageSize,
+          offset: pageSize * (page - 1),
 
-    })
-    if(contacts){
-        res.send({
-            contacts:contacts.rows,
-            totalPages:Math.ceil(contacts.count/pageSize),
-            page
-        })
-    }else{
-        res.send({message: 'No Contact Sent'})
-    }
+      })
+      if(contacts){
+          res.send({
+              contacts:contacts.rows,
+              totalPages:Math.ceil(contacts.count/pageSize),
+              page
+          })
+      }else{
+          res.send({message: 'No Contact Sent'})
+      }
 }))
 contactRouter.delete(
     '/:id',

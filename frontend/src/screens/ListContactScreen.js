@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {deleteContact, listContact} from '../actions/contactAction'
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { CONTACT_DELETE_RESET } from "../constants/contactConstant";
 
 
 export default function ListContactScreen(props) {
@@ -40,14 +41,15 @@ export default function ListContactScreen(props) {
     //   dispatch({ type: PRODUCT_CREATE_RESET });
     //   navigate(`/productlist`);
     // }
-    // if (successDelete) {
-    //   dispatch({ type: PRODUCT_DELETE_RESET });
-    // }
+    if (successDelete) {
+      dispatch({ type: CONTACT_DELETE_RESET });
+    }
     dispatch(listContact(pageNumber))
   }, [
     dispatch,
     navigate,
-    pageNumber
+    pageNumber,
+    successDelete
   ]);
 
   const deleteHandler = (contact) => {

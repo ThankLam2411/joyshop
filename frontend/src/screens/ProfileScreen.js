@@ -26,8 +26,7 @@ const ProfileScreen=()=>{
     const {loading, error, user} = userDetails;
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
     const {success: successUpdate,error:errorUpdate, loading: loadingUpdate} = userUpdateProfile;
-    console.log(user)
-    console.log(userInfo.id)
+    console.log(userDetails)
     // const [user_name, setUserName] = useState(user.user_name);
     // const [user_email, setUserEmail] = useState(user.user_email);
     // const [user_phone, setUserPhone] = useState(user.user_phone);
@@ -35,11 +34,7 @@ const ProfileScreen=()=>{
     // const [user_password, setUserPassword] = useState('')
     // const [confirmPassword, setConfirmPassword] = useState('')
     useEffect(()=>{
-        if(successUpdate){
-            // navigate('/profile')
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-
-        }
+  console.log('adddadastftfgfgfg ',successUpdate);
         if(!user){
             dispatch(detailsUser(userInfo.id))
         }else{
@@ -47,16 +42,27 @@ const ProfileScreen=()=>{
             setUserEmail(user.user_email);
             setUserPhone(user.user_phone);
             setUserAddress(user.user_address);
-            setUserImage(user?.user_image);
+            setUserImage(user.user_image);
             // setUserPassword(user.user_password);
         }
-    },[dispatch, userInfo.id, user, successUpdate, navigate]);
+        if(successUpdate){
+            console.log(successUpdate);
+
+            // navigate('/')
+            dispatch(detailsUser(userInfo.id))
+
+            dispatch({ type: USER_UPDATE_PROFILE_RESET });
+            
+
+        }
+    },[successUpdate,user]);
     const submitHandler = (e) => {
         e.preventDefault();
         if(user_password !== confirmPassword){
             alert('Password and confirm password are not matched')
         }else{
-            dispatch({type: USER_UPDATE_PROFILE_RESET})
+            // dispatch({type: USER_UPDATE_PROFILE_RESET})
+            
             dispatch(updateUserProfile({userId: user.id, user_name, user_email,user_password, user_phone, user_address, user_image}))
         }
     }
@@ -83,11 +89,12 @@ const ProfileScreen=()=>{
                 setErrorUpload(error.message);
                 setLoadingUpload(false);
             }
-            };
+        };
+        console.log('123', user);
     return (
        
         <>
-        <div className="container-xl px-4 mt-4">
+        <div className="row">
             {/* Account page navigation*/}
             <nav className="nav nav-borders">
                 <h1 className="section-header">Profile</h1>
@@ -95,110 +102,115 @@ const ProfileScreen=()=>{
             {loadingUpdate && <LoadingBox></LoadingBox>}
             {errorUpdate && (<MessageBox variant="danger">{error}</MessageBox>)} 
             {successUpdate && (<MessageBox variant="success">Update Profile successfully</MessageBox>)} 
-
-            <hr className="mt-0 mb-4" />
-            <div className="row">
-                <div className="col-xl-4">
-                {/* Profile picture card*/}
-                <div className="card mb-4 mb-xl-0">
-                    <div className="card-header"><h3>Profile Picture</h3></div>
-                    <div className="card-body text-center">
-                       
-                        {/* Profile picture image*/}
-                        <img className="img-account-profile " src={user_image || "http://bootdey.com/img/Content/avatar/avatar1.png"} alt="" />
-                        {/* Profile picture help block*/}
-                        <div className="small font-italic text-muted mb-4">
-                            {/* <label htmlFor="imageFile">Image File</label> */}
-                            <input
-                                type="file"
-                                name="image"
-                                id="imageFile"
-                                label="Choose Image"
-                                onChange={uploadFileHandler}
-                            ></input>
-                        </div>
-                        <div className="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                        {/* Profile picture upload button*/}
-                        {/* <button className="cart primary" type="button">Upload new image</button> */}
-                    </div>
-                </div>
-                </div>
-                <div className="col-xl-8">
-                {/* Account details card*/}
-                <div className="card mb-4">
-                    <div className="card-header"><h3>Account Details</h3></div>
-                    <div className="card-body">
-                    <form type="submit" onSubmit={submitHandler}>
-                        {/* Form Group (username)*/}
-                        <div className="mb-3">
-                       <label htmlFor="name">Name</label>
-                        <input 
-                            className="form-control" 
-                            id="inputUsername" 
-                            type="text" 
-                            placeholder="Enter your username" 
-                            value={user_name}
-                            onChange={(e)=>setUserName(e.target.value)}
-                             />
-                        </div>
-
+            {loading?<LoadingBox></LoadingBox>:
+          error?<MessageBox variant="danger">{error}</MessageBox>:
+          (
+              <>
+                <hr className="mt-0 mb-4" />
+                <div className="row">
+                    <div className=" c-12 l-4">
+                    {/* Profile picture card*/}
+                    <div className="card ">
+                        <div className="card-header"><h3>Profile Picture</h3></div>
+                        <div className="card-body text-center">
                         
-                        {/* Form Group (email address)*/}
-                        <div className="mb-3">
-                        <label className="small mb-1" htmlFor="inputEmailAddress">Email address</label>
-                        <input  type="text" 
-                                id="email" 
-                                placeholder="Enter email"
-                                value={user_email}
-                                onChange={(e)=>setUserEmail(e.target.value)} />
-                        </div>
-                        {/* Form Row*/}
-                        <div className="row gx-3 mb-3">
-                        {/* Form Group (phone number)*/}
-                            <div className="col-md-6">
-                                <label className="small mb-1" htmlFor="inputPhone">Phone number</label>
-                                <input  type="text" 
-                                id="phone" 
-                                placeholder="Enter phone"
-                                value={user_phone}
-                                onChange={(e)=>setUserPhone(e.target.value)} />
+                            {/* Profile picture image*/}
+                            <img className="img-account-profile " src={user_image || "http://bootdey.com/img/Content/avatar/avatar1.png"} alt="" />
+                            {/* Profile picture help block*/}
+                            <div className="small font-italic text-muted mb-4">
+                                {/* <label htmlFor="imageFile">Image File</label> */}
+                                <input
+                                    type="file"
+                                    name="image"
+                                    id="imageFile"
+                                    label="Choose Image"
+                                    onChange={uploadFileHandler}
+                                ></input>
                             </div>
-                            {/* Form Group (birthday)*/}
-                            <div className="col-md-6">
-                                <label className="small mb-1" htmlFor="address">Address</label>
-                                <input  type="text" 
-                                id="address" 
-                                placeholder="Enter address"
-                                value={user_address}
-                                onChange={(e)=>setUserAddress(e.target.value)} />
+                            <div className="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            {/* Profile picture upload button*/}
+                            {/* <button className="cart primary" type="button">Upload new image</button> */}
+                        </div>
+                    </div>
+                    </div>
+                    <div className="c-12 l-8">
+                    {/* Account details card*/}
+                    <div className="card mb-4">
+                        <div className="card-header"><h3>Account Details</h3></div>
+                        <div className="card-body">
+                        <form type="submit" onSubmit={submitHandler}>
+                            {/* Form Group (username)*/}
+                            <div className="mb-3">
+                        <label htmlFor="name">Name</label>
+                            <input 
+                                className="form-control" 
+                                id="inputUsername" 
+                                type="text" 
+                                placeholder="Enter your username" 
+                                value={user_name}
+                                onChange={(e)=>setUserName(e.target.value)}
+                                />
                             </div>
+
+                            
+                            {/* Form Group (email address)*/}
+                            <div className="mb-3">
+                            <label className="small mb-1" htmlFor="inputEmailAddress">Email address</label>
+                            <input  type="text" 
+                                    id="email" 
+                                    placeholder="Enter email"
+                                    value={user_email}
+                                    onChange={(e)=>setUserEmail(e.target.value)} />
+                            </div>
+                            {/* Form Row*/}
+                            <div className="row gx-3 mb-3">
+                            {/* Form Group (phone number)*/}
+                                <div className="col-md-6">
+                                    <label className="small mb-1" htmlFor="inputPhone">Phone number</label>
+                                    <input  type="text" 
+                                    id="phone" 
+                                    placeholder="Enter phone"
+                                    value={user_phone}
+                                    onChange={(e)=>setUserPhone(e.target.value)} />
+                                </div>
+                                {/* Form Group (birthday)*/}
+                                <div className="col-md-6">
+                                    <label className="small mb-1" htmlFor="address">Address</label>
+                                    <input  type="text" 
+                                    id="address" 
+                                    placeholder="Enter address"
+                                    value={user_address}
+                                    onChange={(e)=>setUserAddress(e.target.value)} />
+                                </div>
+                            </div>
+                            <div>
+                        <label htmlFor="password">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    placeholder="Enter password"
+                                    onChange={(e)=>setUserPassword(e.target.value)}
+                                ></input>
+                            </div>
+                            <div>
+                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    placeholder="Enter confirm password"
+                                    onChange={(e)=>setConfirmPassword(e.target.value)}
+                                ></input>
+                            </div>
+                            <label/>
+                            {/* Save changes button*/}
+                            <button className="block primary cart" type="submit">Save changes</button>
+                        </form>
                         </div>
-                        <div>
-                       <label htmlFor="password">Password</label>
-                            <input 
-                                type="password" 
-                                id="password" 
-                                placeholder="Enter password"
-                                onChange={(e)=>setUserPassword(e.target.value)}
-                            ></input>
-                        </div>
-                        <div>
-                            <label htmlFor="confirmPassword">Confirm Password</label>
-                            <input 
-                                type="password" 
-                                id="confirmPassword" 
-                                placeholder="Enter confirm password"
-                                onChange={(e)=>setConfirmPassword(e.target.value)}
-                            ></input>
-                        </div>
-                        <label/>
-                        {/* Save changes button*/}
-                        <button className="block primary cart" type="submit">Save changes</button>
-                    </form>
+                    </div>
                     </div>
                 </div>
-                </div>
-            </div>
+            </>
+          )}
             </div>
 
         </>
