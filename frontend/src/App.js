@@ -14,7 +14,9 @@ import CartScreen from './screens/CartScreen';
 import ContactScreen from './screens/ContactScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import HomeScreen from './screens/HomeScreen';
+import ListAllProductScreen from './screens/ListAllProductScreen';
 import ListBlogScreen from './screens/ListBlogScreen';
+import ListCommmentScreen from './screens/ListCommentScreen';
 import ListContactScreen from './screens/ListContactScreen';
 import ListOrderHistoryScreen from './screens/ListOrderHistoryScreen';
 import ListProductScreen from './screens/ListProductScreen';
@@ -36,12 +38,20 @@ import UserListScreen from './screens/UserListScreen';
 function App() {
   return (
 <Router>
-    <div>
+    <div className='bg-black'> 
       <Header/>
     {/* end header */}
     {/* hero section */}
     <main>
       <Routes>
+      <Route
+              path="/commentlist"
+              element={
+                <AdminRoute>
+                  <ListCommmentScreen />
+                </AdminRoute>
+              }
+            />
       <Route
               path="/blog/create"
               element={<BlogCreateScreen/>}
@@ -125,6 +135,7 @@ function App() {
             />      
         <Route path="/contact" element={<ContactScreen />}></Route>  
         <Route path="/blog" element={<BlogScreen />}></Route>  
+        <Route path="/listproductall" element={<ListAllProductScreen/>}></Route>
 
         <Route path="/search" element={<SearchScreen />}></Route>  
         <Route path="/orderhistory" element={<OrderHistoryScreen/>}></Route>

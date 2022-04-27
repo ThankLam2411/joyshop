@@ -7,7 +7,7 @@ import MessageBox from "../components/MessageBox";
 import { CONTACT_DELETE_RESET } from "../constants/contactConstant";
 
 
-export default function ListContactScreen(props) {
+const ListContactScreen=()=> {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ export default function ListContactScreen(props) {
   return (
     <div>
       <div className="row">
-        <h1>Contacts</h1>
+        <h1>List Contacts </h1>
       </div>
 
       {loadingDelete && <LoadingBox></LoadingBox>}
@@ -115,7 +115,7 @@ export default function ListContactScreen(props) {
               ))}
             </tbody>
           </table>
-          <div className="box">
+          {/* <div className="box">
                   <ul className="pagination">
                   <li><Link to={`/productlist?page=${page-1}`}><i className="bx bxs-chevron-left" /></Link></li>
 
@@ -125,7 +125,7 @@ export default function ListContactScreen(props) {
                       <li ><Link
                             className={x + 1 === page ? 'active' : ''}
                             key={x + 1}
-                            to={`/contactlist?page=${x+1}`}
+                            to={`/comments?page=${x+1}`}
                           >
                             {x+1}
                         </Link>
@@ -135,14 +135,15 @@ export default function ListContactScreen(props) {
 
                   ))
                 }
-                  <li><Link to={`/contactlist?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
+                  <li><Link to={`/comments?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
 
                     
                   </ul>
-                </div>
+                </div> */}
         
         </>
       )}
     </div>
   );
 }
+export default ListContactScreen;

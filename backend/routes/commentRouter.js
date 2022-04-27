@@ -49,6 +49,14 @@ commentRouter.get(
             // order: [
             //     ["product_id", "ASC"],
             // ],
+            include:[
+                {
+                    model: Product
+                },
+                {
+                    model: User
+                }
+            ],
             order:Sequelize.literal("product_id","ASC")
 
         })

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { detailsProduct, updateProduct } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 
 const ProductEditScreen=()=>{
   const dispatch = useDispatch();
@@ -61,7 +62,9 @@ const ProductEditScreen=()=>{
 
   useEffect(()=>{
     if(success) {
-      navigate('/')
+      dispatch({type: PRODUCT_CREATE_RESET})
+      navigate('/productlist')
+
     }
     if(!product){
       dispatch(detailsProduct(productId))

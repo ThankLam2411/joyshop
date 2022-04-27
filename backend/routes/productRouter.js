@@ -54,13 +54,31 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
 productRouter.get('/', expressAsyncHandler(async(req, res)=>{
   const pageSize = 8;
   const page = Number(req.query.page) ||1;
-  console.log('page',req.query.page)
-  
+  console.log('page',req.query.page);
+  const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
+  const brand = !(req.query.brand) || (req.query.brand) === undefined || Number(req.query.brand) ===0 ||(req.query.brand) ==='NaN'  ? '%%': Number(req.query.brand)  ;
+  const min =
+    req.query.min && Number(req.query.min) !== 0 && req.query.min !== 'NaN'  ? Number(req.query.min) : 0;
+
+  const max =
+    req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
+  const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
+  const order= req.query.order ? req.query.order:'';
+  const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
+
   const products = await Product.findAndCountAll({
     limit: pageSize,
     offset: pageSize * (page - 1),
     where: {
-
+      [Op.and]:[
+        {category_id:{[Op.like]:category}},
+        {brand_id: {[Op.like]:brand}},
+        {price:{[Op.gte]:min}},
+        {price:{[Op.lte]:max}},
+        {featured: {[Op.like]:featured}},
+        {countInStock:{[Op.gte]:inStock}}
+        // {category_id: req.query.q},
+      ]
     },
 
     include: [
