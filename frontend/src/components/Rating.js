@@ -1,5 +1,5 @@
 import React from 'react';
-const Rating=(props)=>{
+const RatingStar=(props)=>{
     const {rating,numReviews}=props;
     return (
         <>
@@ -56,10 +56,10 @@ const Rating=(props)=>{
             </span>
 
             <span>
-              {numReviews+ ' reviews'}
+              {numReviews !== null || numReviews !== undefined?numReviews: 0} reviews
             </span>
           </div>
         </>
     )
 }
-export default Rating;
+export default RatingStar;

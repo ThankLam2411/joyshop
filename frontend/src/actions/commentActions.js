@@ -1,5 +1,5 @@
 import  Axios  from "axios"
-import { COMMENT_CREATE_FAIL, COMMENT_CREATE_REQUEST, COMMENT_CREATE_SUCCESS, COMMENT_LIST_ALL_FAIL, COMMENT_LIST_ALL_REQUEST, COMMENT_LIST_ALL_SUCCESS, COMMENT_LIST_FAIL, COMMENT_LIST_REQUEST, COMMENT_LIST_SUCCESS } from "../constants/commentConstants"
+import { COMMENT_CREATE_FAIL, COMMENT_CREATE_REQUEST, COMMENT_CREATE_SUCCESS, COMMENT_DELETE_FAIL, COMMENT_DELETE_REQUEST, COMMENT_DELETE_SUCCESS, COMMENT_LIST_ALL_FAIL, COMMENT_LIST_ALL_REQUEST, COMMENT_LIST_ALL_SUCCESS, COMMENT_LIST_FAIL, COMMENT_LIST_REQUEST, COMMENT_LIST_SUCCESS } from "../constants/commentConstants"
 
 export const commentsByProductId=(productId)=>async (dispatch) => {
     dispatch({
@@ -20,13 +20,14 @@ export const commentsByProductId=(productId)=>async (dispatch) => {
         })
     }
 }
-export const postComment=(comment_content,  product_id)=>async(dispatch, getState)=>{
+export const postComment=(comment_content, rating,  product_id)=>async(dispatch, getState)=>{
     dispatch({type: COMMENT_CREATE_REQUEST});
     const {
         userSignin: { userInfo },
       } = getState();
     try{
-       const {data} = await Axios.post('/api/comments/', {comment_content,  user_id:userInfo.id, product_id},{
+        console.log(rating);
+       const {data} = await Axios.post('/api/comments/', {comment_content, rating,  user_id:userInfo.id, product_id},{
         
         headers: { Authorization: `Bearer ${userInfo.token}` },
        });
@@ -68,3 +69,21 @@ export const getComments=()=>async(dispatch,getState)=>{
         })
       }
 }
+export const deleteComment = (commentId) => async (dispatch, getState) => {
+    dispatch({ type: COMMENT_DELETE_REQUEST, payload: commentId });
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    try {
+      await Axios.delete(`/api/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      dispatch({ type: COMMENT_DELETE_SUCCESS });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({ type: COMMENT_DELETE_FAIL, payload: message });
+    }
+  };

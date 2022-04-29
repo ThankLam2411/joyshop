@@ -3,15 +3,35 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import Rating from '../components/Rating';
 import {detailsProduct} from '../actions/productActions';
 import Comment from '../components/Comment';
 import { commentsByProductId, postComment } from '../actions/commentActions';
 import Axios  from 'axios';
+import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
+import StarIcon from '@mui/icons-material/Star';
+import { Avatar, Grid, Paper, Typography } from '@mui/material';
+import RatingStar from '../components/Rating';
+import dateFormat from 'dateformat';
+
+const labels = {
+    0.5: 'Useless',
+    1: 'Useless+',
+    1.5: 'Poor',
+    2: 'Poor+',
+    2.5: 'Ok',
+    3: 'Ok+',
+    3.5: 'Good',
+    4: 'Good+',
+    4.5: 'Excellent',
+    5: 'Excellent+',
+  };
 const ProductScreen =()=>{
     const dispatch= useDispatch();
     const navigate = useNavigate()
     const {id:productId}= useParams();
+    const parse = require('html-react-parser');
+
     const [qty,setQty]= useState(1);
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product}= productDetails;   
@@ -19,7 +39,7 @@ const ProductScreen =()=>{
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
     const userId= userInfo?.id;
-    // console.log('id',userId);
+    console.log('id',userId);
   
     // const product = data.products.find((x)=> Number(x._id) === Number(id));
     const commentsList= useSelector((state) => state.commentsList);
@@ -27,7 +47,10 @@ const ProductScreen =()=>{
     // console.log(comments)
     const commentsCreate= useSelector((state) => state.commentsCreate);
     const {loading: loadingCommentCreate, error: errorCommentCreate, comment:commentCreate}= commentsCreate;
-    const [comment_content, setComment]= useState('')
+    const [comment_content, setComment]= useState('');
+    const [rating, setRating]= useState(0);
+    const [hover, setHover] = useState(-1);
+
 
     useEffect(()=>{
         dispatch(commentsByProductId(productId));
@@ -42,18 +65,21 @@ const ProductScreen =()=>{
     }
 
     const createCommentHandler=()=>{
-        // async function postComment(){
-        //     return await Axios.post('/api/comments',{comment_content, user_id:userId, product_id:productId},{
+        if(userId === undefined){
+            window.alert('You must login to use this ')
+            navigate('/signin')
+        }
+        if(rating === 0 || rating === undefined){
+            window.alert('You must rate')
+        }else{
+            dispatch(postComment(comment_content, rating, productId))
+        }
+
         
-        //         headers: { Authorization: `Bearer ${userInfo.token}` },
-        //        })
-            
-        // }
-        // postComment()
-        dispatch(postComment(comment_content, productId))
 
     }
-    console.log(comment_content,  productId)
+    console.log(product);
+    // if (product.product_description === undefined || product.product_description === 'undefined' || !product.product_description) return null;
     return(
     <>
        {loading?<LoadingBox></LoadingBox>:
@@ -101,9 +127,14 @@ const ProductScreen =()=>{
                     <div className="product-info-detail">
                         <span className="product-info-detail-title">Rated:</span>
                         <span className="rating">
-                        <Rating
-                                rating={product?.rating} 
-                                numReviews={product?.numReviews}  />
+                      
+                        <Rating name="half-rating-read" value={product?.comments[0]?.rating} defaultValue={2.5} precision={0.5} readOnly />
+                        </span>
+                    </div>
+                    <div className="product-info-detail">
+                        <span className="product-info-detail-title">Number of Reviews: </span>
+                        <span className="rating">
+                            {product?.comments[0]?.numReviews}
                         </span>
                     </div>
                     <p className="product-description">
@@ -134,7 +165,7 @@ const ProductScreen =()=>{
                 <div className="product-detail-description">
                     <div className="product-detail-description-content">
                     <p>
-                        {product.product_description}
+                        {parse(product.product_description)}
                     </p>
                     </div>
                 </div>
@@ -152,6 +183,7 @@ const ProductScreen =()=>{
                                     {userInfo? (<img src={userInfo?.user_image} style={{borderRadius:'50%', width:'60px', height:'60px'}}/>):(<i className="bx bx-user-circle" />)}
                                     
                                 </div>
+                                
                                 <div className="user-name">
                                     <span className="name">{userInfo?.user_name}</span>
                                     <span className="rating">{userInfo?.user_email}</span>
@@ -163,12 +195,29 @@ const ProductScreen =()=>{
                             </div>
                         
                         </div>
+                        
                     </div>
+                    <Rating
+                            name="hover-feedback"
+                            value={rating}
+                            precision={0.5}
+                            // getLabelText={getLabelText}
+                            onChange={(event, newValue) => {
+                                setRating(newValue);
+                            }}
+                            onChangeActive={(event, newHover) => {
+                                setHover(newHover);
+                            }}
+                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            />
+                            {rating !== null && (
+                                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating]}</Box>
+                            )}
                 <div>
                     <button type="submit"  className="btn-flat btn-hover">Post</button>
                 </div>
             </form>
-             {comments?.map((comment) =>(
+             {/* {comments?.map((comment) =>(
                  <div className="row">
                         <div className="user-rate c-6">
                             <div className="user-info">
@@ -177,19 +226,50 @@ const ProductScreen =()=>{
 
                                 </div>
                                 <div className="user-name">
-                                <span className="name">{comment?.user?.user_name}</span>
-                                <span className="rating">{comment?.user?.user_email}</span>
+                                    <span className="name">{comment?.user?.user_name}</span>
+                                    <span className="rating"> 
+                                        <Rating name="half-rating-read" value={comment.rating} defaultValue={2.5} precision={0.5} readOnly />
+                                                                    
+                                    </span>
                                 </div>
                             </div>
                             <div className="user-rate-content c-6">
-                                {comment?.comment_content}
+                                <div>{comment?.createdAt}</div>
+
+                                <div>{comment?.comment_content}</div>
                             </div>
                       </div>
                     </div>
                   
-                    ))}
-                    
-                  
+                    ))} */}
+             {comments?.map((comment) =>(
+                 <>
+                    <Paper style={{ padding: "40px 20px" }}>
+                        <Grid container wrap="nowrap" spacing={2}>
+                        <Grid item>
+                            <Avatar alt="Remy Sharp" src={comment?.user?.user_image} />
+                        </Grid>
+
+                        <Grid justifyContent="left" item xs zeroMinWidth>
+                            <h4 style={{ margin: 0, textAlign: "left" }}>{comment?.user?.user_name}</h4>
+                            <span>
+                                <Rating name="half-rating-read" value={comment.rating} defaultValue={2.5} precision={0.5} readOnly />
+
+                            </span>
+                            <p style={{ textAlign: "left" }}>
+                                {comment?.comment_content}
+                            </p>
+                            <p style={{ textAlign: "left", color: "gray" }}>
+                            posted { dateFormat(comment?.createdAt, "mmmm dS, yyyy mm:ss")}
+                            </p>
+                        </Grid>
+                        </Grid>
+                        </Paper>
+                    </>
+                ))}
+                
+
+
                  
                     {/* <div className="box">
                     <ul className="pagination">

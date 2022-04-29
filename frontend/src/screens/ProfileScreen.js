@@ -93,7 +93,7 @@ const ProfileScreen=()=>{
         console.log('123', user);
     return (
        
-        <>
+    <div className="container">
         <div className="row">
             {/* Account page navigation*/}
             <nav className="nav nav-borders">
@@ -213,7 +213,7 @@ const ProfileScreen=()=>{
           )}
             </div>
 
-        </>
+    </div>
     )
 }
 export default ProfileScreen;

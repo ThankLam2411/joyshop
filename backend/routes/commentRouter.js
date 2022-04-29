@@ -34,6 +34,7 @@ commentRouter.post(
     console.log('aaaa',req.body)
     const comment = new Comment({
         comment_content: req.body.comment_content,//||comment.comment_content,
+        rating: req.body.rating,
         user_id: req.body.user_id,//||comment.user_id,
         product_id: req.body.product_id,//||comment.product_id,
     })
@@ -42,25 +43,42 @@ commentRouter.post(
 }))
 commentRouter.get(
     '/',
-    // isAuth,
-    // isAdmin,
+    isAuth,
+    isAdmin,
     expressAsyncHandler(async(req,res)=>{
         const comments = await Comment.findAll({
-            // order: [
-            //     ["product_id", "ASC"],
-            // ],
+         
+       
+
             include:[
                 {
                     model: Product
                 },
                 {
                     model: User
-                }
+                },
+               
             ],
+           
             order:Sequelize.literal("product_id","ASC")
 
         })
         res.send({comments})
+    })
+)
+commentRouter.delete(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler(async(req, res)=>{
+        const comment = await Comment.findByPk(req.params.id)
+        if(comment){
+            const deleteComment = await comment.destroy();
+            res.send({ message: 'Comment Deleted', comment: deleteComment });
+        }else{
+         res.status(404).send({ message: 'Comment Not Found' });
+
+        }
     })
 )
 export default commentRouter;

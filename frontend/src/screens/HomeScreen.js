@@ -106,7 +106,7 @@ const HomeScreen =()=>{
                 </div>
             {/* )} */}
             <div className="section-footer">
-              <Link to="./products.html" className="btn-flat btn-hover">view all</Link>
+              <Link to="/listproductall" className="btn-flat btn-hover">view all</Link>
             </div>
       
           </div>

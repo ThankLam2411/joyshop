@@ -1,7 +1,7 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
-import {Product, Brand, Category} from '../models/index.js';
+import {Product, Brand, Category, Comment} from '../models/index.js';
 import {Sequelize} from "sequelize";
 const {Op}= Sequelize;
 
@@ -29,12 +29,13 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
     const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
     console.log('Featured',  typeof featured);
     const order= req.query.order ? req.query.order:'';
-    // const order ='DESC'
     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
 
+    const rating =
+    req.query.rating && Number(req.query.rating) !== 0
+      ? Number(req.query.rating)
+      : 0;
     const products = await Product.findAndCountAll({
-        limit: pageSize,
-        offset: pageSize * (page - 1),
         where: {
             [Op.and]:[
                 {category_id:{[Op.like]:category}},
@@ -47,12 +48,30 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
             ]
             
         },
-        include: [{
+        include: [
+            {
             model: Category,
             required: false,
            
-        }
+            },
+            {
+                model: Comment,
+                // attributes: [
+                //     [Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'numReviews'],
+                //     [Sequelize.fn('AVG', Sequelize.col('comments.rating')), 'rating'],
+
+                // ],
+                
+                // group:['product_id']
+
+            },
         ],  
+     
+
+        // group: ['products.id'],
+        limit: pageSize,
+        offset: pageSize * (page - 1),
+
         order:Sequelize.literal(`price ${order}`)
   
         

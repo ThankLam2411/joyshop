@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getComments } from "../actions/commentActions";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { deleteComment, getComments } from "../actions/commentActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { COMMENT_DELETE_RESET } from "../constants/commentConstants";
 
 
 
@@ -20,37 +21,32 @@ const ListCommmentScreen=()=> {
 
 
   console.log(comments)
-  useEffect(()=>{
+
+
+  const commentsDelete = useSelector((state) => state.commentsDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = commentsDelete;
+  useEffect(() => {
+
+    if (successDelete) {
+      dispatch({ type: COMMENT_DELETE_RESET });
+    }
     dispatch(getComments())
-  },[dispatch])
 
-  // const contactDelete = useSelector((state) => state.contactDelete);
-  // const {
-  //   loading: loadingDelete,
-  //   error: errorDelete,
-  //   success: successDelete,
-  // } = contactDelete;
-  // useEffect(() => {
-    // if (successCreate) {
-    //   dispatch({ type: PRODUCT_CREATE_RESET });
-    //   navigate(`/productlist`);
-    // }
-    // if (successDelete) {
-    //   dispatch({ type: COMMENT_DELETE_RESET });
-    // }
   //   dispatch(listContact(pageNumber))
-  // }, [
-  //   dispatch,
-  //   navigate,
-  //   pageNumber,
-  //   successDelete
-  // ]);
+  }, [
+    dispatch,
+    successDelete
+  ]);
 
-  // const deleteHandler = (contact) => {
-  //   if (window.confirm('Are you sure to delete?')) {
-  //     dispatch(deleteContact(contact.id));
-  //   }
-  // };
+  const deleteHandler = (comment) => {
+    if (window.confirm('Are you sure to delete?')) {
+      dispatch(deleteComment(comment.id));
+    }
+  };
 //   const createHandler = () => {
 //     navigate(`/product/create`)
 //   };
@@ -60,8 +56,8 @@ const ListCommmentScreen=()=> {
         <h1>Comments</h1>
       </div>
 
-      {/* {loadingDelete && <LoadingBox></LoadingBox>}
-      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>} */}
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -73,6 +69,7 @@ const ListCommmentScreen=()=> {
               <tr>
                 <th>ID</th>
                 <th>CONTENT</th>
+                <th>RATING</th>
                 <th>USER</th>
                 <th>PRODUCT</th>
                 <th>CREATED AT</th>
@@ -87,9 +84,10 @@ const ListCommmentScreen=()=> {
                 <tr key={comment.id}>
                   <td>{comment.id}</td>
                   <td>{comment.comment_content}</td>
-                  <td>{comment.user.user_name} (id: {comment.user_id})</td>
-                  <td>{comment.product.product_name}</td>
-                  <td>{comment.createdAt}</td>
+                  <td>{comment.rating}</td>
+                  <td>{comment.user.user_name} </td>
+                  <td><Link to={`/product/${comment.product.id}`} >{comment?.product?.product_name}</Link></td>
+                  <td>{comment?.createdAt}</td>
                   <td>{comment.updatedAt}</td>
 
                   <td>
@@ -97,7 +95,7 @@ const ListCommmentScreen=()=> {
                     <button
                       type="button"
                       className="small"
-                      // onClick={() => deleteHandler(contact)}
+                      onClick={() => deleteHandler(comment)}
                     >
                       Delete
                     </button>

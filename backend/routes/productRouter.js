@@ -1,7 +1,7 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
-import {Product, Brand, Category, OrderDetail} from '../models/index.js'
+import {Product, Brand, Category, OrderDetail, Comment} from '../models/index.js'
 // import Category from '../models/categoryModel.js';
 import { isAuth, isAdmin } from "../utils.js";
 import {Sequelize} from "sequelize";
@@ -54,18 +54,23 @@ productRouter.get('/featured', expressAsyncHandler(async(req, res)=>{
 productRouter.get('/', expressAsyncHandler(async(req, res)=>{
   const pageSize = 8;
   const page = Number(req.query.page) ||1;
-  console.log('page',req.query.page);
-  const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
-  const brand = !(req.query.brand) || (req.query.brand) === undefined || Number(req.query.brand) ===0 ||(req.query.brand) ==='NaN'  ? '%%': Number(req.query.brand)  ;
+  const category = !(req.query.category) || req.query.category === 'undefined' || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
+  const brand = !(req.query.brand) || (req.query.brand) === 'undefined' || Number(req.query.brand) ===0 ||(req.query.brand) ==='NaN'  ? '%%': Number(req.query.brand)  ;
   const min =
-    req.query.min && Number(req.query.min) !== 0 && req.query.min !== 'NaN'  ? Number(req.query.min) : 0;
+    req.query.min==='undefined' || Number(req.query.min) === 0 || req.query.min === 'NaN' || req.query.min === NaN  
+    ? 0 
+    : Number(req.query.min);
 
   const max =
-    req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
-  const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
-  const order= req.query.order ? req.query.order:'';
-  const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
+  req.query.max==='undefined' || Number(req.query.max) === 0 || req.query.max === 'NaN'  || req.query.max === NaN   || typeof req.query.max === undefined
+  ? 1000 
+  : Number(req.query.max);
+  console.log('max',typeof req.query.max  );
 
+  const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
+  const order= !req.query.order||req.query.order === 'undefined' ? '' :req.query.order;
+  const field = req.query.order !== 'undefined' || req.query.order !== 'DEFAULT'  ? 'price':'id';
+  const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
   const products = await Product.findAndCountAll({
     limit: pageSize,
     offset: pageSize * (page - 1),
@@ -75,6 +80,8 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
         {brand_id: {[Op.like]:brand}},
         {price:{[Op.gte]:min}},
         {price:{[Op.lte]:max}},
+        // {rating:{[Op.gte]: rating}},
+        // {rating:{[Op.lte]: rating -1}},
         {featured: {[Op.like]:featured}},
         {countInStock:{[Op.gte]:inStock}}
         // {category_id: req.query.q},
@@ -92,6 +99,8 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
        required: false,
       },
    ],
+   order:Sequelize.literal(`${field} ${order}`)
+
 
 
   });
@@ -150,6 +159,7 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res)=>{
 productRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
     const product = await Product.findOne({
         where: {id: req.params.id},
+      
         include: [
             {
              model: Brand,
@@ -157,14 +167,23 @@ productRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
              where: {
                  // is_valid:1,
                  // is_vertify:1
-             }
-             // attribute: ['brand_id']
+             },
+             
             },
-        ]
+            {
+              model: Comment,
+              attributes: [
+                [Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'numReviews'],
+                [Sequelize.fn('AVG', Sequelize.col('comments.rating')), 'rating']
+
+              ]
+            }
+        ],
+        group: ['products.id']
+
     })
     if(product){
         res.send(product);
-        console.log(product);
     }else{
         res.status(404).send({message:'Product Not Found'})
 

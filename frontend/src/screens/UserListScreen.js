@@ -34,6 +34,7 @@ const UserListScreen =()=>{
 
     return(
         <>
+        <h1>User Manager</h1>
         {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (

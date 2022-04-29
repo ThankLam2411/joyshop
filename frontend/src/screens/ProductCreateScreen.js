@@ -6,6 +6,7 @@ import { createProduct } from "../actions/productActions";
 import  Axios  from "axios";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { Editor } from "@tinymce/tinymce-react";
 
 const ProductCreateScreen=()=>{
     const dispatch = useDispatch();
@@ -97,6 +98,9 @@ const ProductCreateScreen=()=>{
         setLoadingUpload(false);
       }
     };
+    const handleEditorChange =(e)=>{
+      setDescription(e)
+    }
     
     return(
         <form class="form" onSubmit={submitHandler}>
@@ -212,14 +216,15 @@ const ProductCreateScreen=()=>{
             </div>
             <div>
               <label htmlFor="product_description">Description</label>
-              <textarea
-                id="product_description"
-                rows="3"
-                type="text"
-                placeholder="Enter product_description"
-                value={product_description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              <Editor
+                  value={product_description}
+                  init={{
+                    height: 500,
+                    menubar: false
+                  }}
+                  onEditorChange={handleEditorChange}
+
+                />
             </div>
             {/* <Select options={options} /> */}
           

@@ -27,12 +27,6 @@ const Product = db.define('products',{
         type: DataTypes.FLOAT,
         // allowNull: false
     },
-    rating:{
-        type: DataTypes.FLOAT,
-    },
-    numReviews:{
-        type: DataTypes.INTEGER,
-    },
     featured:{
         type: DataTypes.BOOLEAN,
         defaultValue: false,

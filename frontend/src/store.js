@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { brandListProductReducer, brandListReducer } from './reducers/brandReducer';
 import { cartReducer } from './reducers/cartReducers';
 import { categoryListReducer } from './reducers/categoryReducers';
-import { commentsCreateReducer, commentsListAllReducer, commentsListReducer } from './reducers/commentReducers';
+import {  commentsCreateReducer, commentsDeleteReducer, commentsListAllReducer, commentsListReducer } from './reducers/commentReducers';
 import { orderCreateReducer, orderDeleteReducer, orderDetailsReducer, orderListReducer, orderMineListReducer, orderPayReducer, orderSummaryReducer } from './reducers/orderReducers';
 import { productCreateReducer, productDeleteReducer, productDetailsReducer, productFeaturedListReducer, productListByCategoryIdReducer, productListByQueryReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
 import { shippingReducer } from './reducers/shippingReducers';
@@ -64,6 +64,7 @@ const reducer = combineReducers({
     commentsList: commentsListReducer,
     commentsCreate: commentsCreateReducer,
     commentsListAll: commentsListAllReducer,
+    commentsDelete: commentsDeleteReducer,
     blogList: blogListReducer,
     blogDetails: blogDetailsReducer,
     blogUpdate: blogUpdateReducer,

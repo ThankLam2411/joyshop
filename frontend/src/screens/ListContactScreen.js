@@ -62,7 +62,7 @@ const ListContactScreen=()=> {
 //   };
   return (
     <div>
-      <div className="row">
+      <div className="container">
         <h1>List Contacts </h1>
       </div>
 

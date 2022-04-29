@@ -15,7 +15,7 @@ const Footer=()=>{
       },[dispatch])
     return (
         <>
-         <footer className="bg-second">
+      <footer className="bg-second">
       <div className="container">
         <div className="row">
           <div className="col-3 col-md-6">

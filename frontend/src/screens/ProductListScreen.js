@@ -17,15 +17,20 @@ export default function ProductListScreen(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
+  let brandId;
+  let priceMax;
+  let priceMin;
+  let categoryId;
+  let featured;
+  let inStock;
+  let order;
 
   const productList = useSelector((state) => state.productList);
   const {loading, error, products, totalPages, page}= productList;
   const pageNumber = location.search.split('?page=')[1];
   const pages =[...Array(totalPages).keys()]
 
-
-  console.log(products)
+  console.log(pageNumber)
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -50,7 +55,7 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts(pageNumber))
+    dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,pageNumber))
   }, [
     createdProduct,
     dispatch,
@@ -70,7 +75,7 @@ export default function ProductListScreen(props) {
     navigate(`/product/create`)
   };
   return (
-    <div>
+    <div className='container'>
       <div className="row">
         <h1>Products</h1>
         <button type="button" className=" primary" style={{padding: '15px', borderRadius:'.5rem', margin:'15px', position:'absolute', right:'0px'}} onClick={createHandler}>
@@ -154,7 +159,7 @@ export default function ProductListScreen(props) {
 
                     
                   </ul>
-                </div>
+          </div>
         
         </>
       )}

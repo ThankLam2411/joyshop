@@ -1,3 +1,4 @@
+import { Editor } from "@tinymce/tinymce-react";
 import Axios  from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -108,6 +109,9 @@ const uploadFileHandler = async (e) => {
 const submitHandler = (e) => {
   e.preventDefault();
   dispatch(updateProduct({id:productId, product_name, old_price, price, image, countInStock,featured, category_id, brand_id, product_description}))
+}
+const handleEditorChange =(e)=>{
+  setDescription(e)
 }
   return(
     
@@ -221,14 +225,15 @@ const submitHandler = (e) => {
            
             <div>
               <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                rows="3"
-                type="text"
-                placeholder="Enter description"
-                value={product_description}
-                // onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              <Editor
+                  value={product_description}
+                  init={{
+                    height: 500,
+                    menubar: false
+                  }}
+                  onEditorChange={handleEditorChange}
+
+                />
             </div>
             <div>
               <label></label>

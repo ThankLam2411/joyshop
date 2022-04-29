@@ -57,11 +57,11 @@ Comment.belongsTo(User,{
     foreignKey: 'user_id'
 })
 Product.hasMany(Comment, {
-    foreignKey: 'id'
+    foreignKey: 'product_id'
 });
 Comment.belongsTo(Product,
     {
-    foreignKey: 'product_id'
+    foreignKey: 'id'
     }
 )
 OrderProduct.hasOne(Payment,{

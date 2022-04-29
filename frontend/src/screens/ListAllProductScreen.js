@@ -13,8 +13,8 @@ const ListAllProductScreen =()=>{
     const navigate = useNavigate;
     const location = useLocation();
   
-    const brandListProduct=useSelector(state => state.brandListProduct);
-    const {loading,error, products, totalPages, page}= brandListProduct;
+    const productList=useSelector(state => state.productList);
+    const {loading,error, products, totalPages, page}= productList;
     const brandList= useSelector((state)=> state.brandList);
     const{loading:loadingBrand, error: errorBrand, brands}= brandList;
     const pages =[...Array(totalPages).keys()];
@@ -24,18 +24,18 @@ const ListAllProductScreen =()=>{
 
     const [priceMin, setPriceMin]= useState(0);
     const [priceMax, setPriceMax]= useState(1000);
-    // const [products, setProducts]= useState([])
     const [categories,setCategories]= useState([]);
     const [categoryId, setCategoryId]= useState(0);
-    const [brandId, setBrandId]= useState('')
+    const [brandId, setBrandId]= useState(0)
     const [featured,setFeatured]= useState(false);
     const [inStock,setInStock]= useState(false);
-    const [order, setOrder]= useState('')
+    const [order, setOrder]= useState('');
+
 
 
     useEffect(()=>{
-      dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,))
-    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order ])
+      dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,pageNumber))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, pageNumber ])
 
 
     useEffect(() => {
@@ -53,9 +53,10 @@ const ListAllProductScreen =()=>{
     if(!brands) return null;
 
     
-    console.log(brands);
+    // console.log(brands);
     const resetCategoryId=()=>{
       setCategoryId([])
+      setBrandId([])
     }
     return(
         <>
@@ -236,11 +237,11 @@ const ListAllProductScreen =()=>{
 
           <div className="row" id="products" >
               {/* Products list here */}
-            {/* {
+            {
               products.products.map((product)=>(
                 <ProductItem key={product.id} product={product}></ProductItem>
               )
-              )} */}
+              )}
                  
             </div>        
         </div>
@@ -266,7 +267,7 @@ const ListAllProductScreen =()=>{
                             // to={handlePage({page: x + 1})}
                             className={x + 1 === page ? 'active' : ''}
                             key={x + 1}
-                            to={`/listproduct/${brandId}?page=${x+1}`}
+                            to={`/listproductall?page=${x+1}`}
                           >
                             {x+1}
                         </Link>
