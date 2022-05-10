@@ -30,12 +30,14 @@ const ListAllProductScreen =()=>{
     const [featured,setFeatured]= useState(false);
     const [inStock,setInStock]= useState(false);
     const [order, setOrder]= useState('');
+    const [rating, setRating]= useState([]);
+
 
 
 
     useEffect(()=>{
-      dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,pageNumber))
-    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, pageNumber ])
+      dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,rating, pageNumber))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order,rating, pageNumber ])
 
 
     useEffect(() => {
@@ -57,6 +59,7 @@ const ListAllProductScreen =()=>{
     const resetCategoryId=()=>{
       setCategoryId([])
       setBrandId([])
+      setRating([])
     }
     return(
         <>
@@ -144,88 +147,97 @@ const ListAllProductScreen =()=>{
                     </ul>
                   </div>
                 
-        {/* <div className="box">
-          <span className="filter-header">
-            rating
-          </span>
-          <ul className="filter-list">
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="remember1" />
-                <label htmlFor="remember1">
-                  <span className="rating">
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                  </span>
-                  <i className="bx bx-check" />
+              <div className="box">
+                <span className="filter-header">
+                  rating
+                </span>
+                <ul className="filter-list">
+              <li>
+                <div className="group-checkbox" >
+                  <input type="radio" name="checkbox" id="remember5"  value={5} onChange={(e)=> setRating(e.target.value)}/>
+                  <label htmlFor="remember5">
+
+                      <span className="rating">
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                      </span>
+                      <i className="bx bx-check" />
                 </label>
-              </div>
-            </li>
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="remember1" />
-                <label htmlFor="remember1">
-                  <span className="rating">
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bx-star" />
-                  </span>
-                  <i className="bx bx-check" />
+                   
+                </div>
+              </li>
+              <li>
+                <div className="group-checkbox">
+                  <input type="radio" name="checkbox" id="remember4"  value={4} onChange={(e)=> setRating(e.target.value)} />
+                    <label htmlFor="remember4">
+                      
+                      <span className="rating">
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bx-star" />
+                      </span>
+                      <i className="bx bx-check" />
                 </label>
-              </div>
-            </li>
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="remember1" />
-                <label htmlFor="remember1">
-                  <span className="rating">
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                  </span>
-                  <i className="bx bx-check" />
+                </div>
+              </li>
+              <li>
+                <div className="group-checkbox">
+                  <input type="radio" name="checkbox" id="remember3" value={3}  onChange={(e)=> setRating(e.target.value)}/>
+                    <label htmlFor="remember3">
+                      
+                      <span className="rating">
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                      </span>
+                      <i className="bx bx-check" />
                 </label>
-              </div>
-            </li>
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="remember1" />
-                <label htmlFor="remember1">
-                  <span className="rating">
-                    <i className="bx bxs-star" />
-                    <i className="bx bxs-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                  </span>
-                  <i className="bx bx-check" />
+
+                </div>
+              </li>
+              <li>
+                <div className="group-checkbox">
+                  <input type="radio" name="checkbox" id="remember2" value={2} onChange={(e)=> setRating(e.target.value)}/>
+                  <label htmlFor="remember2">
+                      
+                      <span className="rating">
+                        <i className="bx bxs-star" />
+                        <i className="bx bxs-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                      </span>
+                      <i className="bx bx-check" />
                 </label>
+
+                </div>
+              </li>
+              <li>
+                <div className="group-checkbox">
+                  <input type="radio" name="checkbox"  id="remember1" value={1} onChange={(e)=> setRating(e.target.value)}/>
+                    <label htmlFor="remember1">
+                      
+                      <span className="rating">
+                        <i className="bx bxs-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                        <i className="bx bx-star" />
+                      </span>
+                      <i className="bx bx-check" />
+                  </label>
+
+                </div>
+              </li>
+            </ul>
               </div>
-            </li>
-            <li>
-              <div className="group-checkbox">
-                <input type="checkbox" id="remember1" />
-                <label htmlFor="remember1">
-                  <span className="rating">
-                    <i className="bx bxs-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                    <i className="bx bx-star" />
-                  </span>
-                  <i className="bx bx-check" />
-                </label>
-              </div>
-            </li>
-          </ul>
-        </div> */}
       </div>
       <div className="col-9 col-md-12">
         <div className="box filter-toggle-box">

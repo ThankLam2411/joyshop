@@ -85,8 +85,8 @@ const ListProductScreen =()=>{
       
     // },[categoryId, featured, brandId]);
     useEffect(()=>{
-      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order))
-    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order ])
+      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, rating ])
 
 
     useEffect(() => {
@@ -102,6 +102,7 @@ const ListProductScreen =()=>{
     
     const resetCategoryId=()=>{
       setCategoryId([])
+      setRating([])
     }
     console.log(rating);
     return(
@@ -185,7 +186,7 @@ const ListProductScreen =()=>{
             <ul className="filter-list">
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id='remember1'  value={5} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1' id='remember1'  value={5} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember1">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -200,7 +201,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id = 'remember2' value={4} onChange={(e)=> setRating(e.target.value)} />
+                  <input type="radio" name='remember1'  id = 'remember2' value={4} onChange={(e)=> setRating(e.target.value)} />
                   <label htmlFor="remember2">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -215,7 +216,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember3" value={3} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember3" value={3} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember3">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -230,7 +231,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember4" value={2} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember4" value={2} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember4">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -245,7 +246,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember5" value={1} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember5" value={1} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember5">
                     <span className="rating">
                       <i className="bx bxs-star" />

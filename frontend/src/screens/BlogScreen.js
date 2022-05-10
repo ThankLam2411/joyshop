@@ -16,13 +16,13 @@ const BlogScreen = ()=>{
         dispatch(listBlog())
     },[dispatch])
 
-    useEffect(()=>{
-     if(blogs !== undefined){
+  //   useEffect(()=>{
+  //    if(blogs !== undefined){
 
-       console.log(blogs.length!==0 ? blogs[3].blog_content : '');
+  //      console.log(blogs.length!==0 ? blogs[3].blog_content : '');
       
-     }
-  },[blogs])
+  //    }
+  // },[blogs])
     return(
 <section className="blog-posts grid-system">
   <div className="container">

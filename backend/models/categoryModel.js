@@ -3,7 +3,7 @@ const {DataTypes, Model}= Sequelize;
 import db from '../config/database.js';
 
 
-const Category = db.define('category',{
+const Category = db.sequelize.define('category',{
       
     category_name:{
         type: DataTypes.STRING,

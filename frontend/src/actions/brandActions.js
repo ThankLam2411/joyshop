@@ -18,7 +18,7 @@ export const listBrand=()=>async(dispatch)=>{
         })
     }
 }
-export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featured, inStock, order)=> async (dispatch)=>{
+export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating)=> async (dispatch)=>{
     dispatch({
         type:BRAND_LIST_PRODUCT_REQUEST
     });
@@ -30,7 +30,8 @@ export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featu
               max:`${priceMax}`,
               featured:`${featured}`,
               inStock: `${inStock}`,
-              order: `${order}`
+              order: `${order}`,
+              rating: `${rating}`
             }
           });
         dispatch({

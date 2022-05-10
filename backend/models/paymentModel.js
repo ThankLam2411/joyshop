@@ -4,7 +4,7 @@ import db from '../config/database.js';
 import Product from './productModel.js';
 
 
-const Payment = db.define('paymentResult',{
+const Payment = db.sequelize.define('paymentResult',{
 
     status :{
         type : DataTypes.STRING,

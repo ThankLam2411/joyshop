@@ -3,7 +3,7 @@ const {DataTypes, Model}= Sequelize;
 import db from '../config/database.js';
 
 
-const Shipping = db.define('shipping',{
+const Shipping = db.sequelize.define('shipping',{
     
     fullName:{
         type:DataTypes.STRING,

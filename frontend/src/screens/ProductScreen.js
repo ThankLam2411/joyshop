@@ -128,7 +128,7 @@ const ProductScreen =()=>{
                         <span className="product-info-detail-title">Rated:</span>
                         <span className="rating">
                       
-                        <Rating name="half-rating-read" value={product?.comments[0]?.rating} defaultValue={2.5} precision={0.5} readOnly />
+                        <Rating name="half-rating-read" value={product?.comments[0]?.rating}  precision={0.5} readOnly />
                         </span>
                     </div>
                     <div className="product-info-detail">
@@ -200,7 +200,7 @@ const ProductScreen =()=>{
                     <Rating
                             name="hover-feedback"
                             value={rating}
-                            precision={0.5}
+                            precision={1}
                             // getLabelText={getLabelText}
                             onChange={(event, newValue) => {
                                 setRating(newValue);
@@ -208,7 +208,7 @@ const ProductScreen =()=>{
                             onChangeActive={(event, newHover) => {
                                 setHover(newHover);
                             }}
-                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            emptyIcon={<StarIcon style={{ opacity: 0.5 }} fontSize="inherit" />}
                             />
                             {rating !== null && (
                                 <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating]}</Box>

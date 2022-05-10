@@ -4,7 +4,7 @@ import db from '../config/database.js';
 import Product from './productModel.js';
 
 
-const Comment = db.define('comment',{
+const Comment = db.sequelize.define('comment',{
     comment_content:{
         type: DataTypes.STRING,
     } ,

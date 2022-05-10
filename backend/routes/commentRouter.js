@@ -11,6 +11,8 @@ commentRouter.get('/:id', expressAsyncHandler(async(req,res)=>{
         where: {
             product_id: req.params.id
         },
+        order:Sequelize.literal('createdAt DESC'),
+
         include: [
         {
             model: Product,
@@ -23,7 +25,8 @@ commentRouter.get('/:id', expressAsyncHandler(async(req,res)=>{
           
         },
 
-    ]
+    ],
+
     })
     res.send(comments)
 }))
@@ -60,7 +63,6 @@ commentRouter.get(
                
             ],
            
-            order:Sequelize.literal("product_id","ASC")
 
         })
         res.send({comments})

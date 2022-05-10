@@ -27,7 +27,7 @@ dotenv.config();
 const app = express();
 
 try {
-  await db.authenticate();
+  await db.sequelize.authenticate();
   console.log('Database connected...');
 } catch (error) {
   console.error('Connection error:', error);

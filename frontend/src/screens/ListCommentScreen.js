@@ -86,7 +86,7 @@ const ListCommmentScreen=()=> {
                   <td>{comment.comment_content}</td>
                   <td>{comment.rating}</td>
                   <td>{comment.user.user_name} </td>
-                  <td><Link to={`/product/${comment.product.id}`} >{comment?.product?.product_name}</Link></td>
+                  <td><Link to={`/product/${comment.product_id}`} >{comment?.product?.product_name}</Link></td>
                   <td>{comment?.createdAt}</td>
                   <td>{comment.updatedAt}</td>
 

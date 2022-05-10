@@ -3,7 +3,7 @@ const {DataTypes, Model}= Sequelize;
 import db from '../config/database.js';
 
 
-const Brand = db.define('brand',{
+const Brand = db.sequelize.define('brand',{
 
     brand_name:{
         type: DataTypes.STRING,

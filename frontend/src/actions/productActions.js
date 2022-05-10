@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_FAIL, PRODUCT_LIST_QUERY_REQUEST, PRODUCT_LIST_QUERY_SUCCESS, PRODUCT_LIST_QUERY_FAIL, PRODUCT_LIST_CATEGORY_FAIL, PRODUCT_LIST_CATEGORY_REQUEST, PRODUCT_LIST_CATEGORY_SUCCESS, PRODUCT_LIST_FEATURED_REQUEST, PRODUCT_LIST_FEATURED_FAIL, PRODUCT_LIST_FEATURED_SUCCESS} from '../constants/productConstants';
 
-export const listProducts = (brandId, priceMax, priceMin, categoryId, featured, inStock, order, pageNumber)=> async(dispatch)=>{
+export const listProducts = (brandId, priceMax, priceMin, categoryId, featured, inStock, order, pageNumber, rating)=> async(dispatch)=>{
   console.log(pageNumber);
    
    dispatch({
@@ -17,7 +17,8 @@ export const listProducts = (brandId, priceMax, priceMin, categoryId, featured, 
             max:`${priceMax}`,
             featured:`${featured}`,
             inStock: `${inStock}`,
-            order: `${order}`
+            order: `${order}`,
+            rating: `${rating}`
           }
         });
         dispatch({

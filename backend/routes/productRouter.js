@@ -62,14 +62,14 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
     : Number(req.query.min);
 
   const max =
-  req.query.max==='undefined' || Number(req.query.max) === 0 || req.query.max === 'NaN'  || req.query.max === NaN   || typeof req.query.max === undefined
+  req.query.max==='undefined' || Number(req.query.max) === 0 || req.query.max === 'NaN'  || req.query.max === NaN   || typeof req.query.max === 'undefined'
   ? 1000 
   : Number(req.query.max);
-  console.log('max',typeof req.query.max  );
-
+  console.log('order',typeof req.body.order);
   const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
   const order= !req.query.order||req.query.order === 'undefined' ? '' :req.query.order;
-  const field = req.query.order !== 'undefined' || req.query.order !== 'DEFAULT'  ? 'price':'id';
+  const field = req.query.order === 'undefined'|| req.query.order === undefined || req.query.order === 'DEFAULT' || typeof req.body.order === 'undefined' ? 'id':'price';
+  console.log('field', field);
   const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
   const products = await Product.findAndCountAll({
     limit: pageSize,

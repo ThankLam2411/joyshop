@@ -4,7 +4,7 @@ import db from '../config/database.js';
 import Product from './productModel.js';
 
 
-const Contact = db.define('contact',{
+const Contact = db.sequelize.define('contact',{
     name:{
         type: DataTypes.STRING,
     } ,

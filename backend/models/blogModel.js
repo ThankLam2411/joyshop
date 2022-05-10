@@ -3,7 +3,7 @@ const {DataTypes, Model}= Sequelize;
 import db from '../config/database.js';
 
 
-const Blog = db.define('blog',{
+const Blog = db.sequelize.define('blog',{
     blog_title:{
         type: DataTypes.STRING,
     },
