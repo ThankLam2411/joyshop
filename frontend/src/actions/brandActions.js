@@ -18,7 +18,11 @@ export const listBrand=()=>async(dispatch)=>{
         })
     }
 }
+<<<<<<< .merge_file_a02244
 export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating, pageNumber)=> async (dispatch)=>{
+=======
+export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating)=> async (dispatch)=>{
+>>>>>>> .merge_file_a17180
     dispatch({
         type:BRAND_LIST_PRODUCT_REQUEST
     });
@@ -31,8 +35,12 @@ export const listProductsByBrand=(brandId, priceMax, priceMin, categoryId, featu
               featured:`${featured}`,
               inStock: `${inStock}`,
               order: `${order}`,
+<<<<<<< .merge_file_a02244
               rating: `${rating}`,
               page: `${pageNumber}`
+=======
+              rating: `${rating}`
+>>>>>>> .merge_file_a17180
             }
           });
         dispatch({

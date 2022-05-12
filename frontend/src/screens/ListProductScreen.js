@@ -85,8 +85,13 @@ const ListProductScreen =()=>{
       
     // },[categoryId, featured, brandId]);
     useEffect(()=>{
+<<<<<<< .merge_file_a07020
       dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating, pageNumber))
     },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, rating, pageNumber ])
+=======
+      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, rating ])
+>>>>>>> .merge_file_a02900
 
 
     useEffect(() => {

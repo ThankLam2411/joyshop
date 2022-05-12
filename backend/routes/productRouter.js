@@ -65,12 +65,20 @@ productRouter.get('/', expressAsyncHandler(async(req, res)=>{
   req.query.max==='undefined' || Number(req.query.max) === 0 || req.query.max === 'NaN'  || req.query.max === NaN   || typeof req.query.max === 'undefined'
   ? 1000 
   : Number(req.query.max);
+<<<<<<< .merge_file_a10916
   console.log('page',page);
   const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
   const order= !req.query.order||req.query.order === 'undefined' ? '' :req.query.order;
   const field = req.query.order === undefined || req.query.order === 'DEFAULT' || req.query.order === 'undefined' || !req.query.order? 'id': 'price' ;
   const off = pageSize * (page - 1);
 
+=======
+  console.log('order',typeof req.body.order);
+  const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
+  const order= !req.query.order||req.query.order === 'undefined' ? '' :req.query.order;
+  const field = req.query.order === 'undefined'|| req.query.order === undefined || req.query.order === 'DEFAULT' || typeof req.body.order === 'undefined' ? 'id':'price';
+  console.log('field', field);
+>>>>>>> .merge_file_a06748
   const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
   // const rating =
   // req.query.rating && Number(req.query.rating) !== 0 || req.query.rating !== 'undefined' || req.query.rating !== undefined

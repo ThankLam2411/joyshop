@@ -26,11 +26,17 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
         req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
     const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
     const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
+<<<<<<< .merge_file_a11824
     const order= req.query.order || req.query.order !== 'DEFAULT' ? req.query.order:'';
     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
     const off = pageSize * (page - 1);
     const field = req.query.order && req.query.order !== 'DEFAULT' ? 'price' : 'id';
 
+=======
+    const order= req.query.order ? req.query.order:'';
+    const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
+    const off = pageSize * (page - 1);
+>>>>>>> .merge_file_a04712
     const rating =
     req.query.rating && Number(req.query.rating) !== 0
       ? Number(req.query.rating)
@@ -50,8 +56,11 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
             AND p.price <= :max
             AND p.featured LIKE :featured
             AND p.countInStock >= :inStock
+<<<<<<< .merge_file_a11824
             order by p.${field} ${order}
 
+=======
+>>>>>>> .merge_file_a04712
             LIMIT ${pageSize}
             OFFSET ${off}`
         ,
@@ -100,6 +109,7 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
                             AND p.price >= :min
                             AND p.price <= :max
                             AND p.featured LIKE :featured
+<<<<<<< .merge_file_a11824
                             AND p.countInStock >= :inStock
                             GROUP BY c.product_id) b
                 where b.rating >= :rating
@@ -107,6 +117,13 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
                 
                 LIMIT ${pageSize}
                 OFFSET ${off}
+=======
+                            AND p.countInStock >= :rating
+                            GROUP BY c.product_id
+                            LIMIT ${pageSize}
+                            OFFSET ${off}) b
+                where b.rating >= :rating; 
+>>>>>>> .merge_file_a04712
                 `
         ,
             {
