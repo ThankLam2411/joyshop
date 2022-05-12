@@ -25,104 +25,128 @@ brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
     const max =
         req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
     const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
-    console.log('cate', (req.query.category) === undefined)
     const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
-    console.log('Featured',  typeof featured);
-    const order= req.query.order ? req.query.order:'';
+    const order= req.query.order || req.query.order !== 'DEFAULT' ? req.query.order:'';
     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
+    const off = pageSize * (page - 1);
+    const field = req.query.order && req.query.order !== 'DEFAULT' ? 'price' : 'id';
 
     const rating =
     req.query.rating && Number(req.query.rating) !== 0
       ? Number(req.query.rating)
       : 0;
-    const products = await Product.findAndCountAll({
-        where: {
-            [Op.and]:[
-                {category_id:{[Op.like]:category}},
-                {brand_id: req.params.id},
-                {price:{[Op.gte]:min}},
-                {price:{[Op.lte]:max}},
-                {featured: {[Op.like]:featured}},
-                {countInStock:{[Op.gte]:inStock}}
-                // {category_id: req.query.q},
-            ]
-            
-        },
-        include: [
-            {
-            model: Category,
-            required: false,
-           
-            },
-            {
-                model: Comment,
-                // attributes: [
-                //     [Sequelize.fn('COUNT', Sequelize.col('comments.id')), 'numReviews'],
-                //     [Sequelize.fn('AVG', Sequelize.col('comments.rating')), 'rating'],
+    console.log('rating', rating);
 
-                // ],
+    console.log('rating',req.query.rating );
+    if(rating ===0){
+        console.log(111111111);
+        let products= await db.sequelize.query(
+            `
+            SELECT p.*
+            FROM products p 
+            WHERE p.category_id LIKE :category
+            AND p.brand_id LIKE ${req.params.id}
+            AND p.price >= :min
+            AND p.price <= :max
+            AND p.featured LIKE :featured
+            AND p.countInStock >= :inStock
+            order by p.${field} ${order}
+
+            LIMIT ${pageSize}
+            OFFSET ${off}`
+        ,
+            {
+                replacements: { category: category, min: min, max: max, featured: featured, inStock: inStock, rating: rating },
+    
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        )
+        let count = await db.sequelize.query(
+            `SELECT count(p.id) as count 
+            FROM products p 
+            WHERE p.category_id LIKE :category
+            AND p.brand_id LIKE ${req.params.id}
+            AND p.price >= :min
+            AND p.price <= :max
+            AND p.featured LIKE :featured
+            AND p.countInStock >= :inStock
+            `
+        ,
+            {
+                replacements: { category: category, min: min, max: max, featured: featured, inStock: inStock  },
+    
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        )
+        let totalPages = count.reduce((a,b)=>a+b.count,0)
+        console.log(totalPages);
+    
+        res.send({
+            products:products,
+            totalPages:Math.ceil(totalPages/pageSize),
+            page
+            })
+    }else{
+        console.log(222222222222);
+
+        let products= await db.sequelize.query(
+            `
+            SELECT b.* FROM
+                (SELECT p.*,  avg(c.rating) as rating ,count(c.id) as numReviews, c.product_id 
+                            FROM products p
+                            LEFT JOIN comment c ON c.product_id= p.id  
+                            WHERE p.category_id LIKE :category
+                            AND p.brand_id LIKE ${req.params.id}
+                            AND p.price >= :min
+                            AND p.price <= :max
+                            AND p.featured LIKE :featured
+                            AND p.countInStock >= :inStock
+                            GROUP BY c.product_id) b
+                where b.rating >= :rating
+                order by b.${field} ${order}
                 
-                // group:['product_id']
-
-            },
-        ],  
-     
-
-        // group: ['products.id'],
-        limit: pageSize,
-        offset: pageSize * (page - 1),
-
-        order:Sequelize.literal(`price ${order}`)
-  
-        
-      
-    })
-    res.send({
-        products:products.rows,
-        totalPages:Math.floor(products.count/pageSize),
-        page
+                LIMIT ${pageSize}
+                OFFSET ${off}
+                `
+        ,
+            {
+                replacements: { category: category, min: min, max: max, featured: featured, inStock: inStock, rating: rating },
+    
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        )
+        let count = await db.sequelize.query(
+            `SELECT count(p.id) as count 
+            FROM products p 
+            LEFT JOIN comment c ON c.product_id= p.id 
+            WHERE p.category_id LIKE :category
+            AND p.brand_id LIKE ${req.params.id}
+            AND p.price >= :min
+            AND p.price <= :max
+            AND p.featured LIKE :featured
+            AND p.countInStock >= :inStock
+            AND rating >= ${rating}
+            GROUP BY c.product_id
+            `
+        ,
+            {
+                replacements: { category: category, min: min, max: max, featured: featured, inStock: inStock  },
+    
+                type: db.sequelize.QueryTypes.SELECT
+            }
+        )
+        let totalPages = count.reduce((a,b)=>a+b.count,0)
+        console.log(totalPages);
+    
+        res.send({
+            products:products,
+            totalPages:Math.ceil(totalPages/pageSize),
+            page
         })
-}))
-// brandRouter.get('/:id', expressAsyncHandler(async(req, res)=>{
-//     const pageSize = 8;
-//     const page = Number(req.query.page) ||1;
-//     const min =
-//         req.query.min && Number(req.query.min) !== 0 && req.query.min !== 'NaN'  ? Number(req.query.min) : 0;
+    }
 
-//     const max =
-//         req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 1000;
-//     // const category = req.query.category && (req.query.category) !== undefined  ? Number(req.query.category): '%%' ;
-//     const category = !(req.query.category) || (req.query.category) === undefined || Number(req.query.category) ===0 ||(req.query.category) ==='NaN'  ? '%%': Number(req.query.category)  ;
-//     console.log('cate', (req.query.category) === undefined)
-//     const featured =  Boolean(req.query.featured) === 0 || String(req.query.featured) === 'true'   ?  1: '%%';
-//     console.log('Featured',  typeof featured)
-//     const inStock = Boolean(req.query.inStock) === 1 || String(req.query.inStock) === 'true'? 1 : 0;
-//     const products = await Product.findAll({
-//         // limit: pageSize,
-//         // offset: pageSize * (page - 1),
-//         where: {
-//             [Op.and]:[
-//                 {category_id:{[Op.like]:category}},
-//                 {brand_id: req.params.id},
-//                 {price:{[Op.gte]:min}},
-//                 {price:{[Op.lte]:max}},
-//                 {featured: {[Op.like]:featured}},
-//                 {countInStock:{[Op.gte]:inStock}}
-//                 // {category_id: req.query.q},
-//             ]
-            
-//         },
-//         include: [{
-//             model: Category,
-//             required: false,
-           
-//         }
-//         ]
-        
-      
-//     })
-//     res.send(products)
-// }))
+}))
+
 
 brandRouter.get('/find/:id', expressAsyncHandler(async(req, res)=>{
     const products = await Product.findAll({

@@ -143,6 +143,26 @@ const Header = () => {
 
           <i className="bx bx-x" />
         </span>
+        {/* top header */}
+        <div className="bg-second">
+          <div className="top-header container">
+            <ul className="devided">
+              <li>
+                <a href="tel:+84968588806" title="Give me a call">+84968588806</a>
+              </li>
+              <li>
+              <a href="mailto:thanhlam241120@gmail.com" title="Send me an email">thanhlam241120@gmail.com</a>
+              </li>
+            </ul>
+            {/* <ul className="devided">
+              <li><h2>FREESHIP</h2></li>
+              <li><h2>AUTHENTIC</h2></li>
+              <li><h2>HIGH QUALITY</h2></li>
+
+            </ul> */}
+          </div>
+        </div>
+
         {/* mid header */}
         <div className="bg-main">
           <div className="mid-header container">

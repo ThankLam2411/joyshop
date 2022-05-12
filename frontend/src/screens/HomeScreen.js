@@ -125,7 +125,8 @@ const HomeScreen =()=>{
                 <div className="sp-item-info">
                   <div className="sp-item-name">Chanel Chance Eau Tendre Eau de Toilette</div>
                   <p className="sp-item-description">
-                  Thứ vũ khí mạnh nhất của một người phụ nữ nằm ở sự dịu dàng của họ, và cách tốt nhất để trình diễn sự dịu dàng ấy chính là qua mùi hương...</p>                  <Link to='/product/9' className="btn-flat btn-hover">shop now</Link>
+                  Thứ vũ khí mạnh nhất của một người phụ nữ nằm ở sự dịu dàng của họ, và cách tốt nhất để trình diễn sự dịu dàng ấy chính là qua mùi hương...</p>                  
+                  <Link to='/product/18' className="btn-flat btn-hover">shop now</Link>
                 </div>
               </div>
             </div>

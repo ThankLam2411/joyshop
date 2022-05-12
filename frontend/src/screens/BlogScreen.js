@@ -16,13 +16,13 @@ const BlogScreen = ()=>{
         dispatch(listBlog())
     },[dispatch])
 
-    useEffect(()=>{
-     if(blogs !== undefined){
+  //   useEffect(()=>{
+  //    if(blogs !== undefined){
 
-       console.log(blogs.length!==0 ? blogs[3].blog_content : '');
+  //      console.log(blogs.length!==0 ? blogs[3].blog_content : '');
       
-     }
-  },[blogs])
+  //    }
+  // },[blogs])
     return(
 <section className="blog-posts grid-system">
   <div className="container">
@@ -38,17 +38,17 @@ const BlogScreen = ()=>{
                 <div className="l-6 m-12">
                     <div className="blog-post">
                         <div className="blog-thumb">
-                            <img className="medium" src={blog.product.image}/>
+                            <img className="medium" src={blog?.product.image}/>
                         </div>
                         <div className="down-content">
-                            <span>{blog.blog_title}</span>
+                            <span>{blog?.blog_title}</span>
                             <hr />
-                            <Link to={`/product/${blog.product.id}`}><h4>{blog.product.product_name}</h4></Link>
+                            <Link to={`/product/${blog?.product.id}`}><h4>{blog.product.product_name}</h4></Link>
                             <ul className="post-info">
                               <li><a href="#">Admin</a></li>
                               <li><a href="#">{blog?.createdAt?.substring(0, 10) || blog?.updatedAt?.substring(0, 10)}</a></li>
                             </ul>
-                            <p>{parse(blog.blog_content)}</p>
+                            <p>{parse(blog?.blog_content)}</p>
                            
                           </div>
                         </div>

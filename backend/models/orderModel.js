@@ -3,7 +3,7 @@ const {DataTypes, Model}= Sequelize;
 import db from '../config/database.js';
 
 
-const OrderProduct = db.define('orderproduct',{
+const OrderProduct = db.sequelize.define('orderproduct',{
     //   id:{
     //       type: DataTypes.INTEGER,
     //       allowNull: false,

@@ -18,6 +18,7 @@ import contactRouter from "./routes/contactRouter.js";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
 import mg from "mailgun-js"
+import { isAuth } from "./utils.js";
 
 
 dotenv.config();
@@ -27,7 +28,7 @@ dotenv.config();
 const app = express();
 
 try {
-  await db.authenticate();
+  await db.sequelize.authenticate();
   console.log('Database connected...');
 } catch (error) {
   console.error('Connection error:', error);
@@ -77,37 +78,76 @@ const mailgun = () =>
       );
   });
 
-app.post('/send_mail', cors(), async(req, res)=>{
-  const { email, subject, message, name } = req.body;
+app.post('/send_mail', cors(),async(req, res)=>{
+  const { shippingAddress, cart, email } = req.body;
 
-  const transport = nodemailer.createTransport({
-    // host: process.env.MAIL_HOST,
-    // port: process.env.MAIL_PORT,
-    service:'gmail',
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS
-    }
-  })
-  await transport.sendMail({
-    from: email,
-    to: process.env.MAIL_FROM,
-    subject: subject,
-    html: `<div className="email" style="
-    border: 1px solid black;
-    padding: 20px;
-    font-family: sans-serif;
-    line-height: 2;
-    font-size: 20px; 
-    ">
-    <h2>Here is your email!</h2>
-    <p>${message}</p>
+  try {
+    let from = 'joy.nguyen.bot@gmail.com';
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        service: 'gmail',
+        port: 587,
+        auth: {
+            user: from,
+            pass: `${process.env.MAIL_PASS}`
+        }
+    });
 
-    <p>All the best, Darwin</p>
-     </div>
-`
+    await transporter.sendMail({
+        from: from,
+        to: `${email}`,
+        subject: 'Xác nhận đặt hàng thành công',
+        html:` 
+        <div style="background-color: rgb(223, 223, 223); padding: 20px">
+            <div
+                style="
+                align-items: center;
+                background-color: #fff;
+                height: 100%;
+                border-radius: 15px;
+                padding: 20px;
+                "
+            >
+                <h1 style="text-align: center; color: rgb(53, 186, 0)">
+                Chúc mừng bạn ${shippingAddress.shippingAddress.fullName} đã đặt hàng thành công
+                </h1>
+                <p style="margin-top: 50px; font-size: 18px">
+                Địa chỉ:
+                <span> ${shippingAddress.shippingAddress.address}, ${shippingAddress.shippingAddress.city}, ${shippingAddress.shippingAddress.country}  </span>
+                </p>
+                <p style="margin-top: 50px; font-size: 18px">
+                Số điện thoại:
+                <span> ${shippingAddress.shippingAddress.phone}</span>
+                </p>
+                <p style="margin-top: 50px; font-size: 18px">
+                Phương thức thanh toán:
+                <span> ${cart.paymentMethod}</span>
+                </p>
+                <h1 style="margin-top: 50px; font-size: 18px">
+                Giá trị đơn hàng:
+                <span>$${cart.totalPrice}</span>
+                <ul>
+                  <li>Tổng tiền sản phẩm: $${cart.itemsPrice}</li>
+                  <li>Phí vận chuyển: $${cart.shippingPrice}</li>
+                  <li>Thuế: $${cart.taxPrice}</li>
+                </ul>
+                </h1>
 
-  })
+                <p style="margin-top: 50px; font-size: 17px">Trân trọng,</p>
+                <p style="font-size: 13px">JoyShop Team</p>
+                <p style="font-size: 13px; font-style: italic; margin-top: 50px">
+                *Đây là tin nhắn tự động vui lòng không reply lại. Xin trân trọng cảm ơn
+                !!!
+                </p>
+            </div>
+        </div>
+`,
+    });
+
+    console.log('Email sent');
+} catch (error) {
+    console.log('Failed to send email: ', error);
+}
 })
 
 

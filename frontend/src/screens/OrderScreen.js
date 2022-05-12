@@ -112,7 +112,7 @@ export default function OrderScreen(props) {
                 <h2>Order Items</h2>
                 <ul>
                   {order.orderDetails.map((item)=>(
-                     <li key={item.product}>
+                     <li key={item.id}>
                      <div className="row">
                        <div>
                          <img
@@ -122,7 +122,7 @@ export default function OrderScreen(props) {
                          ></img>
                        </div>
                        <div className="min-30">
-                         <Link to={`/product/${item.product}`}>
+                         <Link to={`/product/${item.product_id}`}>
                            {item.name}
                          </Link>
                        </div>

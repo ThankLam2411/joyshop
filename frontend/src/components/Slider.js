@@ -45,7 +45,7 @@ const showSlide = () => {
                     Hương thơm đại diện của tự do trong thời đại mới - Libre EDT. Một loại nước hoa tuyên ngôn không thể thiếu, làm nên phong cách và tỏa sáng với luật lệ riêng của bản thân. Chỉ với một “pump" nước hoa cũng đủ khiến mọi nơi bạn đi qua đắm chìm trong thế giới của mạnh mẽ và gợi cảm.
                   </p>
                   <div className="top-down trans-delay-0-6">
-                    <Link to='/product/5' className="btn-flat btn-hover">
+                    <Link to='/product/19' className="btn-flat btn-hover">
                       <span>shop now</span>
                     </Link>
                   </div>
@@ -89,7 +89,7 @@ const showSlide = () => {
                     Yves Saint Laurent Y thể hiện sự cân bằng giữa những nốt hương mạnh mẽ và nhẹ nhàng, nồng nàn và tươi mát. Một mùi hương nguyên bản và nổi bật, tôn lên sự nam tính của phái mạnh.
                   </p>
                   <div className="top-down trans-delay-0-6">
-                    <Link to ='/product/22'  className="btn-flat btn-hover">
+                    <Link to ='/product/7'  className="btn-flat btn-hover">
                       <span>shop now</span>
                     </Link>
                   </div>

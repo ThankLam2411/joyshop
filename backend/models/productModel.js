@@ -4,7 +4,7 @@ import Category from "./categoryModel.js"
 import db from '../config/database.js';
 const {DataTypes, Model}= Sequelize;
 
-const Product = db.define('products',{
+const Product = db.sequelize.define('products',{
       
  
     product_name:{

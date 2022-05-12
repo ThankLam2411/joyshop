@@ -24,13 +24,14 @@ export default function ProductListScreen(props) {
   let featured;
   let inStock;
   let order;
+  let rating;
 
   const productList = useSelector((state) => state.productList);
   const {loading, error, products, totalPages, page}= productList;
   const pageNumber = location.search.split('?page=')[1];
   const pages =[...Array(totalPages).keys()]
 
-  console.log(pageNumber)
+  console.log(productList)
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -55,7 +56,7 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,pageNumber))
+    dispatch(listProducts(brandId, priceMax, priceMin, categoryId, featured, inStock, order,rating, pageNumber))
   }, [
     createdProduct,
     dispatch,
@@ -63,8 +64,9 @@ export default function ProductListScreen(props) {
     successCreate,
     successDelete,
     userInfo.id,
-    pageNumber
+    brandId, priceMax, priceMin, categoryId, featured, inStock,order,rating, pageNumber
   ]);
+
 
   const deleteHandler = (product) => {
     if (window.confirm('Are you sure to delete?')) {
@@ -110,11 +112,11 @@ export default function ProductListScreen(props) {
               {products.products.map((product) => (
                 <tr key={product.id}>
                   <td>{product.id}</td>
-                  <td>{product.product_name}</td>
+                  <td><Link to={`/product/${product.id}`}>{product.product_name}</Link></td>
                   <td>{product.price}</td>
                   <td>{String(product.featured)}</td>
-                  <td>{product.category.category_name}</td>
-                  <td>{product.brand.brand_name}</td>
+                  <td>{product.category_name}</td>
+                  <td>{product.brand_name}</td>
                   <td>
                     <button
                       type="button"

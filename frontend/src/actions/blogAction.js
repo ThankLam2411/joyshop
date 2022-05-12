@@ -11,7 +11,6 @@ export const listBlog=()=>async(dispatch)=>{
             type: BLOG_LIST_SUCCESS,
             payload: data
         })
-        console.log(data)
     }catch(error){
         dispatch({
             type:BLOG_LIST_FAIL,

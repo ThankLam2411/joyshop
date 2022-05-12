@@ -3,17 +3,23 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 import parse from 'html-react-parser';
+import { listBlog } from '../actions/blogAction';
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
 
 const Blog =()=>{
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const parse = require('html-react-parser');
+  const blogList = useSelector((state) => state.blogList);
+  const {loading, error, blogs}= blogList;
   const [blog1, setBlog1]= useState({});
   const [blog2, setBlog2]= useState({});
 
+
   useEffect(() => {
     async function getBlogDetails1(){
-      let data = await Axios.get('/api/blogs/1');
+      let data = await Axios.get('/api/blogs/3');
       let blog = data.data;
       setBlog1(blog);
       // setBlogTitle(blog.blog_title);
@@ -28,7 +34,7 @@ const Blog =()=>{
   },[]);
   useEffect(() => {
     async function getBlogDetails2(){
-      let data = await Axios.get(`/api/blogs/2`);
+      let data = await Axios.get(`/api/blogs/4`);
       let blog = data.data;
       setBlog2(blog);
       // setBlogTitle(blog.blog_title);
@@ -38,44 +44,65 @@ const Blog =()=>{
 
     }
     getBlogDetails2()
-  },[])
+  },[]);
+  
+  useEffect(()=>{
+    dispatch(listBlog())
+},[dispatch])
+// if (blogs[0].blog_content === undefined) return null
+// if(blogs[0] === 'undefined' || !blogs[0] || blogs[0]=== undefined) return null; 
+// console.log('bl', blogs[0]);
   const handleOnClick=() => {
     navigate('/blog')
   }
  if(blog1.blog_content === undefined || blog2.blog_content === undefined) return null
+
     return(
       <div className="section">
         <div className="container">
           <div className="section-header">
             <h2>latest blog</h2>
           </div>
-          <div className="blog">
-            <div className="blog-img">
-              <img src={blog1?.product?.image || blog1?.image } alt="" />
+          <div>
+          {loading?<LoadingBox></LoadingBox>:
+          error?<MessageBox variant="danger">{error}</MessageBox>:
+          (
+            <div>
+              {/* {blogs.map((blog) =>( */}
+                <>
+                <div className="blog">
+                  <div className="blog-img">
+                    <img src={blogs[0].product?.image || blogs[0]?.image } alt="" />
+                  </div>
+                  <div className="blog-info">
+                    <div className="blog-title">
+                      <h5>{blogs[0].blog_title}</h5>
+                    </div>
+                    <div className="blog-preview">
+                      {parse(blogs[0].blog_content)}
+                    </div>
+                    <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
+                  </div>
+                </div>
+                <div className="blog row-revere">
+                <div className="blog-img">
+                    <img src={blogs[1]?.product?.image || blogs[1]?.image } alt="" />
+                  </div>
+                  <div className="blog-info">
+                    <div className="blog-title">
+                      <h5>{blogs[1].blog_title}</h5>
+                    </div>
+                    <div className="blog-preview">
+                      {parse(blogs[1].blog_content)}
+                    </div>
+                    <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
+                  </div>
+                </div>
+                </>
+              {/* ))} */}
+
             </div>
-            <div className="blog-info">
-              <div className="blog-title">
-                <h5>{blog1.blog_title}</h5>
-              </div>
-              <div className="blog-preview">
-                {parse(blog1.blog_content)}
-              </div>
-              <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
-            </div>
-          </div>
-          <div className="blog row-revere">
-          <div className="blog-img">
-              <img src={blog2?.product?.image || blog2?.image } alt="" />
-            </div>
-            <div className="blog-info">
-              <div className="blog-title">
-                <h5>{blog2.blog_title}</h5>
-              </div>
-              <div className="blog-preview">
-                {parse(blog2.blog_content)}
-              </div>
-              <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
-            </div>
+          )}
           </div>
           <div className="section-footer">
             <Link to="/blog" className="btn-flat btn-hover">view all</Link>

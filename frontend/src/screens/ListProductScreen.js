@@ -17,7 +17,7 @@ const ListProductScreen =()=>{
     const {loading,error, products, totalPages, page}= brandListProduct;
     const pages =[...Array(totalPages).keys()];
     const pageNumber = location.search.split('?page=')[1];
-
+    console.log('page', pageNumber);
 
 
     const [priceMin, setPriceMin]= useState(0);
@@ -85,8 +85,8 @@ const ListProductScreen =()=>{
       
     // },[categoryId, featured, brandId]);
     useEffect(()=>{
-      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order))
-    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order ])
+      dispatch(listProductsByBrand(brandId, priceMax, priceMin, categoryId, featured, inStock, order, rating, pageNumber))
+    },[dispatch,brandId, priceMax, priceMin, categoryId, featured, inStock,order, rating, pageNumber ])
 
 
     useEffect(() => {
@@ -102,6 +102,7 @@ const ListProductScreen =()=>{
     
     const resetCategoryId=()=>{
       setCategoryId([])
+      setRating([])
     }
     console.log(rating);
     return(
@@ -185,7 +186,7 @@ const ListProductScreen =()=>{
             <ul className="filter-list">
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id='remember1'  value={5} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1' id='remember1'  value={5} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember1">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -200,7 +201,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id = 'remember2' value={4} onChange={(e)=> setRating(e.target.value)} />
+                  <input type="radio" name='remember1'  id = 'remember2' value={4} onChange={(e)=> setRating(e.target.value)} />
                   <label htmlFor="remember2">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -215,7 +216,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember3" value={3} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember3" value={3} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember3">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -230,7 +231,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember4" value={2} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember4" value={2} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember4">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -245,7 +246,7 @@ const ListProductScreen =()=>{
               </li>
               <li>
                 <div className="group-checkbox">
-                  <input type="radio" id="remember5" value={1} onChange={(e)=> setRating(e.target.value)}/>
+                  <input type="radio" name='remember1'  id="remember5" value={1} onChange={(e)=> setRating(e.target.value)}/>
                   <label htmlFor="remember5">
                     <span className="rating">
                       <i className="bx bxs-star" />
@@ -284,7 +285,7 @@ const ListProductScreen =()=>{
 
               <div className="box">
                   <ul className="pagination">
-                  <li><Link to={`/listproductall?page=${page-1}`}><i className="bx bxs-chevron-left" /></Link></li>
+                  <li><Link to={`/listproduct/${brandId}?page=${page-1}`}><i className="bx bxs-chevron-left" /></Link></li>
 
                 {
                   pages.map((x)=>(
@@ -292,7 +293,7 @@ const ListProductScreen =()=>{
                       <li ><Link
                             className={x + 1 === page ? 'active' : ''}
                             key={x + 1}
-                            to={`/listproductall?page=${x+1}`}
+                            to={`/listproduct/${brandId}?page=${x+1}`}
                           >
                             {x+1}
                         </Link>
@@ -302,7 +303,7 @@ const ListProductScreen =()=>{
 
                   ))
                 }
-                  <li><Link to={`/listproductall?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
+                  <li><Link to={`/listproduct/${brandId}?page=${page+1}`}><i className="bx bxs-chevron-right" /></Link></li>
 
                     
                   </ul>
