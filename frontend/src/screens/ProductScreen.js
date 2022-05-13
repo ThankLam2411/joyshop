@@ -89,10 +89,7 @@ const ProductScreen =()=>{
             <div className="container">
                 <div className="box">
                 <div className="breadcumb">
-                    <Link to="/">home</Link>
-                    <span><i className="bx bxs-chevrons-right" /></span>
-                    <a href="./products.html">all products</a>
-                    <span><i className="bx bxs-chevrons-right" /></span>
+                    <Link to="/">Trang chủ</Link>
                     {/* <a href="./product-detail.html">{product.product_name}</a> */}
                 </div>
                 </div>
@@ -121,18 +118,18 @@ const ProductScreen =()=>{
                         {product.product_name}
                     </h1>
                     <div className="product-info-detail">
-                        <span className="product-info-detail-title">Brand: </span>
+                        <span className="product-info-detail-title">Hãng: </span>
                         <a href="#">{product.brand.brand_name}</a>
                     </div>
                     <div className="product-info-detail">
-                        <span className="product-info-detail-title">Rated:</span>
+                        <span className="product-info-detail-title">Đánh giá:</span>
                         <span className="rating">
                       
                         <Rating name="half-rating-read" value={product?.comments[0]?.rating}  precision={0.5} readOnly />
                         </span>
                     </div>
                     <div className="product-info-detail">
-                        <span className="product-info-detail-title">Number of Reviews: </span>
+                        <span className="product-info-detail-title">Lượt đánh giá: </span>
                         <span className="rating">
                             {product?.comments[0]?.numReviews}
                         </span>
@@ -141,7 +138,7 @@ const ProductScreen =()=>{
                         {product.description}
                     </p>
                     <div className="product-info-price">${product.price}</div>
-                        {product.countInStock > 0 ? (<span className="success">In Stock</span>):( <span className="danger">Unavailable</span>)}
+                        {product.countInStock > 0 ? (<span className="success">Còn hàng</span>):( <span className="danger">Hết hàng</span>)}
 
                     <div className="product-quantity-wrapper">
                         <button onClick={() => setQty(qty - 1)} className="product-quantity-btn">
@@ -153,14 +150,14 @@ const ProductScreen =()=>{
                         </button>
                     </div>
                     <div>
-                        <button onClick = {addToCartHandler}  className="btn-flat btn-hover" disabled={product.countInStock===0} >add to cart</button>
+                        <button onClick = {addToCartHandler}  className="btn-flat btn-hover" disabled={product.countInStock===0} >Thêm vào giỏ hàng</button>
                     </div>
                     </div>
                 </div>
                 </div>
                 <div className="box">
                 <div className="box-header">
-                    description
+                    Mô tả
                 </div>
                 <div className="product-detail-description">
                     <div className="product-detail-description-content">
@@ -172,7 +169,7 @@ const ProductScreen =()=>{
                 </div>
                 <div className="box">
                 <div className="box-header">
-                    review
+                    Đánh giá
                 </div>
                 {/* <Comment key={productId} productId={productId} /> */}
             <form className='' onSubmit={createCommentHandler}>
@@ -214,7 +211,7 @@ const ProductScreen =()=>{
                                 <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating]}</Box>
                             )}
                 <div>
-                    <button type="submit"  className="btn-flat btn-hover">Post</button>
+                    <button type="submit"  className="btn-flat btn-hover">Đăng</button>
                 </div>
             </form>
              {/* {comments?.map((comment) =>(
@@ -260,7 +257,7 @@ const ProductScreen =()=>{
                                 {comment?.comment_content}
                             </p>
                             <p style={{ textAlign: "left", color: "gray" }}>
-                            posted { dateFormat(comment?.createdAt, "mmmm dS, yyyy mm:ss")}
+                            Thời gian: { dateFormat(comment?.createdAt, "mmmm dS, yyyy mm:ss")}
                             </p>
                         </Grid>
                         </Grid>
@@ -283,12 +280,7 @@ const ProductScreen =()=>{
                     </ul>
                     </div> */}
                 </div>
-                <div className="box">
-                <div className="box-header">
-                    related products
-                </div>
-                <div className="row" id="related-products" />
-                </div>
+            
             </div>
             </div>
              

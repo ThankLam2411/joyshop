@@ -27,28 +27,28 @@ const UserListScreen =()=>{
         getUsers();
     },[]);
     const deleteHandler=(user)=>{
-      if (window.confirm('Are you sure?')) {
+      if (window.confirm('Bạn có chắc chắn muốn xóa?')) {
         dispatch(deleteUser(user.id));
       }
     }
 
     return(
         <>
-        <h1>User Manager</h1>
+        <h1>Quản lý thành viên</h1>
         {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
-        <MessageBox variant="success">User Deleted Successfully</MessageBox>
+        <MessageBox variant="success">Xóa thành viên thành công</MessageBox>
       )}
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>IS SELLER</th>
-              <th>IS ADMIN</th>
-              <th>ACTIONS</th>
+              <th>Mã thành viên</th>
+              <th>Tên tài khoản</th>
+              <th>Địa chỉ email</th>
+              <th>User</th>
+              <th>ADMIN</th>
+              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -65,14 +65,14 @@ const UserListScreen =()=>{
                     className="small"
                     onClick={() => navigate(`/user/${user.id}/edit`)}
                   >
-                    Edit
+                    Sửa
                   </button>
                   <button
                     type="button"
                     className="small"
                     onClick={() => deleteHandler(user)}
                   >
-                    Delete
+                    Xóa
                   </button>
                 </td>
               </tr>

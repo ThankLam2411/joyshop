@@ -21,20 +21,20 @@ const OrderHistoryScreen=()=>{
         dispatch(listOrderMine(userInfo?.id))
     },[dispatch, userInfo?.id])
     return(
-        <>
-            <h1> Order History</h1>
+        <div className="container">
+            <h1> Lịch sử đặt hàng</h1>
             {loading? <LoadingBox></LoadingBox>:
             error?<MessageBox variant="danger">{error}</MessageBox>:
             (
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>DATE</th>
-                            <th>TOTAL</th>
-                            <th>PAID</th>
-                            <th>DELIVERED</th>
-                            <th>ACTIONS</th>
+                            <th>Mã đơn đặt hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Tổng tiền</th>
+                            <th>Thanh toán</th>
+                            <th>Vận chuyển</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,7 @@ const OrderHistoryScreen=()=>{
                                             type="button" 
                                             className="small"
                                             onClick={()=>navigate(`/order/${order.id}`)}
-                                            > Details
+                                            > Xem chi tiết
                                         </button></td>
 
                                 </tr>
@@ -61,7 +61,7 @@ const OrderHistoryScreen=()=>{
                 </table>
             )
             }
-        </>
+        </div>
     )
 }
 export default OrderHistoryScreen;

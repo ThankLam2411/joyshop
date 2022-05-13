@@ -15,7 +15,7 @@ const ProductItem=({product})=>{
           </div>
           <div className="product-card-info">
             <div className="product-btn">
-              <a href={`/product/${product.id}`} className="btn-flat btn-hover btn-shop-now">shop now</a>
+              <a href={`/product/${product.id}`} className="btn-flat btn-hover btn-shop-now">mua ngay</a>
               {product.countInStock ===0 ?(<span></span>):(
                   <button className="btn-flat btn-hover btn-cart-add" onClick={addToCartHandler}>
                   <i className="bx bxs-cart-add" />

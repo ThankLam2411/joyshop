@@ -46,7 +46,7 @@ const showSlide = () => {
                   </p>
                   <div className="top-down trans-delay-0-6">
                     <Link to='/product/19' className="btn-flat btn-hover">
-                      <span>shop now</span>
+                      <span>mua ngay</span>
                     </Link>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const showSlide = () => {
                   </p>
                   <div className="top-down trans-delay-0-6">
                     <Link to='/product/1' className="btn-flat btn-hover">
-                      <span>shop now</span>
+                      <span>mua ngay</span>
                     </Link>
                   </div>
                 </div>
@@ -90,7 +90,7 @@ const showSlide = () => {
                   </p>
                   <div className="top-down trans-delay-0-6">
                     <Link to ='/product/7'  className="btn-flat btn-hover">
-                      <span>shop now</span>
+                      <span>mua ngay</span>
                     </Link>
                   </div>
                 </div>

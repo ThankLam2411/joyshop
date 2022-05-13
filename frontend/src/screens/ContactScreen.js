@@ -63,7 +63,7 @@ const ContactScreen=()=>{
 
 <section id="contact">
 
-  <h1 className="section-header">Contact</h1>
+  <h1 className="section-header">Liên hệ</h1>
   {/* {!sent?( */}
   <div className="contact-wrapper">
   {/* Left contact page */} 
@@ -74,7 +74,7 @@ const ContactScreen=()=>{
             type="text" 
             className="form-control" 
             id="name" 
-            placeholder="NAME" 
+            placeholder="Vui lòng điền họ tên của bạn" 
             name="name"  
             value={name}
             onChange={(e) =>setName(e.target.value)}
@@ -87,7 +87,7 @@ const ContactScreen=()=>{
             type="email" 
             className="form-control" 
             id="email" 
-            placeholder="EMAIL" 
+            placeholder="Vui lòng điền email của bạn" 
             name="email"  
             value={email}
             onChange={(e) =>setEmail(e.target.value)}
@@ -100,7 +100,7 @@ const ContactScreen=()=>{
             type="subject" 
             className="form-control" 
             id="subject" 
-            placeholder="subject" 
+            placeholder="Chủ đề" 
             name="subject"  
             value={subject}
             onChange={(e) =>setSubject(e.target.value)}
@@ -109,7 +109,7 @@ const ContactScreen=()=>{
       </div>
       <textarea 
         className="form-control" 
-        placeholder="MESSAGE" 
+        placeholder="Nội dung" 
         name="message" 
         value={message}
         onChange={(e) =>setMessage(e.target.value)}

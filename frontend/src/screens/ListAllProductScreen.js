@@ -70,9 +70,9 @@ const ListAllProductScreen =()=>{
             <div className="container">
               <div className="box list_product">
               <div className="breadcumb">
-                <Link to="/">home</Link>
+                <Link to="/">Trang chủ</Link>
                 <span><i className="bx bxs-chevrons-right" /></span>
-                <span onClick={resetCategoryId} style={{cursor:'pointer'}}>All products</span>
+                <span onClick={resetCategoryId} style={{cursor:'pointer'}}>Tất cả sản phẩm</span>
               </div>
               <div style={{width:'30%'}}>
                 <select id="order" type="text" onChange={(e) => setOrder(e.target.value)}>
@@ -91,7 +91,7 @@ const ListAllProductScreen =()=>{
                   </div>
                   <div className="box">
                     <span className="filter-header">
-                      Brands
+                      Hãng
                     </span>
                     <ul className="filter-list">
                       {
@@ -104,7 +104,7 @@ const ListAllProductScreen =()=>{
                   </div>
                   <div className="box">
                     <span className="filter-header">
-                      Categories
+                      Loại sản phẩm
                     </span>
                     <ul className="filter-list">
                       {
@@ -117,7 +117,7 @@ const ListAllProductScreen =()=>{
                   </div>
                   <div className="box">
                     <span className="filter-header">
-                      Price
+                      Giá
                     </span>
                     <div className="price-range">
                       <input type="text" value ={priceMin} onChange={(e) => setPriceMin(e.target.value)} />
@@ -132,7 +132,7 @@ const ListAllProductScreen =()=>{
                         <div className="group-checkbox">
                           <input type="checkbox" id="status1" value={inStock} onChange={(e) =>setInStock(e.target.checked)}/>
                           <label htmlFor="status1">
-                            In stock
+                            Còn hàng
                             <i className="bx bx-check" />
                           </label>
                         </div>
@@ -141,7 +141,7 @@ const ListAllProductScreen =()=>{
                         <div className="group-checkbox">
                           <input type="checkbox" id="status2" value={featured} onChange={(e) =>setFeatured(e.target.checked)} />
                           <label htmlFor="status2">
-                            Featured
+                            Đặc biệt
                             <i className="bx bx-check" />
                           </label>
                         </div>
@@ -151,7 +151,7 @@ const ListAllProductScreen =()=>{
                 
               <div className="box">
                 <span className="filter-header">
-                  rating
+                  Đánh giá
                 </span>
                 <ul className="filter-list">
               <li>

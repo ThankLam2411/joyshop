@@ -63,7 +63,7 @@ const HomeScreen =()=>{
         <div className="section">
           <div className="container">
             <div className="section-header">
-              <h2>Featured Products</h2>
+              <h2>Sản phẩm đặc biệt</h2>
             </div>
             {loading?<LoadingBox></LoadingBox>:
           error?<MessageBox variant="danger">{error}</MessageBox>:
@@ -106,7 +106,7 @@ const HomeScreen =()=>{
                 </div>
             {/* )} */}
             <div className="section-footer">
-              <Link to="/listproductall" className="btn-flat btn-hover">view all</Link>
+              <Link to="/listproductall" className="btn-flat btn-hover">xem tất cả</Link>
             </div>
       
           </div>
@@ -126,7 +126,7 @@ const HomeScreen =()=>{
                   <div className="sp-item-name">Chanel Chance Eau Tendre Eau de Toilette</div>
                   <p className="sp-item-description">
                   Thứ vũ khí mạnh nhất của một người phụ nữ nằm ở sự dịu dàng của họ, và cách tốt nhất để trình diễn sự dịu dàng ấy chính là qua mùi hương...</p>                  
-                  <Link to='/product/18' className="btn-flat btn-hover">shop now</Link>
+                  <Link to='/product/18' className="btn-flat btn-hover">mua ngay</Link>
                 </div>
               </div>
             </div>

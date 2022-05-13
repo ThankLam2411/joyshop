@@ -45,9 +45,9 @@ const ListBlogScreen=()=>{
     
     return(
         <>
-        <h1>Blogs</h1>
+        <h1>Danh sách bài viết</h1>
         <button type="button" className=" primary" style={{padding: '15px', borderRadius:'.5rem', margin:'15px', position:'absolute', right:'0px', top:'100px'}} onClick={createHandler}>
-          Create Blog
+          Tạo bài viết
         </button>
         {loadingDelete && <LoadingBox></LoadingBox>}
         {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
@@ -59,13 +59,13 @@ const ListBlogScreen=()=>{
             <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>BLOG TITLE</th>
-              <th>BLOG CONTENT</th>
-              <th>PRODUCT</th>
-              <th>CREATED AT</th>
-              <th>UPDATED AT</th>
-              <th>ACTIONS</th>
+              <th>Mã bài viết</th>
+              <th>Tiêu đề bài viết</th>
+              <th>Nội dung bài viết</th>
+              <th>Sản phẩm</th>
+              <th>Thời gian tạo</th>
+              <th>Thời gian cập nhật</th>
+              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -85,14 +85,14 @@ const ListBlogScreen=()=>{
                       navigate(`/blog/${blog.id}`);
                     }}
                   >
-                    Details
+                    Sửa
                   </button>
                   <button
                     type="button"
                     className="small"
                     onClick={() => deleteHandler(blog)}
                   >
-                    Delete
+                    Xóa
                   </button>
                 </td>
               </tr>

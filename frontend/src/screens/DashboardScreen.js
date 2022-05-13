@@ -17,7 +17,7 @@ export default function DashboardScreen() {
   return (
     <div>
       <div className="row">
-        <h1 style={{marginLeft: '15px'}}>Dashboard</h1>
+        <h1 style={{marginLeft: '15px'}}>Thống kê</h1>
       </div>
       {loading ? (
         <LoadingBox />
@@ -29,7 +29,7 @@ export default function DashboardScreen() {
             <li>
               <div className="summary-title color1">
                 <span>
-                  <i className="fa fa-users" /> Users
+                  <i className="fa fa-users" /> Thành viên
                 </span>
               </div>
               <div className="summary-body">{summary.users[0].numUsers}</div>
@@ -37,7 +37,7 @@ export default function DashboardScreen() {
             <li>
               <div className="summary-title color2">
                 <span>
-                  <i className="fa fa-shopping-cart" /> Orders
+                  <i className="fa fa-shopping-cart" /> Số lượng đơn 
                 </span>
               </div>
               <div className="summary-body">
@@ -47,7 +47,7 @@ export default function DashboardScreen() {
             <li>
               <div className="summary-title color3">
                 <span>
-                  <i className="fa fa-money" /> Sales
+                  <i className="fa fa-money" /> Doanh thu
                 </span>
               </div>
               <div className="summary-body">
@@ -60,9 +60,9 @@ export default function DashboardScreen() {
           </ul>
           <div>
             <div>
-              <h2>Sales</h2>
+              <h2>Doanh thu</h2>
               {summary.dailyOrders.length === 0 ? (
-                <MessageBox>No Sale</MessageBox>
+                <MessageBox>Không có đơn hàng</MessageBox>
               ) : (
                 <Chart
                   width="100%"

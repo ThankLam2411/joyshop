@@ -117,7 +117,7 @@ const handleEditorChange =(e)=>{
     
     <form className="form" onSubmit={submitHandler}>
       <div>
-        <h1> Edit Product {productId}</h1>
+        <h1> Cập nhật thông tin sản phẩm {productId}</h1>
       </div>
       {/* {loading ? (
         <LoadingBox></LoadingBox>
@@ -126,7 +126,7 @@ const handleEditorChange =(e)=>{
       ) : ( */}
         <>
       <div>
-        <label htmlFor="product_name">Name</label>
+        <label htmlFor="product_name">Tên sản phẩm</label>
           <input
             id="product_name"
             type="text"
@@ -135,7 +135,7 @@ const handleEditorChange =(e)=>{
           ></input>
       </div>
       <div>
-        <label htmlFor="price">Old Price</label>
+        <label htmlFor="price">Giá cũ</label>
           <input
             id="price"
             type="text"
@@ -145,7 +145,7 @@ const handleEditorChange =(e)=>{
           ></input>
         </div>
         <div>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Giá</label>
               <input
                 id="price"
                 type="text"
@@ -155,7 +155,7 @@ const handleEditorChange =(e)=>{
               ></input>
         </div>
         <div>
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Hình ảnh</label>
                 <input
                   id="image"
                   type="text"
@@ -166,7 +166,7 @@ const handleEditorChange =(e)=>{
                 <img src={image} alt className="medium"/>
             </div>
             <div>
-              <label htmlFor="imageFile">Image File</label>
+              <label htmlFor="imageFile">File ảnh</label>
               <input
                 type="file"
                 name="image"
@@ -176,7 +176,7 @@ const handleEditorChange =(e)=>{
               ></input>
             </div>
         <div>
-              <label htmlFor="countInStock">Count In Stock</label>
+              <label htmlFor="countInStock">Số lượng hàng trong kho</label>
               <input
                 id="countInStock"
                 type="text"
@@ -186,7 +186,7 @@ const handleEditorChange =(e)=>{
               ></input>
             </div>
             <div>
-                <label htmlFor="featured">Is Featured</label>
+                <label htmlFor="featured">Đặc biệt</label>
                 <input
                   id="featured"
                   type="checkbox"
@@ -198,7 +198,7 @@ const handleEditorChange =(e)=>{
             
          
               <div>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Loại sản phẩm</label>
               <select id="brand_id" type="text" onChange={(e) => setCategoryId(e.target.value)}>
               <option value=""></option>
                   {
@@ -209,7 +209,7 @@ const handleEditorChange =(e)=>{
             </select>
             </div>
             <div>
-              <label htmlFor="brand">Brand</label>
+              <label htmlFor="brand">Hãng</label>
                 <select id="brand_id" type="text"
                   onChange={(e) => setBrandId(e.target.value)}
                 >
@@ -224,7 +224,7 @@ const handleEditorChange =(e)=>{
             </div>
            
             <div>
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">Mô tả</label>
               <Editor
                   value={product_description}
                   init={{
@@ -238,7 +238,7 @@ const handleEditorChange =(e)=>{
             <div>
               <label></label>
               <button className="primary" type="submit">
-                Update
+                Cập nhật
               </button>
             </div>
             </>

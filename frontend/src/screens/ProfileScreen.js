@@ -97,7 +97,7 @@ const ProfileScreen=()=>{
         <div className="row">
             {/* Account page navigation*/}
             <nav className="nav nav-borders">
-                <h1 className="section-header">Profile</h1>
+                <h1 className="section-header">Thông tin cá nhân</h1>
             </nav>
             {loadingUpdate && <LoadingBox></LoadingBox>}
             {errorUpdate && (<MessageBox variant="danger">{error}</MessageBox>)} 
@@ -111,7 +111,7 @@ const ProfileScreen=()=>{
                     <div className=" c-12 l-4">
                     {/* Profile picture card*/}
                     <div className="card ">
-                        <div className="card-header"><h3>Profile Picture</h3></div>
+                        <div className="card-header"><h3>Ảnh đại diện</h3></div>
                         <div className="card-body text-center">
                         
                             {/* Profile picture image*/}
@@ -136,12 +136,12 @@ const ProfileScreen=()=>{
                     <div className="c-12 l-8">
                     {/* Account details card*/}
                     <div className="card mb-4">
-                        <div className="card-header"><h3>Account Details</h3></div>
+                        <div className="card-header"><h3>Thông tin tài khoản</h3></div>
                         <div className="card-body">
                         <form type="submit" onSubmit={submitHandler}>
                             {/* Form Group (username)*/}
                             <div className="mb-3">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Họ tên</label>
                             <input 
                                 className="form-control" 
                                 id="inputUsername" 
@@ -155,7 +155,7 @@ const ProfileScreen=()=>{
                             
                             {/* Form Group (email address)*/}
                             <div className="mb-3">
-                            <label className="small mb-1" htmlFor="inputEmailAddress">Email address</label>
+                            <label className="small mb-1" htmlFor="inputEmailAddress">Địa chỉ email</label>
                             <input  type="text" 
                                     id="email" 
                                     placeholder="Enter email"
@@ -166,7 +166,7 @@ const ProfileScreen=()=>{
                             <div className="row gx-3 mb-3">
                             {/* Form Group (phone number)*/}
                                 <div className="col-md-6">
-                                    <label className="small mb-1" htmlFor="inputPhone">Phone number</label>
+                                    <label className="small mb-1" htmlFor="inputPhone">Số điện thoại</label>
                                     <input  type="text" 
                                     id="phone" 
                                     placeholder="Enter phone"
@@ -175,7 +175,7 @@ const ProfileScreen=()=>{
                                 </div>
                                 {/* Form Group (birthday)*/}
                                 <div className="col-md-6">
-                                    <label className="small mb-1" htmlFor="address">Address</label>
+                                    <label className="small mb-1" htmlFor="address">Địa chỉ</label>
                                     <input  type="text" 
                                     id="address" 
                                     placeholder="Enter address"
@@ -184,7 +184,7 @@ const ProfileScreen=()=>{
                                 </div>
                             </div>
                             <div>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mật khẩu mới</label>
                                 <input 
                                     type="password" 
                                     id="password" 
@@ -193,7 +193,7 @@ const ProfileScreen=()=>{
                                 ></input>
                             </div>
                             <div>
-                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <label htmlFor="confirmPassword">Xác nhận mật khẩu</label>
                                 <input 
                                     type="password" 
                                     id="confirmPassword" 
@@ -203,7 +203,7 @@ const ProfileScreen=()=>{
                             </div>
                             <label/>
                             {/* Save changes button*/}
-                            <button className="block primary cart" type="submit">Save changes</button>
+                            <button className="block primary cart" type="submit">Lưu thay đổi</button>
                         </form>
                         </div>
                     </div>

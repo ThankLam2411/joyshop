@@ -23,7 +23,7 @@ const CartScreen =()=>{
         dispatch(removeFromCart(id))
     };
     const checkoutHandler=()=>{
-        if (window.confirm('Are you sure to order?')) {
+        if (window.confirm('Bạn có chắc chắn muốn đặt hàng?')) {
          navigate(`/signin?redirect=shipping`);
         }
 
@@ -33,9 +33,9 @@ const CartScreen =()=>{
      <>
         <div className="row top">
                 <div className="cart-col-2 ">
-                    <h2>Shopping Cart</h2>
+                    <h2>Giỏ hàng</h2>
                     {cartItems.length === 0 ? <MessageBox>
-                        Cart is empty. <Link to="/">Go Shopping</Link>
+                        Giỏ hàng trống. <Link to="/">Mua sắm thôi!!!!!!</Link>
                     </MessageBox>
                     : (
                         <ul>
@@ -71,7 +71,7 @@ const CartScreen =()=>{
                                                 type="button"
                                                 className="delete-btn"
                                                 onClick={() => removeFromCartHandler(item.product)}
-                                            >Delete</button>
+                                            >Xóa</button>
                                         </div>
                                     </div>
                                  
@@ -87,11 +87,11 @@ const CartScreen =()=>{
                         <ul>
                             <li>
                                 <h2>
-                                    Subtotal ({cartItems.reduce((a,c)=> a + c.qty,0)} items) : ${cartItems.reduce((a,c)=> a + c.price * c.qty,0)}
+                                    Tổng ({cartItems.reduce((a,c)=> a + c.qty,0)} sản phẩm) : ${cartItems.reduce((a,c)=> a + c.price * c.qty,0)}
                                 </h2>
                             </li>
                             <li>
-                                <button type="button" onClick={checkoutHandler} className="cart primary block" disabled={cartItems.length ===0}>Proceed to checkout</button>
+                                <button type="button" onClick={checkoutHandler} className="cart primary block" disabled={cartItems.length ===0}>Tiến hành đặt hàng</button>
                             </li>
                         </ul>
                     </div>

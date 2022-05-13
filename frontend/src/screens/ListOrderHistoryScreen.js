@@ -44,7 +44,7 @@ const ListOrderHistoryScreen=()=>{
     // if(orders) return null 
     return(
         <>
-            <h1>Orders</h1>
+            <h1>Danh sách đặt hàng</h1>
              {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
@@ -55,13 +55,13 @@ const ListOrderHistoryScreen=()=>{
             <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th>Mã đơn hàng</th>
+              <th>Tài khoản đặt hàng</th>
+              <th>Ngày đặt hàng</th>
+              <th>Tổng tiền</th>
+              <th>Thanh toán</th>
+              <th>Vận chuyển</th>
+              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
@@ -85,14 +85,14 @@ const ListOrderHistoryScreen=()=>{
                       navigate(`/order/${order.id}`);
                     }}
                   >
-                    Details
+                    Xem chi tiết
                   </button>
                   <button
                     type="button"
                     className="small"
                     onClick={() => deleteHandler(order)}
                   >
-                    Delete
+                    Xóa
                   </button>
                 </td>
               </tr>

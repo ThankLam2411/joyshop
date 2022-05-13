@@ -61,9 +61,9 @@ const ListContactScreen=()=> {
 //     navigate(`/product/create`)
 //   };
   return (
-    <div>
-      <div className="container">
-        <h1>List Contacts </h1>
+    <div className="container">
+      <div >
+        <h1>Danh sách phản hồi </h1>
       </div>
 
       {loadingDelete && <LoadingBox></LoadingBox>}
@@ -80,14 +80,14 @@ const ListContactScreen=()=> {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>SUBJECT</th>
-                <th>MESSAGE</th>
-                <th>CREATEDAT</th>
-                <th>UPDATEDAT</th>
-                <th>ACTION</th>
+                <th>Mã phản hồi</th>
+                <th>Tên người gửi</th>
+                <th>Email người gửi</th>
+                <th>Chủ đề</th>
+                <th>Nội dung</th>
+                <th>Thời gian tạo</th>
+                <th>Thời gian cập nhật</th>
+                <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -95,7 +95,7 @@ const ListContactScreen=()=> {
                 <tr key={contact.id}>
                   <td>{contact.id}</td>
                   <td>{contact.name}</td>
-                  <td>{contact.email}</td>
+                  <td><a href={`mailto:${contact.email}`}>{contact.email}</a></td>
                   <td>{contact.subject}</td>
                   <td>{contact.message}</td>
                   <td>{contact.createdAt}</td>
@@ -108,7 +108,7 @@ const ListContactScreen=()=> {
                       className="small"
                       onClick={() => deleteHandler(contact)}
                     >
-                      Delete
+                      Xóa
                     </button>
                   </td>
                 </tr>

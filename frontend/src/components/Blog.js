@@ -61,7 +61,7 @@ const Blog =()=>{
       <div className="section">
         <div className="container">
           <div className="section-header">
-            <h2>latest blog</h2>
+            <h2>Bài viết</h2>
           </div>
           <div>
           {loading?<LoadingBox></LoadingBox>:
@@ -81,7 +81,7 @@ const Blog =()=>{
                     <div className="blog-preview">
                       {parse(blogs[0].blog_content)}
                     </div>
-                    <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
+                    <button onClick={handleOnClick} className="btn-flat btn-hover">đọc thêm</button>
                   </div>
                 </div>
                 <div className="blog row-revere">
@@ -95,7 +95,7 @@ const Blog =()=>{
                     <div className="blog-preview">
                       {parse(blogs[1].blog_content)}
                     </div>
-                    <button onClick={handleOnClick} className="btn-flat btn-hover">read more</button>
+                    <button onClick={handleOnClick} className="btn-flat btn-hover">đọc thêm</button>
                   </div>
                 </div>
                 </>
@@ -105,7 +105,7 @@ const Blog =()=>{
           )}
           </div>
           <div className="section-footer">
-            <Link to="/blog" className="btn-flat btn-hover">view all</Link>
+            <Link to="/blog" className="btn-flat btn-hover">xem tất cả</Link>
           </div>
         </div>
   </div>

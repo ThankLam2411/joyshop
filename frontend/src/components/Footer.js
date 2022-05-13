@@ -19,7 +19,7 @@ const Footer=()=>{
       <div className="container">
         <div className="row">
           <div className="col-3 col-md-6">
-            <h3 className="footer-head">Products</h3>
+            <h3 className="footer-head">Sản phẩm</h3>
             {loading?<LoadingBox></LoadingBox>:
             error?<MessageBox variant="danger">{error}</MessageBox>:
             (
@@ -44,22 +44,18 @@ const Footer=()=>{
               <li><Link to="#">Lancome</Link></li> */}
           </div>
           <div className="col-3 col-md-6">
-            <h3 className="footer-head">services</h3>
+            <h3 className="footer-head">Dịch vụ</h3>
             <ul className="menu">
-              <li><Link to="/">Shopping </Link></li>
-              <li><Link to="/orderhistory">Order History</Link></li>
-              <li><Link to="#">product help</Link></li>
-              <li><Link to="#">warranty</Link></li>
+              <li><Link to="/">Mua sắm </Link></li>
+              <li><Link to="/orderhistory">Xem lịch sử đơn hàng</Link></li>
+   
             </ul>
           </div>
           <div className="col-3 col-md-6">
-            <h3 className="footer-head">support</h3>
+            <h3 className="footer-head">Hỗ trợ</h3>
             <ul className="menu">
-              <li><Link to="#">Help center</Link></li>
-              <li><Link to="/contact">Contact us</Link></li>
-              <li><Link to="#">product help</Link></li>
-              <li><Link to="#">warranty</Link></li>
-              <li><Link to="#">order status</Link></li>
+              <li><Link to="/contact">Liên hệ với chúng tôi</Link></li>
+
             </ul>
           </div>
           <div className="col-3 col-md-6 col-sm-12">

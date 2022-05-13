@@ -120,14 +120,14 @@ const handleEditorChange=(e)=>{
     
     <form className="form" onSubmit={submitHandler}>
       <div>
-        <h1> Edit Blog {blogId}</h1>
+        <h1> Cập nhật bài viết {blogId}</h1>
       </div>
       {/* {loading?<LoadingBox></LoadingBox>:
           error?<MessageBox variant="danger">{error}</MessageBox>:
       ( */}
       <>
         <div>
-          <label htmlFor="blog_title">Blog Title</label>
+          <label htmlFor="blog_title">Tiêu đề bài viết</label>
             <input
               id="blog_title"
               type="text"
@@ -136,7 +136,7 @@ const handleEditorChange=(e)=>{
             ></input>
         </div>
           <div>
-                <label htmlFor="blog_content">Blog Content</label>
+                <label htmlFor="blog_content">Nội dung bài viết</label>
                 <Editor
                   value={blog_content}
                   init={{
@@ -155,7 +155,7 @@ const handleEditorChange=(e)=>{
                 ></input> */}
           </div>
           <div>
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Hình ảnh</label>
                 <input
                   id="image"
                   type="text"
@@ -166,7 +166,7 @@ const handleEditorChange=(e)=>{
                 <img src={blog_image} class="medium"/>
             </div>
           <div>
-              <label htmlFor="imageFile">Image File</label>
+              <label htmlFor="imageFile">File ảnh</label>
               <input
                 type="file"
                 name="image"
@@ -176,7 +176,7 @@ const handleEditorChange=(e)=>{
               ></input>
             </div>
           <div>
-          <label htmlFor="product_id">Products</label>
+          <label htmlFor="product_id">Sản phẩm</label>
           {loading?<LoadingBox></LoadingBox>:
             error?<MessageBox variant="danger">{error}</MessageBox>:
             (
@@ -203,7 +203,7 @@ const handleEditorChange=(e)=>{
               <div>
                 <label></label>
                 <button className="primary" type="submit">
-                  Update
+                  Cập nhật
                 </button>
               </div>
               </>

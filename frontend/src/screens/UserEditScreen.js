@@ -63,11 +63,11 @@ const UserEditScreen=()=>{
         <div>
         <form className="form" onSubmit={submitHandler}>
           <div>
-            <h1>Edit User {user_name}</h1>
+            <h1> Sửa tài khoản {user_name}</h1>
           </div>
             <>
               <div>
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Họ tên</label>
                     <input 
                         type="text" 
                         id="name" 
@@ -100,7 +100,7 @@ const UserEditScreen=()=>{
                     ></input>
             </div>
             <div>
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Địa chỉ</label>
                     <input 
                         type="text" 
                         id="address" 
@@ -113,7 +113,7 @@ const UserEditScreen=()=>{
                      
 
               <div>
-                <label htmlFor="isSeller">Is User</label>
+                <label htmlFor="isSeller"> User</label>
                 <input
                   id="isSeller"
                   type="checkbox"
@@ -122,7 +122,7 @@ const UserEditScreen=()=>{
                 ></input>
               </div>
               <div>
-                <label htmlFor="isAdmin">Is Admin</label>
+                <label htmlFor="isAdmin"> Admin</label>
                 <input
                   id="isAdmin"
                   type="checkbox"

@@ -23,7 +23,7 @@ const PaymentMethodScreen=()=>{
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Payment Method</h1>
+          <h1>Phương thức thanh toán</h1>
         </div>
         <div>
           <div>
@@ -50,7 +50,7 @@ const PaymentMethodScreen=()=>{
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
         
-            <label htmlFor="paylater">Paying when receiving packages</label>
+            <label htmlFor="paylater">Thanh toán khi nhận hàng</label>
           </div>
         </div>
         <div>

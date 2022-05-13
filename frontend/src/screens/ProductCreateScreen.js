@@ -105,7 +105,7 @@ const ProductCreateScreen=()=>{
     return(
         <form class="form" onSubmit={submitHandler}>
           <div>
-            <h1>Create Product </h1>
+            <h1>Tạo sản phẩm </h1>
           </div>
         {loading && <LoadingBox></LoadingBox>}
         {error&& <MessageBox variant="danger">{error}</MessageBox>}
@@ -116,48 +116,48 @@ const ProductCreateScreen=()=>{
         ) : (
           <>
             <div>
-              <label htmlFor="name">Product name</label>
+              <label htmlFor="name">Tên sản phẩm</label>
               <input
                 id="name"
                 type="text"
-                placeholder="Enter product name"
+                placeholder="Nhập tên sản phẩm"
                 value={product_name}
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="old_price">Old Price</label>
+              <label htmlFor="old_price">Giá cũ</label>
               <input
                 id="old_price"
                 type="text"
-                placeholder="Enter old price"
+                placeholder="Nhập giá cũ"
                 value={old_price}
                 onChange={(e) => setOldPrice(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Giá</label>
               <input
                 id="price"
                 type="text"
-                placeholder="Enter price"
+                placeholder="Nhập giá"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></input>
             </div>
             <div>
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Hình ảnh</label>
                 <input
                   id="image"
                   type="text"
-                  placeholder="Enter image"
+                  placeholder=""
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
                 ></input>
                 <img src={image} class="medium"/>
             </div>
             <div>
-              <label htmlFor="imageFile">Image File</label>
+              <label htmlFor="imageFile">File ảnh</label>
               <input
                 type="file"
                 name="image"
@@ -171,17 +171,17 @@ const ProductCreateScreen=()=>{
               )}
             </div>
             <div>
-              <label htmlFor="countInStock">Count In Stock</label>
+              <label htmlFor="countInStock">Số lượng trong kho</label>
               <input
                 id="countInStock"
                 type="text"
-                placeholder="Enter countInStock"
+                placeholder="Nhập số lượng hàng trong kho"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></input>
             </div>
             <div>
-                <label htmlFor="featured">Is Featured</label>
+                <label htmlFor="featured">Đặc biệt</label>
                 <input
                   id="featured"
                   type="checkbox"
@@ -190,7 +190,7 @@ const ProductCreateScreen=()=>{
                 ></input>
               </div>
             <div>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Loại sản phẩm</label>
               <select id="brand_id" type="text" onChange={(e) => setCategoryId(e.target.value)}>
               <option value=""></option>
                   {
@@ -201,7 +201,7 @@ const ProductCreateScreen=()=>{
             </select>
             </div>
             <div>
-              <label htmlFor="brand">Brand</label>
+              <label htmlFor="brand">Hãng</label>
                 <select id="brand_id" type="text"
                   onChange={(e) => setBrandId(e.target.value)}
                 >
@@ -215,7 +215,7 @@ const ProductCreateScreen=()=>{
             </select>
             </div>
             <div>
-              <label htmlFor="product_description">Description</label>
+              <label htmlFor="product_description">Mô tả</label>
               <Editor
                   value={product_description}
                   init={{
@@ -232,7 +232,7 @@ const ProductCreateScreen=()=>{
             <div>
               <label></label>
               <button className="primary" type="submit">
-                Create
+                Tạo
               </button>
             </div>
           </>

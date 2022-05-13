@@ -79,9 +79,9 @@ export default function ProductListScreen(props) {
   return (
     <div className='container'>
       <div className="row">
-        <h1>Products</h1>
+        <h1>Sản phẩm</h1>
         <button type="button" className=" primary" style={{padding: '15px', borderRadius:'.5rem', margin:'15px', position:'absolute', right:'0px'}} onClick={createHandler}>
-          Create Product
+          Tạo sản phẩm
         </button>
       </div>
 
@@ -99,13 +99,13 @@ export default function ProductListScreen(props) {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>FEATURED</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>ACTIONS</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Đặc biệt</th>
+                <th>Loại sản phẩm</th>
+                <th>Hãng</th>
+                <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -123,14 +123,14 @@ export default function ProductListScreen(props) {
                       className="small"
                       onClick={() => navigate(`/product/${product.id}/edit`)}
                     >
-                      Edit
+                      Sửa
                     </button>
                     <button
                       type="button"
                       className="small"
                       onClick={() => deleteHandler(product)}
                     >
-                      Delete
+                      Xóa
                     </button>
                   </td>
                 </tr>

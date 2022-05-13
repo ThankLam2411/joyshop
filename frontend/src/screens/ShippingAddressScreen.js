@@ -34,27 +34,27 @@ export default function ShippingAddressScreen(props) {
       <CheckoutSteps step1 step2></CheckoutSteps>
     <form className="form" onSubmit={submitHandler}>
       <div>
-        <h1>Shipping Address</h1>
+        <h1>Địa chỉ nhận hàng</h1>
       </div>
       <div>
-        <label htmlFor="fullName">Full Name</label>
+        <label htmlFor="fullName">Họ tên</label>
         <input
           className="signin"
           type="text"
           id="fullName"
-          placeholder="Enter full name"
+          placeholder="Nhập họ tên"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           required
         ></input>
       </div>
       <div>
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor="phone">Số điện thoại</label>
         <input
           className="signin"
           type="text"
           id="phone"
-          placeholder="Enter phone"
+          placeholder="Nhập số điện thoại"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
@@ -73,36 +73,36 @@ export default function ShippingAddressScreen(props) {
         ></input>
       </div>
       <div>
-        <label htmlFor="city">City</label>
+        <label htmlFor="city">Địa chỉ</label>
         <input
           className="signin"
           type="text"
           id="city"
-          placeholder="Enter city"
+          placeholder="Nhập địa chỉ"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         ></input>
       </div>
       <div>
-        <label htmlFor="postalCode">Postal Code</label>
+        <label htmlFor="postalCode">Mã bưu điện</label>
         <input
           className="signin"
           type="text"
           id="postalCode"
-          placeholder="Enter postal code"
+          placeholder="Nhập mã bưu điện"
           value={postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
           required
         ></input>
       </div>
       <div>
-        <label htmlFor="country">Country</label>
+        <label htmlFor="country">Quốc gia</label>
         <input
           className="signin"
           type="text"
           id="country"
-          placeholder="Enter country"
+          placeholder="Nhập quốc gia"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           required
@@ -112,7 +112,7 @@ export default function ShippingAddressScreen(props) {
       <div>
         <label />
         <button className="signin primary" type="submit">
-          Continue
+          Tiếp tục
         </button>
       </div>
     </form>

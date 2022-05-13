@@ -64,41 +64,41 @@ const Header = () => {
                       </div>
                       
                       <li >
-                        <Link to="/profile" >User Profile</Link>
+                        <Link to="/profile" >Thông tin cá nhân</Link>
                       </li>
                       <li >
-                        <Link to="/orderhistory">Order History</Link>
+                        <Link to="/orderhistory">Lịch sử đặt hàng</Link>
                       </li>
 
                       {userInfo && userInfo.isAdmin && (
                         <>
                           <div style={{ borderBottom: '1px solid #d3d3d3', width:'100%', fontSize:'2rem', fontWeight:'500'}}>Admin</div>
                           <li>
-                            <Link to="/dashboard">Dashboard</Link>
+                            <Link to="/dashboard">Thống kê đơn hàng</Link>
                           </li>
                           <li>
-                            <Link to="/productlist">Products</Link>
+                            <Link to="/productlist">Quản lý sản phẩm</Link>
                           </li>
                           <li>
-                            <Link to="/orderlist">Orders</Link>
+                            <Link to="/orderlist">Quản lý đơn hàng</Link>
                           </li>
                           <li>
-                            <Link to="/userlist">Users</Link>
+                            <Link to="/userlist">Quản lý thành viên</Link>
                           </li>
                           <li>
-                            <Link to="/bloglist">Blogs</Link>
+                            <Link to="/bloglist">Quản lý bài viết</Link>
                           </li>
                           <li>
-                            <Link to="/contactlist">Contacts</Link>
+                            <Link to="/contactlist">Quản lý phản hồi</Link>
                           </li>
                           <li>
-                            <Link to="/commentlist">Comments</Link>
+                            <Link to="/commentlist">Quản lý bình luận</Link>
                           </li>
                           <hr/>
                         </>
                       )}
                       <li >
-                        <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                        <Link to="#signout" onClick={signoutHandler}>Đăng xuất</Link>
                       </li>
 
                     </ul>
@@ -110,7 +110,7 @@ const Header = () => {
               ) : (
                 <ul className="dropdown-header-content">
                   <li className="dropdown-header-item">
-                    <Link to="/signin">Sign In</Link>
+                    <Link to="/signin">Đăng nhập</Link>
                   </li>
                 </ul>
 
@@ -175,7 +175,7 @@ const Header = () => {
                   <div className="search">
                     <input
                       type="text"
-                      placeholder="Search"
+                      placeholder="Tìm kiếm"
                       onChange={handleOnChangeInput}
                       value={keyword} />
                     <i onClick={handleSearch} className="bx bx-search-alt" />
@@ -210,41 +210,41 @@ const Header = () => {
                               </div>
                               
                               <li >
-                                <Link to="/profile" >User Profile</Link>
+                                <Link to="/profile" >Thông tin cá nhân</Link>
                               </li>
                               <li >
-                                <Link to="/orderhistory">Order History</Link>
+                                <Link to="/orderhistory">Lịch sử đặt hàng</Link>
                               </li>
 
                               {userInfo && userInfo.isAdmin && (
                                 <>
                                   <div style={{ borderBottom: '1px solid #d3d3d3', width:'100%', fontSize:'2rem', fontWeight:'500'}}>Admin</div>
                                   <li>
-                                    <Link to="/dashboard">Dashboard</Link>
+                                    <Link to="/dashboard">Thống kê đơn hàng</Link>
                                   </li>
                                   <li>
-                                    <Link to="/productlist">Products</Link>
+                                    <Link to="/productlist">Danh sách sản phẩm</Link>
                                   </li>
                                   <li>
-                                    <Link to="/orderlist">Orders</Link>
+                                    <Link to="/orderlist">Quản lý đơn đặt hàng</Link>
                                   </li>
                                   <li>
-                                    <Link to="/userlist">Users</Link>
+                                    <Link to="/userlist">Quản lý thành viên</Link>
                                   </li>
                                   <li>
-                                    <Link to="/bloglist">Blogs</Link>
+                                    <Link to="/bloglist">Quản lý bài viết</Link>
                                   </li>
                                   <li>
-                                    <Link to="/contactlist">Contacts</Link>
+                                    <Link to="/contactlist">Quản lý phản hồi</Link>
                                   </li>
                                   <li>
-                                    <Link to="/commentlist">Comments</Link>
+                                    <Link to="/commentlist">Quản lý bình luận</Link>
                                   </li>
                                   <hr/>
                                 </>
                               )}
                               <li >
-                                <Link to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                                <Link to="#signout" onClick={signoutHandler}>Đăng xuất</Link>
                               </li>
 
                             </ul>
@@ -257,7 +257,7 @@ const Header = () => {
 
                           <ul className="dropdown-header-content">
                             <li className="dropdown-header-item">
-                              <Link to="/signin">Sign In</Link>
+                              <Link to="/signin">Đăng nhập</Link>
                             </li>
                           </ul>
 
@@ -285,10 +285,10 @@ const Header = () => {
         <div className="bg-second">
           <div className="bottom-header container">
             <ul className="main-menu">
-              <li><Link to="/">home</Link></li>
+              <li><Link to="/">Trang chủ</Link></li>
               {/* mega menu */}
               <li className="mega-dropdown">
-                <Link to="/listproductall">Shop<i className="bx bxs-chevron-down" /></Link>
+                <Link to="/listproductall">Cửa hàng<i className="bx bxs-chevron-down" /></Link>
                 {loading ? <LoadingBox></LoadingBox> :
                   error ? <MessageBox variant="danger">{error}</MessageBox> :
                     (
@@ -321,8 +321,8 @@ const Header = () => {
                     )}
               </li>
               {/* end mega menu */}
-              <li><a href="/blog">blog</a></li>
-              <li><Link to="/contact">contact</Link></li>
+              <li><a href="/blog">Bài viết</a></li>
+              <li><Link to="/contact">Liên hệ</Link></li>
             </ul>
           </div>
         </div>
